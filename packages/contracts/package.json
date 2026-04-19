@@ -1,0 +1,11 @@
+{
+  "name": "@missing-you/contracts",
+  "private": true,
+  "scripts": {
+    "compile": "forge build",
+    "test": "forge test",
+    "clean": "rm -rf cache out",
+    "lint": "echo \"Solidity: use forge fmt && slither when adopted\"",
+    "typecheck": "echo \"N/A for Solidity\""
+  }
+}

@@ -1,0 +1,48 @@
+// Prisma — PostgreSQL. Journal text is off-chain only; MemoryAnchor holds proof metadata for future on-chain steps.
+// https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  journals Journal[]
+}
+
+model Journal {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  content  String
+  person   String?
+  privacy  String
+  status   String   @default("draft")
+  memoryId String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  anchor MemoryAnchor?
+}
+
+model MemoryAnchor {
+  id          String   @id @default(uuid())
+  journalId   String   @unique
+  journal     Journal  @relation(fields: [journalId], references: [id], onDelete: Cascade)
+
+  memoryId    String
+  contentHash String
+  txHash      String?
+  chain       String
+  anchoredAt  DateTime?
+  createdAt   DateTime @default(now())
+}

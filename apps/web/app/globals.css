@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * Design tokens — warm neutrals, generous whitespace, emotionally gentle (not “crypto trader” UI).
+ */
+:root {
+  --background: 40 33% 98%;
+  --foreground: 24 10% 18%;
+  --muted: 35 20% 94%;
+  --muted-foreground: 24 6% 42%;
+  --card: 40 40% 99%;
+  --border: 30 12% 88%;
+  --accent: 16 45% 94%;
+  --radius: 0.75rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 24 8% 12%;
+    --foreground: 40 20% 96%;
+    --muted: 24 6% 18%;
+    --muted-foreground: 35 10% 72%;
+    --card: 24 7% 14%;
+    --border: 24 6% 22%;
+    --accent: 24 8% 18%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

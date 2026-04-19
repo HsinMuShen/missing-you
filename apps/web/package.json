@@ -1,0 +1,44 @@
+{
+  "name": "@missing-you/web",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:migrate": "prisma migrate dev",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@missing-you/shared": "workspace:*",
+    "@missing-you/ui": "workspace:*",
+    "@prisma/client": "^6.5.0",
+    "@tanstack/react-query": "^5.69.0",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.0.2",
+    "next": "^15.2.4",
+    "next-intl": "^3.26.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "viem": "^2.24.1",
+    "wagmi": "^2.14.15",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.14",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.23.0",
+    "eslint-config-next": "^15.2.4",
+    "postcss": "^8.5.3",
+    "prisma": "^6.5.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
+  }
+}

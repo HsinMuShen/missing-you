@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "title": "Missing You — memories with gentle proof",
+    "description": "A calm place to write about people you miss. Your words stay private off-chain; a cryptographic proof can be anchored on-chain."
+  },
+  "nav": {
+    "write": "Write",
+    "memories": "Memories",
+    "settings": "Settings"
+  },
+  "footer": {
+    "tagline": "Missing You — preserving memories with care."
+  },
+  "home": {
+    "eyebrow": "Web3 journaling",
+    "headline": "Preserve a memory with proof that it existed.",
+    "subhead": "A calm place for memories that matter. Keep the full story private in our database, and anchor only the proof on-chain — so you can verify without exposing what you wrote.",
+    "cta": {
+      "write": "Write a memory",
+      "memories": "View memories"
+    },
+    "how": {
+      "title": "How it works",
+      "step1": {
+        "title": "Write from the heart",
+        "body": "Capture what you remember in a quiet, unhurried editor. Your words are stored securely off-chain."
+      },
+      "step2": {
+        "title": "Create a canonical proof",
+        "body": "We build a stable fingerprint of your entry — not the prose itself — so the same memory always produces the same hash."
+      },
+      "step3": {
+        "title": "Anchor when you are ready",
+        "body": "Optionally anchor that fingerprint on-chain. Later, anyone can verify the memory against the blockchain without seeing private content."
+      }
+    },
+    "privacy": {
+      "title": "Privacy-first by design",
+      "body": "Journal content stays off-chain. The chain holds only identifiers and cryptographic commitments — never your full letter, story, or diary entry."
+    }
+  },
+  "journals": {
+    "write": {
+      "title": "Write a memory",
+      "content": "What you remember",
+      "person": "About (optional)",
+      "personHint": "A name or short note — optional.",
+      "privacy": "Privacy",
+      "privacyPrivate": "Private",
+      "privacyShare": "Shareable page later",
+      "submit": "Save",
+      "saving": "Saving…",
+      "success": "Saved. You can view it under Memories.",
+      "viewMemories": "Go to memories",
+      "error": "Could not save. Try again."
+    },
+    "memories": {
+      "title": "Your memories",
+      "empty": "No entries yet. Write something from the heart.",
+      "loadError": "Could not load memories.",
+      "open": "Open",
+      "status": "Status",
+      "draft": "Draft",
+      "anchored": "Anchored"
+    },
+    "memory": {
+      "title": "Memory",
+      "loadError": "Could not load this memory.",
+      "person": "About",
+      "privacy": "Privacy",
+      "content": "Entry",
+      "verification": "Verification (local)",
+      "verified": "Hash matches stored anchor.",
+      "notVerified": "Hash does not match stored anchor.",
+      "noAnchor": "Not anchored yet — no stored hash to check.",
+      "prepare": "Prepare anchor",
+      "confirmMock": "Confirm mock tx",
+      "prepareHint": "Generates memoryId + canonical payload + SHA-256 (saved on the journal).",
+      "confirmHint": "Records a placeholder tx hash and creates the MemoryAnchor row (no chain call yet)."
+    }
+  },
+  "placeholders": {
+    "write": {
+      "title": "Write a memory",
+      "body": "Use the form below to save off-chain. Anchoring uses the API when you are ready."
+    },
+    "memories": {
+      "title": "Your memories",
+      "body": "Entries load from the API for the default dev user."
+    },
+    "memory": {
+      "idLabel": "Memory",
+      "title": "Shared memory",
+      "body": "Content loads from the API; verification recomputes the canonical hash."
+    },
+    "settings": {
+      "title": "Settings",
+      "body": "Language defaults, wallet connection, and privacy preferences will be configured here."
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "That path does not exist or was moved.",
+    "cta": "Back home"
+  }
+}

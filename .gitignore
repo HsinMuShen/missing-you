@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build / cache
+.next
+out
+dist
+build
+.turbo
+*.tsbuildinfo
+
+# Env (keep .env.example committed)
+.env
+.env.local
+.env.*.local
+
+# IDE / OS
+.DS_Store
+.idea
+.vscode/*
+!.vscode/extensions.json
+
+# Logs / debug
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Testing / coverage
+coverage
+
+# Foundry
+packages/contracts/cache
+packages/contracts/out
+packages/contracts/broadcast/**/dry-run/**

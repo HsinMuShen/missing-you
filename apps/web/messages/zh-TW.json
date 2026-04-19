@@ -1,0 +1,106 @@
+{
+  "metadata": {
+    "title": "Missing You — 帶著溫柔證明的回憶",
+    "description": "一個安靜書寫思念的空間。文字安心保存在鏈下；可將密碼學證明錨定到鏈上。"
+  },
+  "nav": {
+    "write": "書寫",
+    "memories": "回憶",
+    "settings": "設定"
+  },
+  "footer": {
+    "tagline": "Missing You — 以慎重之心保存回憶。"
+  },
+  "home": {
+    "eyebrow": "Web3 日記",
+    "headline": "為回憶留下「曾經存在」的溫柔證明。",
+    "subhead": "給重要記憶一個安靜的去處。完整內容保留在資料庫中，只把證明錨定到鏈上——日後可驗證，而不必公開你寫下的每一句話。",
+    "cta": {
+      "write": "寫一段回憶",
+      "memories": "查看回憶"
+    },
+    "how": {
+      "title": "運作方式",
+      "step1": {
+        "title": "慢慢寫下心意",
+        "body": "在簡潔、從容的編輯空間裡記下你想說的話。內容會安全地保存在鏈下。"
+      },
+      "step2": {
+        "title": "建立可重現的指紋",
+        "body": "系統會為你的條目建立穩定的指紋——不是文章全文——因此同一段回憶總會得到相同的雜湊。"
+      },
+      "step3": {
+        "title": "在準備好時錨定",
+        "body": "需要時，可把指紋錨定到鏈上。之後任何人都能對照區塊鏈驗證，而不必看見私密內容。"
+      }
+    },
+    "privacy": {
+      "title": "以隱私為先",
+      "body": "日記內容保存在鏈下。鏈上只保存識別資訊與密碼學承諾——永遠不是你的整封信或完整日記。"
+    }
+  },
+  "journals": {
+    "write": {
+      "title": "寫一段回憶",
+      "content": "你想記下的內容",
+      "person": "關於誰（選填）",
+      "personHint": "名字或簡短註記——可留空。",
+      "privacy": "隱私",
+      "privacyPrivate": "私人",
+      "privacyShare": "日後可分享頁面",
+      "submit": "儲存",
+      "saving": "儲存中…",
+      "success": "已儲存。可到「回憶」查看。",
+      "viewMemories": "前往回憶列表",
+      "error": "無法儲存，請再試一次。"
+    },
+    "memories": {
+      "title": "你的回憶",
+      "empty": "尚無條目，先寫下一段心意吧。",
+      "loadError": "無法載入回憶列表。",
+      "open": "開啟",
+      "status": "狀態",
+      "draft": "草稿",
+      "anchored": "已錨定"
+    },
+    "memory": {
+      "title": "回憶",
+      "loadError": "無法載入此回憶。",
+      "person": "關於",
+      "privacy": "隱私設定",
+      "content": "內容",
+      "verification": "驗證（本地）",
+      "verified": "雜湊與已儲存的錨定一致。",
+      "notVerified": "雜湊與已儲存的錨定不一致。",
+      "noAnchor": "尚未錨定——沒有可比對的儲存雜湊。",
+      "prepare": "準備錨定資料",
+      "confirmMock": "確認模擬交易",
+      "prepareHint": "產生 memoryId、標準化承載與 SHA-256（寫回此筆日記）。",
+      "confirmHint": "寫入占位 tx 雜湊並建立 MemoryAnchor 紀錄（此步尚未呼叫鏈上）。"
+    }
+  },
+  "placeholders": {
+    "write": {
+      "title": "寫一段回憶",
+      "body": "使用下方表單將內容保存在鏈下；準備好時可透過 API 進行錨定流程。"
+    },
+    "memories": {
+      "title": "你的回憶",
+      "body": "列表由 API 載入（預設開發用使用者）。"
+    },
+    "memory": {
+      "idLabel": "回憶",
+      "title": "公開回憶",
+      "body": "內容由 API 載入；驗證會重新計算標準雜湊。"
+    },
+    "settings": {
+      "title": "設定",
+      "body": "預設語言、錢包連線與隱私偏好將在此設定。"
+    }
+  },
+  "notFound": {
+    "title": "找不到頁面",
+    "body": "這個路徑不存在或已移動。",
+    "cta": "回到首頁"
+  }
+}

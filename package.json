@@ -1,0 +1,22 @@
+{
+  "name": "missing-you",
+  "private": true,
+  "packageManager": "pnpm@9.15.4",
+  "scripts": {
+    "postinstall": "turbo run build --filter=@missing-you/shared --filter=@missing-you/ui",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "typecheck": "turbo run typecheck",
+    "clean": "turbo run clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "turbo": "^2.5.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
