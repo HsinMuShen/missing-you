@@ -3,7 +3,8 @@ import { buildCanonicalPayload, generateHash, normalizeHashHex, serializeCanonic
 
 /**
  * Recomputes the canonical JSON + SHA-256 digest and compares to the stored anchor hash.
- * Used for local verification before/without RPC calls.
+ * On-chain `verifyMemory` / `getMemory` must use the **same** canonical serialization rules
+ * (`lib/hashing/canonical.ts`) and the same UUID→`bytes32` mapping (`journalUuidToMemoryIdKey`).
  */
 export function verifyMemory(
   journal: {

@@ -2,16 +2,19 @@
 
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import type { Journal } from '@missing-you/shared';
-import { Button } from '@missing-you/ui';
+import type { ChainVerificationResult, Journal } from '@missing-you/shared';
+import { AnchorMemoryControls } from '@/components/blockchain/anchor-memory-controls';
 
-type JournalDetailResponse = Journal & { localVerification: boolean | null };
+type JournalDetailResponse = Journal & {
+  localVerification: boolean | null;
+  chainVerification: ChainVerificationResult | null;
+};
 
 export function MemoryDetailPanel({ id }: { id: string }) {
   const t = useTranslations('journals.memory');
+  const tb = useTranslations('journals.blockchain');
   const [journal, setJournal] = useState<JournalDetailResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [busy, setBusy] = useState(false);
 
   const load = useCallback(async () => {
     setError(null);
@@ -28,42 +31,6 @@ export function MemoryDetailPanel({ id }: { id: string }) {
   useEffect(() => {
     void load();
   }, [load]);
-
-  async function prepare() {
-    setBusy(true);
-    try {
-      const res = await fetch(`/api/journals/${id}/prepare-anchor`, { method: 'POST' });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(typeof body.error === 'string' ? body.error : 'prepare failed');
-      }
-      await load();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'prepare failed');
-    } finally {
-      setBusy(false);
-    }
-  }
-
-  async function confirmMock() {
-    setBusy(true);
-    try {
-      const res = await fetch(`/api/journals/${id}/confirm-anchor`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ txHash: '0x' + '00'.repeat(32) }),
-      });
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(typeof body.error === 'string' ? body.error : 'confirm failed');
-      }
-      await load();
-    } catch (e) {
-      setError(e instanceof Error ? e.message : 'confirm failed');
-    } finally {
-      setBusy(false);
-    }
-  }
 
   if (error && !journal) {
     return <p className="text-sm text-red-700">{error}</p>;
@@ -91,33 +58,62 @@ export function MemoryDetailPanel({ id }: { id: string }) {
         <p className="whitespace-pre-wrap text-foreground leading-relaxed">{journal.content}</p>
       </section>
 
-      <section className="rounded-lg border border-border bg-muted/40 p-4 space-y-2">
+      <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />
+
+      <section className="rounded-lg border border-border bg-muted/40 p-4 space-y-3">
         <h2 className="text-sm font-medium text-foreground">{t('verification')}</h2>
         {journal.anchor ? (
-          <p className="text-sm text-muted-foreground">
-            {journal.localVerification ? t('verified') : t('notVerified')}
-          </p>
+          <>
+            <p className="text-sm text-muted-foreground">
+              {t('localDigest')}:{' '}
+              {journal.localVerification ? t('verified') : t('notVerified')}
+            </p>
+            <div className="space-y-1 text-xs font-mono text-muted-foreground break-all">
+              <p>
+                <span className="font-sans font-medium text-foreground">{t('contentHash')}:</span>{' '}
+                {journal.anchor.contentHash}
+              </p>
+              {journal.anchor.txHash ? (
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('txHash')}:</span>{' '}
+                  {journal.anchor.txHash}
+                </p>
+              ) : null}
+              {journal.anchor.anchoredAt ? (
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('anchoredAt')}:</span>{' '}
+                  {journal.anchor.anchoredAt}
+                </p>
+              ) : null}
+              {journal.anchor.chainId != null ? (
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('chainId')}:</span>{' '}
+                  {journal.anchor.chainId} ({journal.anchor.chain})
+                </p>
+              ) : (
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('chain')}:</span>{' '}
+                  {journal.anchor.chain}
+                </p>
+              )}
+              {journal.anchor.contractAddress ? (
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('contract')}:</span>{' '}
+                  {journal.anchor.contractAddress}
+                </p>
+              ) : null}
+            </div>
+            {journal.chainVerification ? (
+              <p className="text-sm text-muted-foreground">
+                <span className="font-medium text-foreground">{t('onChainBadge')}:</span>{' '}
+                {tb(`chainState.${journal.chainVerification.state}`)}
+              </p>
+            ) : null}
+          </>
         ) : (
           <p className="text-sm text-muted-foreground">{t('noAnchor')}</p>
         )}
       </section>
-
-      {journal.status === 'draft' ? (
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-          <div className="space-y-1">
-            <Button type="button" variant="secondary" disabled={busy} onClick={() => void prepare()}>
-              {t('prepare')}
-            </Button>
-            <p className="text-xs text-muted-foreground max-w-xs">{t('prepareHint')}</p>
-          </div>
-          <div className="space-y-1">
-            <Button type="button" disabled={busy} onClick={() => void confirmMock()}>
-              {t('confirmMock')}
-            </Button>
-            <p className="text-xs text-muted-foreground max-w-xs">{t('confirmHint')}</p>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }

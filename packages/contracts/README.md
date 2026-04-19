@@ -6,20 +6,21 @@ Foundry project for **MemoryRegistry** — on-chain proof metadata only; journal
 
 - [Foundry](https://book.getfoundry.sh/getting-started/installation)
 
-## Install dependencies
+## Install libraries
 
 ```bash
 cd packages/contracts
 forge install --no-commit foundry-rs/forge-std
+forge install --no-commit OpenZeppelin/openzeppelin-contracts@v5.1.0
 ```
 
-> If `forge install` warns about git, ensure this package is inside a git repository or use `forge install` with appropriate flags.
+See `lib/README.md` for remapped paths.
 
 ## Compile
 
 ```bash
 forge build
-# or from this directory:
+# or
 pnpm compile
 ```
 
@@ -29,18 +30,18 @@ pnpm compile
 forge test
 ```
 
-## Deploy (example)
+## Deploy (Polygon Amoy example)
 
-Set `SEPOLIA_RPC_URL` and a deployer key, then:
+Set `POLYGON_AMOY_RPC_URL`, then:
 
 ```bash
-forge script script/Deploy.s.sol:DeployScript --rpc-url $SEPOLIA_RPC_URL --broadcast
+forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_AMOY_RPC_URL --broadcast
 ```
 
-Record the deployed address in your app environment (see root README).
+Record the deployed address in `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` for the web app.
 
 ## Layout
 
-- `src/MemoryRegistry.sol` — registry contract
-- `script/Deploy.s.sol` — deployment entrypoint
+- `src/MemoryRegistry.sol` — `Ownable` + `Pausable` (OpenZeppelin), `anchorMemory`, `getMemory`, `verifyMemory`, `setShareable`
+- `script/Deploy.s.sol` — deploy entrypoint (`owner` = deployer)
 - `test/MemoryRegistry.t.sol` — unit tests

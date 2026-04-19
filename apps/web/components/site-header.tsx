@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { Link } from '@/lib/i18n/navigation';
 import { Container } from '@missing-you/ui';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { WalletMenu } from '@/components/wallet/wallet-menu';
 import { APP_NAME } from '@missing-you/shared';
 
 export async function SiteHeader() {
@@ -23,6 +24,7 @@ export async function SiteHeader() {
           <Link href="/settings" className="hover:text-foreground">
             {t('settings')}
           </Link>
+          <WalletMenu />
           <LanguageSwitcher />
         </nav>
       </Container>

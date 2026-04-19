@@ -7,6 +7,7 @@ import { Link } from '@/lib/i18n/navigation';
 
 export function JournalList() {
   const t = useTranslations('journals.memories');
+  const tb = useTranslations('journals.blockchain');
   const [rows, setRows] = useState<Journal[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -42,16 +43,23 @@ export function JournalList() {
       {rows.map((j) => (
         <li
           key={j.id}
-          className="rounded-lg border border-border bg-card p-4 shadow-sm flex flex-wrap items-center justify-between gap-3"
+          className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-4 shadow-sm"
         >
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="truncate text-sm text-foreground">
               {j.content.slice(0, 120)}
               {j.content.length > 120 ? '…' : ''}
             </p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              {t('status')}: {j.status === 'anchored' ? t('anchored') : t('draft')}
-            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <span>
+                {t('status')}: {j.status === 'anchored' ? t('anchored') : t('draft')}
+              </span>
+              {j.status === 'anchored' && j.anchor?.txHash && j.anchor.txHash.length > 14 ? (
+                <span className="font-mono">
+                  {tb('listTx')}: {j.anchor.txHash.slice(0, 10)}…{j.anchor.txHash.slice(-6)}
+                </span>
+              ) : null}
+            </div>
           </div>
           <Link
             href={`/memory/${j.id}`}

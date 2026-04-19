@@ -1,4 +1,4 @@
-// Prisma — PostgreSQL. Journal text is off-chain only; MemoryAnchor holds proof metadata for future on-chain steps.
+// Prisma — PostgreSQL. Journal text is off-chain only; MemoryAnchor mirrors on-chain proof metadata.
 // https://pris.ly/d/prisma-schema
 
 generator client {
@@ -43,6 +43,8 @@ model MemoryAnchor {
   contentHash String
   txHash      String?
   chain       String
+  chainId     Int?
+  contractAddress String?
   anchoredAt  DateTime?
   createdAt   DateTime @default(now())
 }

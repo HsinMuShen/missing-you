@@ -69,15 +69,51 @@
       "person": "About",
       "privacy": "Privacy",
       "content": "Entry",
-      "verification": "Verification (local)",
-      "verified": "Hash matches stored anchor.",
-      "notVerified": "Hash does not match stored anchor.",
-      "noAnchor": "Not anchored yet — no stored hash to check.",
-      "prepare": "Prepare anchor",
-      "confirmMock": "Confirm mock tx",
-      "prepareHint": "Generates memoryId + canonical payload + SHA-256 (saved on the journal).",
-      "confirmHint": "Records a placeholder tx hash and creates the MemoryAnchor row (no chain call yet)."
+      "verification": "Proof & verification",
+      "localDigest": "Local digest vs database",
+      "verified": "Matches stored anchor row.",
+      "notVerified": "Does not match stored anchor row.",
+      "noAnchor": "Not anchored yet.",
+      "contentHash": "Content hash (SHA-256)",
+      "txHash": "Transaction hash",
+      "anchoredAt": "Anchored at",
+      "chainId": "Chain ID",
+      "chain": "Chain",
+      "contract": "Registry contract",
+      "onChainBadge": "On-chain record"
+    },
+    "blockchain": {
+      "title": "Anchor to blockchain",
+      "body": "Only a bytes32 memory key and your content hash are sent on-chain — never your journal text.",
+      "cta": "Anchor to blockchain",
+      "connectPrompt": "Connect your wallet in the header to sign the anchor transaction.",
+      "connectWallet": "Connect a wallet first.",
+      "userRejected": "Transaction was rejected in your wallet.",
+      "switchNetwork": "Please switch your wallet to the configured Polygon network.",
+      "reset": "Dismiss",
+      "txHash": "Last transaction hash",
+      "onChainStatus": "Registry check",
+      "listTx": "Tx",
+      "phase": {
+        "preparing": "Preparing canonical payload on the server…",
+        "switching": "Switching wallet network…",
+        "signing": "Confirm the transaction in your wallet…",
+        "confirming": "Saving anchor metadata…",
+        "success": "Anchor saved.",
+        "error": "Something went wrong."
+      },
+      "chainState": {
+        "skipped_no_anchor": "No anchor row yet.",
+        "skipped_no_metadata": "Missing chain metadata on anchor.",
+        "skipped_no_rpc": "Server RPC not configured — cannot read the chain.",
+        "missing_on_chain": "No matching record on the registry (wrong contract or network).",
+        "hash_mismatch": "On-chain hash differs from the database.",
+        "verified": "On-chain record matches the database."
+      }
     }
+  },
+  "wallet": {
+    "disconnect": "Disconnect"
   },
   "placeholders": {
     "write": {

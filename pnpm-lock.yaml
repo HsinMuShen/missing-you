@@ -95,10 +95,16 @@ importers:
 
   packages/shared:
     dependencies:
+      viem:
+        specifier: ^2.24.1
+        version: 2.47.12(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@3.25.76)
       zod:
         specifier: ^3.24.2
         version: 3.25.76
     devDependencies:
+      '@types/node':
+        specifier: ^22.13.14
+        version: 22.19.17
       typescript:
         specifier: ^5.8.3
         version: 5.9.3
