@@ -60,6 +60,8 @@ export async function markAsAnchored(params: {
   contentHash: string;
   txHash: string;
   chain: string;
+  chainId: number;
+  contractAddress: string;
 }): Promise<{ journal: JournalRow; anchor: MemoryAnchor }> {
   return prisma.$transaction(async (tx) => {
     const journal = await tx.journal.update({
@@ -74,6 +76,8 @@ export async function markAsAnchored(params: {
         contentHash: params.contentHash,
         txHash: params.txHash,
         chain: params.chain,
+        chainId: params.chainId,
+        contractAddress: params.contractAddress,
         anchoredAt: new Date(),
       },
     });

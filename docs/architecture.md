@@ -40,7 +40,9 @@ The BFF hashes **`JSON.stringify(payload)`** with **Node `crypto` SHA-256**, ret
 
 ## Smart contract
 
-`MemoryRegistry` exposes `anchorMemory`, `getMemory`, `verifyMemory`, and `setShareable`, with **pause** for writes. Wire-up is **not** part of the current MVP step.
+`MemoryRegistry` (OpenZeppelin **Ownable** + **Pausable**) exposes `anchorMemory`, `getMemory`, `verifyMemory`, and `setShareable`. The web app submits `anchorMemory` via **wagmi** (wallet); the BFF validates receipts and persists `MemoryAnchor` with `chainId` + `contractAddress`.
+
+Shared ABI and chain helpers: `packages/shared/src/blockchain/`. UUID → on-chain key: `journalUuidToMemoryIdKey` (= `keccak256(utf8(uuid))`).
 
 ## Internationalization
 

@@ -8,6 +8,11 @@ import {
   generateHash,
   serializeCanonicalPayload,
 } from '@/lib/hashing';
+import {
+  assertAnchorTransactionSucceeded,
+  AnchorTxValidationError,
+} from '@/lib/blockchain/validate-anchor-tx';
+import { getDefaultAnchorChainId, getMemoryRegistryAddress, journalUuidToMemoryIdKey } from '@missing-you/shared';
 import * as journalRepo from '@/server/repositories/journal.repository';
 import type { JournalWithAnchor } from '@/server/repositories/journal.repository';
 
@@ -44,6 +49,8 @@ function toProofDto(row: NonNullable<JournalWithAnchor['anchor']>): MemoryProof 
     contentHash: row.contentHash,
     txHash: row.txHash,
     chain: row.chain,
+    chainId: row.chainId ?? null,
+    contractAddress: row.contractAddress ?? null,
     anchoredAt: row.anchoredAt?.toISOString() ?? null,
     createdAt: row.createdAt.toISOString(),
   };
@@ -64,8 +71,10 @@ export function toJournalDto(row: JournalWithAnchor): Journal {
   };
 }
 
-function anchorChain(): string {
-  return process.env.ANCHOR_CHAIN?.trim() || 'local-dev';
+function chainLabelFromId(chainId: number): string {
+  if (chainId === 137) return 'polygon';
+  if (chainId === 80002) return 'polygon-amoy';
+  return `chain-${chainId}`;
 }
 
 export async function createJournal(input: unknown): Promise<Journal> {
@@ -141,9 +150,13 @@ export async function updateJournal(
 
 export type PrepareAnchorResult = {
   memoryId: string;
+  /** `keccak256(utf8(memoryId))` — argument for `MemoryRegistry.anchorMemory`. */
+  memoryIdBytes32: `0x${string}`;
   contentHash: string;
   payload: ReturnType<typeof buildCanonicalPayload>;
   canonicalJson: string;
+  /** Hint for `anchorMemory(..., shareable)` — mirrors `privacy === 'share'`. */
+  shareable: boolean;
 };
 
 export async function prepareAnchor(journalId: string): Promise<PrepareAnchorResult> {
@@ -158,8 +171,11 @@ export async function prepareAnchor(journalId: string): Promise<PrepareAnchorRes
     throw new JournalServiceError('Journal already anchored', 'CONFLICT', 409);
   }
 
-  const memoryId = randomUUID();
-  await journalRepo.setJournalMemoryId(journalId, memoryId);
+  let memoryId = row.memoryId;
+  if (!memoryId) {
+    memoryId = randomUUID();
+    await journalRepo.setJournalMemoryId(journalId, memoryId);
+  }
 
   const refreshed = await journalRepo.getJournalById(journalId);
   if (!refreshed?.memoryId) {
@@ -174,11 +190,23 @@ export async function prepareAnchor(journalId: string): Promise<PrepareAnchorRes
   });
   const canonicalJson = serializeCanonicalPayload(payload);
   const contentHash = generateHash(canonicalJson);
+  const memoryIdBytes32 = journalUuidToMemoryIdKey(refreshed.memoryId);
+  const shareable = assertPrivacy(refreshed.privacy) === 'share';
 
-  return { memoryId, contentHash, payload, canonicalJson };
+  return {
+    memoryId: refreshed.memoryId,
+    memoryIdBytes32,
+    contentHash,
+    payload,
+    canonicalJson,
+    shareable,
+  };
 }
 
-export async function markAnchored(journalId: string, txHash: string): Promise<Journal> {
+export async function markAnchored(
+  journalId: string,
+  input: { txHash: string; chainId: number; contractAddress: string }
+): Promise<Journal> {
   const row = await journalRepo.getJournalById(journalId);
   if (!row) {
     throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
@@ -190,6 +218,15 @@ export async function markAnchored(journalId: string, txHash: string): Promise<J
     throw new JournalServiceError('Call prepare-anchor first', 'INVALID_STATE', 400);
   }
 
+  const expectedChain = getDefaultAnchorChainId();
+  if (input.chainId !== expectedChain) {
+    throw new JournalServiceError('Chain ID does not match configured anchor chain', 'VALIDATION', 400);
+  }
+  const expectedAddr = getMemoryRegistryAddress();
+  if (expectedAddr && input.contractAddress.toLowerCase() !== expectedAddr.toLowerCase()) {
+    throw new JournalServiceError('Contract address does not match configured registry', 'VALIDATION', 400);
+  }
+
   const payload = buildCanonicalPayload({
     content: row.content,
     person: row.person,
@@ -199,12 +236,27 @@ export async function markAnchored(journalId: string, txHash: string): Promise<J
   const canonicalJson = serializeCanonicalPayload(payload);
   const contentHash = generateHash(canonicalJson);
 
+  try {
+    await assertAnchorTransactionSucceeded({
+      chainId: input.chainId,
+      contractAddress: input.contractAddress as `0x${string}`,
+      txHash: input.txHash.trim() as `0x${string}`,
+    });
+  } catch (e) {
+    if (e instanceof AnchorTxValidationError) {
+      throw new JournalServiceError(e.message, 'VALIDATION', e.httpStatus);
+    }
+    throw e;
+  }
+
   await journalRepo.markAsAnchored({
     journalId,
     memoryId: row.memoryId,
     contentHash,
-    txHash: txHash.trim(),
-    chain: anchorChain(),
+    txHash: input.txHash.trim(),
+    chain: chainLabelFromId(input.chainId),
+    chainId: input.chainId,
+    contractAddress: input.contractAddress,
   });
 
   const full = await journalRepo.getJournalById(journalId);

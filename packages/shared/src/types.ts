@@ -48,6 +48,8 @@ export interface MemoryProof {
   contentHash: string;
   txHash: string | null;
   chain: string;
+  chainId: number | null;
+  contractAddress: string | null;
   anchoredAt: string | null;
   createdAt: string;
 }

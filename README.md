@@ -79,9 +79,18 @@ pnpm --filter @missing-you/web db:studio
 
 - `POST /api/journals` — create draft (`content`, optional `person`, `privacy`: `private` | `share`).
 - `GET /api/journals` — list for `userId` query or default dev user (`DEFAULT_USER_ID` / built-in UUID).
-- `GET /api/journals/:id` — detail + `localVerification` when an anchor exists.
-- `POST /api/journals/:id/prepare-anchor` — assigns `memoryId`, returns canonical payload + SHA-256 hex.
-- `POST /api/journals/:id/confirm-anchor` — body `{ "txHash": "..." }`; creates `MemoryAnchor` row (mock tx ok; no chain call yet).
+- `GET /api/journals/:id` — detail + `localVerification` + `chainVerification` (RPC read of `MemoryRegistry`).
+- `POST /api/journals/:id/prepare-anchor` — ensures `memoryId` (idempotent), returns `memoryIdBytes32`, canonical payload, SHA-256 `contentHash`, `shareable`.
+- `POST /api/journals/:id/confirm-anchor` — body `{ "txHash", "chainId", "contractAddress" }`; validates receipt via server RPC, then persists `MemoryAnchor` with `chainId` / `contractAddress`.
+
+### Blockchain (Polygon-compatible)
+
+Set in `apps/web/.env.local`:
+
+- `NEXT_PUBLIC_ANCHOR_CHAIN_ID` — `80002` (Amoy) or `137` (Polygon).
+- `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` — deployed `MemoryRegistry`.
+- `POLYGON_AMOY_RPC_URL` / `POLYGON_MAINNET_RPC_URL` — server reads for receipts + `getMemory`.
+- Optional: `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` for WalletConnect (MetaMask still works via injected).
 
 `pnpm --filter @missing-you/web build` runs `prisma generate` before `next build`.
 

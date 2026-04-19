@@ -1,6 +1,8 @@
-# Blockchain integration (future)
+# Blockchain (MemoryRegistry)
 
-- Read/write helpers for `MemoryRegistry` using viem/wagmi.
-- Contract address and chain id from environment variables per deployment.
+- **`rpc-urls.ts`** — server-only JSON-RPC URLs for receipt checks and `getMemory` reads (`POLYGON_AMOY_RPC_URL`, `POLYGON_MAINNET_RPC_URL`).
+- **`validate-anchor-tx.ts`** — ensures `confirm-anchor` only runs after a successful on-chain receipt.
+- **`memory-registry.ts`** — typed `readContract` helpers for `MemoryRegistry`.
+- **`client.ts`** — optional factory for read clients.
 
-Anchoring should be triggered from **Server Actions** or **Route Handlers** in `apps/web` so private keys or relayer credentials never ship to the browser (unless using a user-signed flow).
+Canonical JSON + SHA-256 hashing stays in `lib/hashing/`; the contract stores the resulting `bytes32` only.

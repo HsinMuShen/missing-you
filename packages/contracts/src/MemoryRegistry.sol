@@ -1,14 +1,19 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {Pausable} from "@openzeppelin/contracts/utils/Pausable.sol";
+
 /**
  * @title MemoryRegistry
- * @notice Anchors a cryptographic commitment to journal content. Full journal text is stored
- *         off-chain (e.g. PostgreSQL); only `memoryId`, `contentHash`, owner, timestamp, and
- *         shareable flag live on-chain.
- * @dev `memoryId` is a bytes32 identifier (e.g. keccak256 of an off-chain UUID) for gas-efficient keys.
+ * @notice On-chain proof-of-existence for journal memories. **Full journal text stays off-chain** in
+ *         PostgreSQL; the contract stores only `memoryId`, `contentHash`, `owner`, `anchoredAt`, and
+ *         `shareable`. The BFF hashes a canonical JSON payload (SHA-256 → bytes32) off-chain and passes
+ *         that digest here — **no hashing inside the contract** so the app controls canonicalization.
+ * @dev `memoryId` is a `bytes32` key; the app derives it as `keccak256(utf8(offChainUuid))` for a stable
+ *      mapping between DB UUID and chain storage.
  */
-contract MemoryRegistry {
+contract MemoryRegistry is Ownable, Pausable {
     struct MemoryRecord {
         bytes32 memoryId;
         bytes32 contentHash;
@@ -20,13 +25,9 @@ contract MemoryRegistry {
     error AlreadyAnchored();
     error NotFound();
     error Unauthorized();
-    error Paused();
 
     mapping(bytes32 memoryId => MemoryRecord) private _records;
     mapping(bytes32 memoryId => bool) private _anchored;
-
-    address public owner;
-    bool public paused;
 
     event MemoryAnchored(
         bytes32 indexed memoryId,
@@ -36,28 +37,13 @@ contract MemoryRegistry {
         bool shareable
     );
     event ShareableUpdated(bytes32 indexed memoryId, bool shareable);
-    event Paused(address account);
-    event Unpaused(address account);
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
-    modifier onlyOwner() {
-        if (msg.sender != owner) revert Unauthorized();
-        _;
-    }
-
-    modifier whenNotPaused() {
-        if (paused) revert Paused();
-        _;
-    }
-
-    constructor() {
-        owner = msg.sender;
-    }
+    constructor(address initialOwner) Ownable(initialOwner) {}
 
     /**
-     * @notice Record a new memory anchor. Callable once per `memoryId`.
-     * @param memoryId Off-chain-derived id (fixed 32 bytes).
-     * @param contentHash Commitment to canonical payload (e.g. keccak256 of normalized JSON).
+     * @notice Record a new anchor. One record per `memoryId`.
+     * @param memoryId Deterministic key (e.g. keccak256 of UUID string).
+     * @param contentHash SHA-256 digest of canonical JSON (32 bytes), produced off-chain.
      * @param shareable Whether a public memory page may reference this anchor.
      */
     function anchorMemory(bytes32 memoryId, bytes32 contentHash, bool shareable)
@@ -68,12 +54,12 @@ contract MemoryRegistry {
         _records[memoryId] = MemoryRecord({
             memoryId: memoryId,
             contentHash: contentHash,
-            owner: msg.sender,
+            owner: _msgSender(),
             anchoredAt: uint64(block.timestamp),
             shareable: shareable
         });
         _anchored[memoryId] = true;
-        emit MemoryAnchored(memoryId, contentHash, msg.sender, uint64(block.timestamp), shareable);
+        emit MemoryAnchored(memoryId, contentHash, _msgSender(), uint64(block.timestamp), shareable);
     }
 
     function getMemory(bytes32 memoryId) external view returns (MemoryRecord memory) {
@@ -81,7 +67,6 @@ contract MemoryRegistry {
         return _records[memoryId];
     }
 
-    /// @notice Returns true if the registry holds the same content hash for this memory id.
     function verifyMemory(bytes32 memoryId, bytes32 contentHash) external view returns (bool) {
         if (!_anchored[memoryId]) return false;
         return _records[memoryId].contentHash == contentHash;
@@ -89,24 +74,16 @@ contract MemoryRegistry {
 
     function setShareable(bytes32 memoryId, bool shareable) external whenNotPaused {
         if (!_anchored[memoryId]) revert NotFound();
-        if (_records[memoryId].owner != msg.sender) revert Unauthorized();
+        if (_records[memoryId].owner != _msgSender()) revert Unauthorized();
         _records[memoryId].shareable = shareable;
         emit ShareableUpdated(memoryId, shareable);
     }
 
     function pause() external onlyOwner {
-        paused = true;
-        emit Paused(msg.sender);
+        _pause();
     }
 
     function unpause() external onlyOwner {
-        paused = false;
-        emit Unpaused(msg.sender);
-    }
-
-    function transferOwnership(address newOwner) external onlyOwner {
-        address previous = owner;
-        owner = newOwner;
-        emit OwnershipTransferred(previous, newOwner);
+        _unpause();
     }
 }

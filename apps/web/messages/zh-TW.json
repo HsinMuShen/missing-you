@@ -69,15 +69,51 @@
       "person": "關於",
       "privacy": "隱私設定",
       "content": "內容",
-      "verification": "驗證（本地）",
-      "verified": "雜湊與已儲存的錨定一致。",
-      "notVerified": "雜湊與已儲存的錨定不一致。",
-      "noAnchor": "尚未錨定——沒有可比對的儲存雜湊。",
-      "prepare": "準備錨定資料",
-      "confirmMock": "確認模擬交易",
-      "prepareHint": "產生 memoryId、標準化承載與 SHA-256（寫回此筆日記）。",
-      "confirmHint": "寫入占位 tx 雜湊並建立 MemoryAnchor 紀錄（此步尚未呼叫鏈上）。"
+      "verification": "證明與驗證",
+      "localDigest": "本地雜湊與資料庫錨定",
+      "verified": "與已儲存的錨定資料一致。",
+      "notVerified": "與已儲存的錨定資料不一致。",
+      "noAnchor": "尚未錨定。",
+      "contentHash": "內容雜湊（SHA-256）",
+      "txHash": "交易雜湊",
+      "anchoredAt": "錨定時間",
+      "chainId": "鏈 ID",
+      "chain": "鏈",
+      "contract": "合約登錄檔",
+      "onChainBadge": "鏈上紀錄"
+    },
+    "blockchain": {
+      "title": "錨定到區塊鏈",
+      "body": "鏈上只會送出 bytes32 的記憶鍵與內容雜湊——不會送出日記全文。",
+      "cta": "錨定到區塊鏈",
+      "connectPrompt": "請先在頁首連接錢包，以便簽署錨定交易。",
+      "connectWallet": "請先連接錢包。",
+      "userRejected": "你在錢包中拒絕了交易。",
+      "switchNetwork": "請將錢包切換到設定的 Polygon 網路。",
+      "reset": "關閉提示",
+      "txHash": "最近一筆交易雜湊",
+      "onChainStatus": "合約查核",
+      "listTx": "交易",
+      "phase": {
+        "preparing": "伺服器正在準備標準化承載…",
+        "switching": "正在切換錢包網路…",
+        "signing": "請在錢包中確認交易…",
+        "confirming": "正在儲存錨定後設資料…",
+        "success": "已儲存錨定。",
+        "error": "發生錯誤。"
+      },
+      "chainState": {
+        "skipped_no_anchor": "尚無錨定資料列。",
+        "skipped_no_metadata": "錨定資料列缺少鏈上資訊。",
+        "skipped_no_rpc": "伺服器未設定 RPC，無法讀取鏈上資料。",
+        "missing_on_chain": "在登錄檔找不到對應紀錄（合約或網路可能不正確）。",
+        "hash_mismatch": "鏈上雜湊與資料庫不一致。",
+        "verified": "鏈上紀錄與資料庫一致。"
+      }
     }
+  },
+  "wallet": {
+    "disconnect": "中斷連線"
   },
   "placeholders": {
     "write": {
