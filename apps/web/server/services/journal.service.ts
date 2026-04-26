@@ -88,14 +88,54 @@ function chainLabelFromId(chainId: number): string {
 
 function assertOwner(row: JournalWithAnchor, requesterUserId: string) {
   if (row.userId !== requesterUserId) {
-    throw new JournalServiceError('You do not have access to this journal', 'FORBIDDEN', 403);
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
+  }
+}
+
+function requireShareTxForAnchored(row: JournalWithAnchor, input?: { txHash?: string | null }) {
+  if (row.status !== 'anchored') return;
+  if (!input?.txHash) {
+    throw new JournalServiceError(
+      'Anchored memories require an on-chain shareability transaction',
+      'VALIDATION',
+      400
+    );
+  }
+}
+
+async function validateShareabilityTx(input: {
+  txHash: string;
+  chainId: number;
+  contractAddress: string;
+}) {
+  const expectedChain = getDefaultAnchorChainId();
+  if (input.chainId !== expectedChain) {
+    throw new JournalServiceError('Chain ID does not match configured anchor chain', 'VALIDATION', 400);
+  }
+
+  const expectedAddr = getMemoryRegistryAddress();
+  if (expectedAddr && input.contractAddress.toLowerCase() !== expectedAddr.toLowerCase()) {
+    throw new JournalServiceError('Contract address does not match configured registry', 'VALIDATION', 400);
+  }
+
+  try {
+    await assertAnchorTransactionSucceeded({
+      chainId: input.chainId,
+      contractAddress: input.contractAddress as `0x${string}`,
+      txHash: input.txHash.trim() as `0x${string}`,
+    });
+  } catch (e) {
+    if (e instanceof AnchorTxValidationError) {
+      throw new JournalServiceError(e.message, 'VALIDATION', e.httpStatus);
+    }
+    throw e;
   }
 }
 
 export async function createJournal(input: unknown, requesterUserId: string): Promise<Journal> {
   const parsed = journalCreateSchema.safeParse(input);
   if (!parsed.success) {
-    throw new JournalServiceError(parsed.error.message, 'VALIDATION', 400);
+    throw new JournalServiceError('Invalid journal payload', 'VALIDATION', 400);
   }
 
   const person =
@@ -125,9 +165,18 @@ export async function getJournalById(id: string, requesterUserId?: string): Prom
 
   const privacy = assertPrivacy(row.privacy);
   if (privacy === 'private' && (!requesterUserId || row.userId !== requesterUserId)) {
-    throw new JournalServiceError('This private journal is not accessible', 'FORBIDDEN', 403);
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
   }
 
+  return toJournalDto(row);
+}
+
+export async function getOwnerJournalById(id: string, requesterUserId: string): Promise<Journal> {
+  const row = await journalRepo.getJournalById(id);
+  if (!row) {
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
+  }
+  assertOwner(row, requesterUserId);
   return toJournalDto(row);
 }
 
@@ -163,6 +212,34 @@ export async function updateJournal(
     throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
   }
   return toJournalDto(row);
+}
+
+export async function updateShareability(
+  id: string,
+  requesterUserId: string,
+  privacy: JournalPrivacy,
+  chainMeta?: { txHash: string; chainId: number; contractAddress: string }
+): Promise<Journal> {
+  const row = await journalRepo.getJournalById(id);
+  if (!row) {
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
+  }
+  assertOwner(row, requesterUserId);
+
+  requireShareTxForAnchored(row, chainMeta);
+
+  if (row.status === 'anchored') {
+    const meta = chainMeta as { txHash: string; chainId: number; contractAddress: string };
+    await validateShareabilityTx(meta);
+  }
+
+  await journalRepo.updateJournal(id, { privacy });
+
+  const refreshed = await journalRepo.getJournalById(id);
+  if (!refreshed) {
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
+  }
+  return toJournalDto(refreshed);
 }
 
 export type PrepareAnchorResult = {
@@ -239,14 +316,7 @@ export async function markAnchored(
     throw new JournalServiceError('Call prepare-anchor first', 'INVALID_STATE', 400);
   }
 
-  const expectedChain = getDefaultAnchorChainId();
-  if (input.chainId !== expectedChain) {
-    throw new JournalServiceError('Chain ID does not match configured anchor chain', 'VALIDATION', 400);
-  }
-  const expectedAddr = getMemoryRegistryAddress();
-  if (expectedAddr && input.contractAddress.toLowerCase() !== expectedAddr.toLowerCase()) {
-    throw new JournalServiceError('Contract address does not match configured registry', 'VALIDATION', 400);
-  }
+  await validateShareabilityTx(input);
 
   const payload = buildCanonicalPayload({
     content: row.content,
@@ -256,19 +326,6 @@ export async function markAnchored(
   });
   const canonicalJson = serializeCanonicalPayload(payload);
   const contentHash = generateHash(canonicalJson);
-
-  try {
-    await assertAnchorTransactionSucceeded({
-      chainId: input.chainId,
-      contractAddress: input.contractAddress as `0x${string}`,
-      txHash: input.txHash.trim() as `0x${string}`,
-    });
-  } catch (e) {
-    if (e instanceof AnchorTxValidationError) {
-      throw new JournalServiceError(e.message, 'VALIDATION', e.httpStatus);
-    }
-    throw e;
-  }
 
   await journalRepo.markAsAnchored({
     journalId,

@@ -4,17 +4,23 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { ChainVerificationResult, Journal } from '@missing-you/shared';
 import { AnchorMemoryControls } from '@/components/blockchain/anchor-memory-controls';
+import { ShareabilityControl } from '@/components/journals/shareability-control';
+import { Button } from '@missing-you/ui';
+import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
 
 type JournalDetailResponse = Journal & {
   localVerification: boolean | null;
   chainVerification: ChainVerificationResult | null;
 };
 
-export function MemoryDetailPanel({ id }: { id: string }) {
+export function OwnerMemoryDetailPanel({ id }: { id: string }) {
   const t = useTranslations('journals.memory');
   const tb = useTranslations('journals.blockchain');
+  const to = useTranslations('journals.owner');
   const [journal, setJournal] = useState<JournalDetailResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [copied, setCopied] = useState(false);
+  const [shareUrl, setShareUrl] = useState('');
 
   const load = useCallback(async () => {
     setError(null);
@@ -32,12 +38,27 @@ export function MemoryDetailPanel({ id }: { id: string }) {
     void load();
   }, [load]);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const locale = window.location.pathname.split('/').filter(Boolean)[0] ?? 'en';
+    setShareUrl(`${window.location.origin}/${locale}/memory/${id}`);
+  }, [id]);
+
+  async function copyShareLink() {
+    if (!shareUrl) return;
+    await navigator.clipboard.writeText(shareUrl);
+    setCopied(true);
+    window.setTimeout(() => setCopied(false), 1200);
+  }
+
   if (error && !journal) {
     return <p className="text-sm text-red-700">{error}</p>;
   }
   if (!journal) {
-    return <p className="text-sm text-muted-foreground">…</p>;
+    return <p className="text-sm text-muted-foreground">{to('loading')}</p>;
   }
+
+  const explorer = getTxExplorerUrl(journal.anchor?.chainId, journal.anchor?.txHash ?? '');
 
   return (
     <div className="mt-6 space-y-8 max-w-xl">
@@ -49,13 +70,21 @@ export function MemoryDetailPanel({ id }: { id: string }) {
       </section>
 
       <section className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground">{t('privacy')}</h2>
-        <p className="text-foreground">{journal.privacy}</p>
-      </section>
-
-      <section className="space-y-2">
         <h2 className="text-sm font-medium text-muted-foreground">{t('content')}</h2>
         <p className="whitespace-pre-wrap text-foreground leading-relaxed">{journal.content}</p>
+      </section>
+
+      <ShareabilityControl journal={journal} onRefresh={load} />
+
+      <section className="rounded-lg border border-border bg-card p-4 space-y-3">
+        <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button type="button" variant="secondary" onClick={() => void copyShareLink()}>
+            {to('copyShareLink')}
+          </Button>
+          {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
+        </div>
+        <p className="text-xs text-muted-foreground break-all">{shareUrl || to('shareLinkUnavailable')}</p>
       </section>
 
       <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />
@@ -65,8 +94,11 @@ export function MemoryDetailPanel({ id }: { id: string }) {
         {journal.anchor ? (
           <>
             <p className="text-sm text-muted-foreground">
-              {t('localDigest')}:{' '}
-              {journal.localVerification ? t('verified') : t('notVerified')}
+              {t('localDigest')}: {journal.localVerification ? t('verified') : t('notVerified')}
+            </p>
+            <p className="text-sm text-muted-foreground">
+              <span className="font-medium text-foreground">{t('onChainBadge')}:</span>{' '}
+              {tb(`chainState.${journal.chainVerification?.state ?? 'skipped_no_anchor'}`)}
             </p>
             <div className="space-y-1 text-xs font-mono text-muted-foreground break-all">
               <p>
@@ -85,33 +117,20 @@ export function MemoryDetailPanel({ id }: { id: string }) {
                   {journal.anchor.anchoredAt}
                 </p>
               ) : null}
-              {journal.anchor.chainId != null ? (
-                <p>
-                  <span className="font-sans font-medium text-foreground">{t('chainId')}:</span>{' '}
-                  {journal.anchor.chainId} ({journal.anchor.chain})
-                </p>
-              ) : (
-                <p>
-                  <span className="font-sans font-medium text-foreground">{t('chain')}:</span>{' '}
-                  {journal.anchor.chain}
-                </p>
-              )}
-              {journal.anchor.contractAddress ? (
-                <p>
-                  <span className="font-sans font-medium text-foreground">{t('contract')}:</span>{' '}
-                  {journal.anchor.contractAddress}
-                </p>
-              ) : null}
             </div>
-            {journal.chainVerification ? (
-              <p className="text-sm text-muted-foreground">
-                <span className="font-medium text-foreground">{t('onChainBadge')}:</span>{' '}
-                {tb(`chainState.${journal.chainVerification.state}`)}
-              </p>
+            {explorer ? (
+              <a
+                href={explorer}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-stone-700 underline-offset-4 hover:underline"
+              >
+                {to('viewExplorer')}
+              </a>
             ) : null}
           </>
         ) : (
-          <p className="text-sm text-muted-foreground">{t('noAnchor')}</p>
+          <p className="text-sm text-muted-foreground">{to('notAnchored')}</p>
         )}
       </section>
     </div>

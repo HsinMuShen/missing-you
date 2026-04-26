@@ -16,7 +16,7 @@
   "home": {
     "eyebrow": "Web3 journaling",
     "headline": "Preserve a memory with proof that it existed.",
-    "subhead": "A calm place for memories that matter. Keep the full story private in our database, and anchor only the proof on-chain — so you can verify without exposing what you wrote.",
+    "subhead": "A calm place for memories that matter. Keep your words private off-chain, and anchor only the proof on-chain so anyone can verify integrity without reading your journal.",
     "cta": {
       "write": "Write a memory",
       "memories": "View memories"
@@ -46,24 +46,31 @@
       "title": "Write a memory",
       "content": "What you remember",
       "person": "About (optional)",
-      "personHint": "A name or short note — optional.",
+      "personHint": "Optional. A name or short dedication.",
       "privacy": "Privacy",
       "privacyPrivate": "Private",
       "privacyShare": "Shareable page later",
       "submit": "Save",
       "saving": "Saving…",
-      "success": "Saved. You can view it under Memories.",
+      "success": "Saved with care. You can revisit it in Memories.",
       "viewMemories": "Go to memories",
       "error": "Could not save. Try again."
     },
     "memories": {
       "title": "Your memories",
-      "empty": "No entries yet. Write something from the heart.",
+      "empty": "No memories yet. Start with one moment that matters.",
       "loadError": "Could not load memories.",
       "open": "Open",
       "status": "Status",
       "draft": "Draft",
-      "anchored": "Anchored"
+      "anchored": "Anchored",
+      "loading": "Loading your memories…",
+      "emptyCta": "Write your first memory",
+      "visibility": "Visibility",
+      "share": "Shareable",
+      "private": "Private",
+      "publicPage": "Public page",
+      "subtitle": "Your private timeline of memories, with optional public sharing and on-chain proof."
     },
     "memory": {
       "title": "Memory",
@@ -112,6 +119,53 @@
         "hash_mismatch": "On-chain hash differs from the database.",
         "verified": "On-chain record matches the database."
       }
+    },
+    "owner": {
+      "title": "Your memory",
+      "subtitle": "Manage visibility, anchoring, and share confidence from one place.",
+      "loading": "Loading memory…",
+      "visibilityTitle": "Shareability",
+      "visibilityHelp": "You can change who sees the memory. The content stays off-chain; only proof metadata is on-chain.",
+      "shareOn": "This memory is currently shareable.",
+      "shareOff": "This memory is currently private.",
+      "makePrivate": "Make private",
+      "makeShareable": "Make shareable",
+      "shareNeedsWallet": "Connect your wallet to sync shareability for anchored memories.",
+      "shareTxRejected": "Shareability transaction was rejected.",
+      "shareSwitchNetwork": "Please switch to the configured Polygon network.",
+      "shareSaved": "Visibility updated.",
+      "sharePhase": {
+        "switching": "Switching wallet network…",
+        "signing": "Please confirm the shareability transaction…",
+        "saving": "Saving visibility setting…"
+      },
+      "shareLinkTitle": "Public share link",
+      "copyShareLink": "Copy share link",
+      "copied": "Copied",
+      "shareLinkUnavailable": "Open this page in your browser to generate a share link.",
+      "viewExplorer": "View transaction in explorer",
+      "notAnchored": "Not anchored yet. Anchor when you are ready to publish cryptographic proof."
+    },
+    "public": {
+      "title": "Shared memory",
+      "subtitle": "A memory shared from Missing You with verifiable proof.",
+      "createdAt": "Created",
+      "person": "For",
+      "proofTitle": "Proof details",
+      "status": "Verification status",
+      "contentHash": "Content hash",
+      "txHash": "Transaction hash",
+      "anchoredAt": "Anchored at",
+      "network": "Network",
+      "viewExplorer": "View on block explorer",
+      "state": {
+        "verified": "Verified on-chain",
+        "skipped_no_anchor": "Not anchored yet",
+        "hash_mismatch": "Proof mismatch",
+        "missing_on_chain": "Verification unavailable",
+        "skipped_no_metadata": "Verification unavailable",
+        "skipped_no_rpc": "Verification unavailable"
+      }
     }
   },
   "wallet": {
@@ -152,7 +206,7 @@
   },
   "settings": {
     "title": "Account settings",
-    "subtitle": "Manage your account details and prepare for optional wallet linking.",
+    "subtitle": "Manage account details, privacy defaults, and upcoming wallet linking.",
     "email": "Signed-in email",
     "defaultPrivacy": "Default privacy",
     "walletLinking": "Wallet link (coming soon)",

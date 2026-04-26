@@ -15,9 +15,7 @@ export default async function MemoriesPage({ params }: Props) {
   return (
     <Container className="py-16 sm:py-20">
       <h1 className="font-display text-3xl font-medium text-foreground">{t('title')}</h1>
-      <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-        Loaded from <code className="rounded bg-muted px-1">GET /api/journals</code> for your account.
-      </p>
+      <p className="mt-2 max-w-xl text-sm text-muted-foreground">{t('subtitle')}</p>
       <JournalList />
     </Container>
   );

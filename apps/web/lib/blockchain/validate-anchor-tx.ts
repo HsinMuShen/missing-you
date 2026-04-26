@@ -45,4 +45,13 @@ export async function assertAnchorTransactionSucceeded(params: {
   if (receipt.status !== 'success') {
     throw new AnchorTxValidationError('Transaction reverted on-chain', 400);
   }
+  if (!receipt.to || receipt.to.toLowerCase() !== params.contractAddress.toLowerCase()) {
+    throw new AnchorTxValidationError('Transaction target does not match MemoryRegistry', 400);
+  }
+  const hasContractLog = receipt.logs.some(
+    (log) => log.address.toLowerCase() === params.contractAddress.toLowerCase()
+  );
+  if (!hasContractLog) {
+    throw new AnchorTxValidationError('No MemoryRegistry logs found in transaction receipt', 400);
+  }
 }

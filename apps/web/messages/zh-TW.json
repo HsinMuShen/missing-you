@@ -16,7 +16,7 @@
   "home": {
     "eyebrow": "Web3 日記",
     "headline": "為回憶留下「曾經存在」的溫柔證明。",
-    "subhead": "給重要記憶一個安靜的去處。完整內容保留在資料庫中，只把證明錨定到鏈上——日後可驗證，而不必公開你寫下的每一句話。",
+    "subhead": "給重要記憶一個安靜的去處。完整內容保留在鏈下，只把證明錨定到鏈上，讓他人可驗證完整性而不必讀到你的文字。",
     "cta": {
       "write": "寫一段回憶",
       "memories": "查看回憶"
@@ -46,24 +46,31 @@
       "title": "寫一段回憶",
       "content": "你想記下的內容",
       "person": "關於誰（選填）",
-      "personHint": "名字或簡短註記——可留空。",
+      "personHint": "選填。可填名字或一句獻詞。",
       "privacy": "隱私",
       "privacyPrivate": "私人",
       "privacyShare": "日後可分享頁面",
       "submit": "儲存",
       "saving": "儲存中…",
-      "success": "已儲存。可到「回憶」查看。",
+      "success": "已溫柔儲存，可在「回憶」中再次查看。",
       "viewMemories": "前往回憶列表",
       "error": "無法儲存，請再試一次。"
     },
     "memories": {
       "title": "你的回憶",
-      "empty": "尚無條目，先寫下一段心意吧。",
+      "empty": "目前還沒有回憶，先寫下一段對你重要的時刻。",
       "loadError": "無法載入回憶列表。",
       "open": "開啟",
       "status": "狀態",
       "draft": "草稿",
-      "anchored": "已錨定"
+      "anchored": "已錨定",
+      "loading": "正在載入你的回憶…",
+      "emptyCta": "寫下第一段回憶",
+      "visibility": "可見性",
+      "share": "可分享",
+      "private": "私人",
+      "publicPage": "公開頁面",
+      "subtitle": "你的私人回憶時間軸，可選擇公開分享並附上鏈上證明。"
     },
     "memory": {
       "title": "回憶",
@@ -112,6 +119,53 @@
         "hash_mismatch": "鏈上雜湊與資料庫不一致。",
         "verified": "鏈上紀錄與資料庫一致。"
       }
+    },
+    "owner": {
+      "title": "你的回憶",
+      "subtitle": "在這裡管理可見性、錨定狀態與驗證資訊。",
+      "loading": "正在載入回憶…",
+      "visibilityTitle": "分享設定",
+      "visibilityHelp": "你可以調整誰能看到這段回憶。內容仍保存在鏈下，鏈上只保存證明資訊。",
+      "shareOn": "此回憶目前可公開分享。",
+      "shareOff": "此回憶目前為私人。",
+      "makePrivate": "改為私人",
+      "makeShareable": "設為可分享",
+      "shareNeedsWallet": "已錨定的回憶需連接錢包，才能同步鏈上分享設定。",
+      "shareTxRejected": "你已拒絕分享設定交易。",
+      "shareSwitchNetwork": "請先切換到指定的 Polygon 網路。",
+      "shareSaved": "可見性已更新。",
+      "sharePhase": {
+        "switching": "正在切換錢包網路…",
+        "signing": "請在錢包確認分享設定交易…",
+        "saving": "正在儲存可見性設定…"
+      },
+      "shareLinkTitle": "公開分享連結",
+      "copyShareLink": "複製分享連結",
+      "copied": "已複製",
+      "shareLinkUnavailable": "請在瀏覽器中開啟此頁以產生分享連結。",
+      "viewExplorer": "在區塊瀏覽器查看交易",
+      "notAnchored": "尚未錨定。準備好後可錨定以公開可驗證證明。"
+    },
+    "public": {
+      "title": "公開回憶",
+      "subtitle": "來自 Missing You 的公開回憶，並附上可驗證的證明。",
+      "createdAt": "建立時間",
+      "person": "獻給",
+      "proofTitle": "證明資訊",
+      "status": "驗證狀態",
+      "contentHash": "內容雜湊",
+      "txHash": "交易雜湊",
+      "anchoredAt": "錨定時間",
+      "network": "網路",
+      "viewExplorer": "在區塊瀏覽器查看",
+      "state": {
+        "verified": "已在鏈上驗證",
+        "skipped_no_anchor": "尚未錨定",
+        "hash_mismatch": "證明不一致",
+        "missing_on_chain": "目前無法驗證",
+        "skipped_no_metadata": "目前無法驗證",
+        "skipped_no_rpc": "目前無法驗證"
+      }
     }
   },
   "wallet": {
@@ -152,7 +206,7 @@
   },
   "settings": {
     "title": "帳號設定",
-    "subtitle": "管理帳號資訊，並為後續錢包綁定預留設定。",
+    "subtitle": "管理帳號資訊、預設隱私，並為後續錢包綁定做好準備。",
     "email": "登入信箱",
     "defaultPrivacy": "預設隱私",
     "walletLinking": "錢包綁定（即將推出）",

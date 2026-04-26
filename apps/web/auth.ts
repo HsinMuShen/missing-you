@@ -2,9 +2,16 @@ import NextAuth from 'next-auth';
 import Email from 'next-auth/providers/email';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/db/client';
+import { env, getMissingRequiredEnvForDeployment, isProduction } from '@/lib/config/env';
+import { logger } from '@/lib/observability/logger';
 
-const AUTH_EMAIL_SERVER = process.env.AUTH_EMAIL_SERVER;
-const AUTH_EMAIL_FROM = process.env.AUTH_EMAIL_FROM || 'Missing You <no-reply@missing-you.local>';
+const AUTH_EMAIL_SERVER = env.AUTH_EMAIL_SERVER;
+const AUTH_EMAIL_FROM = env.AUTH_EMAIL_FROM || 'Missing You <no-reply@missing-you.local>';
+
+const missingEnv = getMissingRequiredEnvForDeployment();
+if (isProduction() && missingEnv.length > 0) {
+  logger.warn('Missing required production env vars', { missingEnv });
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),

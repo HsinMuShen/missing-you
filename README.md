@@ -99,6 +99,23 @@ Set in `apps/web/.env.local`:
 
 `pnpm --filter @missing-you/web build` runs `prisma generate` before `next build`.
 
+## Production readiness quick check
+
+Before first public release, verify:
+
+- `apps/web/.env.local` (or deploy env) includes required vars for DB, auth, and chain RPC.
+- `GET /api/health` returns `ok: true` and `ready: true`.
+- Prisma migrations are applied in production before serving traffic.
+- `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` matches the deployed contract for selected chain.
+- SMTP provider is configured for Auth.js email sign-in.
+
+## Security notes
+
+- Journal content remains off-chain by design; chain stores only proof metadata.
+- Private journals are not publicly accessible and non-owner access is treated as not-found.
+- Tx confirmation validates receipt status and contract target before DB persistence.
+- See detailed hardening notes: [Security and hardening](./docs/security-and-hardening.md).
+
 ## Contracts (Foundry)
 
 Foundry is **not** part of `pnpm build` so web developers can work without `forge` installed.
@@ -119,9 +136,9 @@ Deploy script: `script/Deploy.s.sol` — see `packages/contracts/README.md`.
 ## Roadmap (suggested)
 
 1. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
-2. Public share page policy + richer verification UX (owner, chain, timestamp display and mismatch recovery).  
-3. Journal CRUD Server Actions + optimistic UI improvements.  
-4. Hardening: rate limits, audit logs, content warnings, data export.  
+2. Production hardening: rate limits, audit logs, event-level tx validation.  
+3. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
+4. SRE improvements: monitoring, alerts, and incident runbooks.  
 
 ## Documentation
 

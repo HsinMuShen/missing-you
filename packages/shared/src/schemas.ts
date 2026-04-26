@@ -4,8 +4,13 @@ const journalPrivacySchema = z.enum(['private', 'share']);
 const journalStatusSchema = z.enum(['draft', 'anchored']);
 
 export const journalCreateSchema = z.object({
-  content: z.string().min(1).max(50_000),
-  person: z.string().max(200).nullable().optional(),
+  content: z.string().trim().min(1).max(50_000),
+  person: z
+    .string()
+    .trim()
+    .max(200)
+    .nullable()
+    .optional(),
   privacy: journalPrivacySchema,
 });
 
@@ -16,10 +21,10 @@ export type JournalCreateInput = z.infer<typeof journalCreateSchema>;
  */
 export const canonicalPayloadSchema = z.object({
   version: z.literal(1),
-  content: z.string(),
+  content: z.string().min(1),
   person: z.string().nullable(),
-  createdAt: z.string().min(1),
-  memoryId: z.string().min(1),
+  createdAt: z.string().datetime(),
+  memoryId: z.string().uuid(),
 });
 
 export type CanonicalPayloadInput = z.infer<typeof canonicalPayloadSchema>;
