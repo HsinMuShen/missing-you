@@ -32,10 +32,17 @@ export function JournalList() {
     return <p className="text-sm text-red-700">{error}</p>;
   }
   if (rows === null) {
-    return <p className="text-sm text-muted-foreground">…</p>;
+    return <p className="text-sm text-muted-foreground">{t('loading')}</p>;
   }
   if (rows.length === 0) {
-    return <p className="text-muted-foreground">{t('empty')}</p>;
+    return (
+      <div className="rounded-lg border border-border bg-card p-6 text-center">
+        <p className="text-muted-foreground">{t('empty')}</p>
+        <Link href="/write" className="mt-3 inline-block text-sm text-stone-700 underline-offset-4 hover:underline">
+          {t('emptyCta')}
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -54,6 +61,9 @@ export function JournalList() {
               <span>
                 {t('status')}: {j.status === 'anchored' ? t('anchored') : t('draft')}
               </span>
+              <span>
+                {t('visibility')}: {j.privacy === 'share' ? t('share') : t('private')}
+              </span>
               {j.status === 'anchored' && j.anchor?.txHash && j.anchor.txHash.length > 14 ? (
                 <span className="font-mono">
                   {tb('listTx')}: {j.anchor.txHash.slice(0, 10)}…{j.anchor.txHash.slice(-6)}
@@ -61,12 +71,22 @@ export function JournalList() {
               ) : null}
             </div>
           </div>
-          <Link
-            href={`/memory/${j.id}`}
-            className="shrink-0 text-sm font-medium text-stone-700 underline-offset-4 hover:underline"
-          >
-            {t('open')}
-          </Link>
+          <div className="flex items-center gap-3">
+            {j.privacy === 'share' ? (
+              <Link
+                href={`/memory/${j.id}`}
+                className="text-xs text-muted-foreground underline-offset-4 hover:underline"
+              >
+                {t('publicPage')}
+              </Link>
+            ) : null}
+            <Link
+              href={`/journal/${j.id}`}
+              className="shrink-0 text-sm font-medium text-stone-700 underline-offset-4 hover:underline"
+            >
+              {t('open')}
+            </Link>
+          </div>
         </li>
       ))}
     </ul>
