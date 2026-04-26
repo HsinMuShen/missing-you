@@ -148,6 +148,18 @@ Contract tests (Foundry):
 pnpm --filter @missing-you/contracts test
 ```
 
+Pre-commit checks (lint/tests/build):
+
+```bash
+pnpm precommit:check
+```
+
+Install local git pre-commit hook:
+
+```bash
+pnpm hooks:install
+```
+
 ## Roadmap (suggested)
 
 1. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
