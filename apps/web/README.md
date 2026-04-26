@@ -18,6 +18,8 @@ Next.js **App Router** application: **frontend + BFF** (Route Handlers + server 
    - `pnpm --filter @missing-you/web db:migrate`
 5. Start app:
    - `pnpm --filter @missing-you/web dev`
+6. (Optional) Seed demo data:
+   - `pnpm --filter @missing-you/web db:seed`
 
 ## Environment checklist
 
@@ -64,7 +66,7 @@ pnpm --filter @missing-you/web start
 ### Prisma in production
 
 - Prefer migration-based flow:
-  - `pnpm --filter @missing-you/web db:migrate`
+  - `pnpm --filter @missing-you/web db:migrate:deploy`
 - Ensure migrations are applied during deploy before serving traffic.
 
 ### Next.js hosting
@@ -83,3 +85,17 @@ Minimum production requirements:
 - Tx validation checks receipt status + target contract + contract log presence, but does not yet decode event args.
 - No request rate limiting yet.
 - No background queue/retry system for chain confirmation failures.
+
+## Testing
+
+```bash
+pnpm --filter @missing-you/web test:run
+```
+
+Coverage focus for MVP reliability:
+
+- canonical payload + hash determinism
+- verification service correctness
+- journal service state transitions
+- API auth/validation behavior
+- lightweight integration flow (`create -> prepare -> confirm -> verify`)

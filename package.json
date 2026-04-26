@@ -7,6 +7,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "hooks:install": "sh ./scripts/install-githooks.sh",
+    "precommit:check": "./scripts/precommit-check.sh",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "typecheck": "turbo run typecheck",
     "clean": "turbo run clean && rm -rf node_modules"

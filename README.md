@@ -132,18 +132,49 @@ Deploy script: `script/Deploy.s.sol` — see `packages/contracts/README.md`.
 ## API health
 
 `GET /api/health` — JSON `{ ok: true }` (not locale-prefixed).
+`GET /api/ready` — readiness probe (env completeness).
+
+## Testing
+
+Web tests (Vitest):
+
+```bash
+pnpm --filter @missing-you/web test:run
+```
+
+Contract tests (Foundry):
+
+```bash
+pnpm --filter @missing-you/contracts test
+```
+
+Pre-commit checks (lint/tests/build):
+
+```bash
+pnpm precommit:check
+```
+
+Install local git pre-commit hook:
+
+```bash
+pnpm hooks:install
+```
 
 ## Roadmap (suggested)
 
 1. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
 2. Production hardening: rate limits, audit logs, event-level tx validation.  
-3. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
-4. SRE improvements: monitoring, alerts, and incident runbooks.  
+3. SRE improvements: monitoring, alerts, and incident runbooks.  
+4. Security testing expansion: API fuzzing + E2E auth/privacy regression suite.  
 
 ## Documentation
 
 - [Product overview](./docs/overview.md)  
 - [Architecture](./docs/architecture.md)  
+- [Security and hardening](./docs/security-and-hardening.md)  
+- [Deployment guide](./docs/deployment.md)  
+- [Audit checklist](./docs/audit-checklist.md)  
+- [QA checklist](./docs/qa-checklist.md)  
 
 ## License
 
