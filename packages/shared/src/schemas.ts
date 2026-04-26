@@ -7,8 +7,6 @@ export const journalCreateSchema = z.object({
   content: z.string().min(1).max(50_000),
   person: z.string().max(200).nullable().optional(),
   privacy: journalPrivacySchema,
-  /** Dev-only: omit to use server default user until auth exists */
-  userId: z.string().uuid().optional(),
 });
 
 export type JournalCreateInput = z.infer<typeof journalCreateSchema>;

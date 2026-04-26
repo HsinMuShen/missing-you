@@ -15,22 +15,26 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.8.0",
     "@missing-you/shared": "workspace:*",
     "@missing-you/ui": "workspace:*",
     "@prisma/client": "^6.5.0",
     "@tanstack/react-query": "^5.69.0",
     "clsx": "^2.1.1",
-    "tailwind-merge": "^3.0.2",
     "next": "^15.2.4",
+    "next-auth": "^5.0.0-beta.25",
     "next-intl": "^3.26.5",
+    "nodemailer": "^7.0.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "tailwind-merge": "^3.0.2",
     "viem": "^2.24.1",
     "wagmi": "^2.14.15",
     "zod": "^3.24.2"
   },
   "devDependencies": {
     "@types/node": "^22.13.14",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
     "autoprefixer": "^10.4.21",

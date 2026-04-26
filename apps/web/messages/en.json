@@ -6,7 +6,9 @@
   "nav": {
     "write": "Write",
     "memories": "Memories",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
   },
   "footer": {
     "tagline": "Missing You — preserving memories with care."
@@ -138,5 +140,23 @@
     "title": "Page not found",
     "body": "That path does not exist or was moved.",
     "cta": "Back home"
+  },
+  "auth": {
+    "title": "Sign in",
+    "subtitle": "Use your email to receive a secure sign-in link. No wallet is required to start writing.",
+    "email": "Email address",
+    "send": "Send magic link",
+    "sending": "Sending…",
+    "sent": "Check your email for a sign-in link.",
+    "sendError": "Could not send sign-in email. Please try again."
+  },
+  "settings": {
+    "title": "Account settings",
+    "subtitle": "Manage your account details and prepare for optional wallet linking.",
+    "email": "Signed-in email",
+    "defaultPrivacy": "Default privacy",
+    "walletLinking": "Wallet link (coming soon)",
+    "walletPlaceholder": "Not linked yet",
+    "signOut": "Sign out"
   }
 }

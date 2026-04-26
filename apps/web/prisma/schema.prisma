@@ -1,5 +1,4 @@
 // Prisma — PostgreSQL. Journal text is off-chain only; MemoryAnchor mirrors on-chain proof metadata.
-// https://pris.ly/d/prisma-schema
 
 generator client {
   provider = "prisma-client-js"
@@ -11,10 +10,18 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
+  id             String    @id @default(uuid())
+  email          String    @unique
+  emailVerified  DateTime?
+  name           String?
+  image          String?
+  walletAddress  String?   @unique
+  defaultPrivacy String    @default("private")
+  createdAt      DateTime  @default(now())
 
   journals Journal[]
+  accounts Account[]
+  sessions Session[]
 }
 
 model Journal {
@@ -32,19 +39,55 @@ model Journal {
   updatedAt DateTime @updatedAt
 
   anchor MemoryAnchor?
+
+  @@index([userId, createdAt])
 }
 
 model MemoryAnchor {
-  id          String   @id @default(uuid())
-  journalId   String   @unique
-  journal     Journal  @relation(fields: [journalId], references: [id], onDelete: Cascade)
+  id              String   @id @default(uuid())
+  journalId       String   @unique
+  journal         Journal  @relation(fields: [journalId], references: [id], onDelete: Cascade)
 
-  memoryId    String
-  contentHash String
-  txHash      String?
-  chain       String
-  chainId     Int?
+  memoryId        String
+  contentHash     String
+  txHash          String?
+  chain           String
+  chainId         Int?
   contractAddress String?
-  anchoredAt  DateTime?
-  createdAt   DateTime @default(now())
+  anchoredAt      DateTime?
+  createdAt       DateTime @default(now())
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@id([identifier, token])
 }
