@@ -27,6 +27,24 @@ contract MemoryRegistryTest is Test {
         assertFalse(registry.verifyMemory(MEM_ID, bytes32(uint256(2))));
     }
 
+    function test_cannot_reuse_memory_id() public {
+        vm.prank(alice);
+        registry.anchorMemory(MEM_ID, HASH, false);
+
+        vm.prank(alice);
+        vm.expectRevert(MemoryRegistry.AlreadyAnchored.selector);
+        registry.anchorMemory(MEM_ID, bytes32(uint256(3)), true);
+    }
+
+    function test_get_memory_reverts_when_not_found() public {
+        vm.expectRevert(MemoryRegistry.NotFound.selector);
+        registry.getMemory(MEM_ID);
+    }
+
+    function test_verify_returns_false_when_not_found() public view {
+        assertFalse(registry.verifyMemory(MEM_ID, HASH));
+    }
+
     function test_setShareable_onlyRecordOwner() public {
         vm.prank(alice);
         registry.anchorMemory(MEM_ID, HASH, false);
@@ -38,11 +56,29 @@ contract MemoryRegistryTest is Test {
         assertTrue(r.shareable);
     }
 
+    function test_setShareable_reverts_for_non_owner() public {
+        vm.prank(alice);
+        registry.anchorMemory(MEM_ID, HASH, false);
+
+        vm.expectRevert(MemoryRegistry.Unauthorized.selector);
+        registry.setShareable(MEM_ID, true);
+    }
+
     function test_pause_blocks_anchor() public {
         registry.pause();
         vm.prank(alice);
         vm.expectRevert();
         registry.anchorMemory(MEM_ID, HASH, false);
+    }
+
+    function test_pause_blocks_set_shareable() public {
+        vm.prank(alice);
+        registry.anchorMemory(MEM_ID, HASH, false);
+        registry.pause();
+
+        vm.prank(alice);
+        vm.expectRevert();
+        registry.setShareable(MEM_ID, true);
     }
 
     function test_non_owner_cannot_pause() public {
