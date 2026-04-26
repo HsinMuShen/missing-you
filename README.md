@@ -75,13 +75,18 @@ pnpm --filter @missing-you/web db:migrate
 pnpm --filter @missing-you/web db:studio
 ```
 
-### Journal API (MVP)
+### Authentication + Journal API (MVP)
 
-- `POST /api/journals` — create draft (`content`, optional `person`, `privacy`: `private` | `share`).
-- `GET /api/journals` — list for `userId` query or default dev user (`DEFAULT_USER_ID` / built-in UUID).
-- `GET /api/journals/:id` — detail + `localVerification` + `chainVerification` (RPC read of `MemoryRegistry`).
-- `POST /api/journals/:id/prepare-anchor` — ensures `memoryId` (idempotent), returns `memoryIdBytes32`, canonical payload, SHA-256 `contentHash`, `shareable`.
-- `POST /api/journals/:id/confirm-anchor` — body `{ "txHash", "chainId", "contractAddress" }`; validates receipt via server RPC, then persists `MemoryAnchor` with `chainId` / `contractAddress`.
+Auth: **Auth.js (NextAuth v5 beta)** with Prisma adapter and email magic links.
+
+- `POST /api/journals` — create draft for the signed-in user (`content`, optional `person`, `privacy`: `private` | `share`).
+- `GET /api/journals` — list journals for the signed-in user only.
+- `GET /api/journals/:id` — detail + `localVerification` + `chainVerification`; private journals require owner session.
+- `POST /api/journals/:id/prepare-anchor` — owner-only; ensures `memoryId` (idempotent), returns `memoryIdBytes32`, canonical payload, SHA-256 `contentHash`, `shareable`.
+- `POST /api/journals/:id/confirm-anchor` — owner-only; body `{ "txHash", "chainId", "contractAddress" }`; validates receipt via server RPC, then persists `MemoryAnchor`.
+
+Protected pages: `/[locale]/write`, `/[locale]/memories`, `/[locale]/settings`.
+
 
 ### Blockchain (Polygon-compatible)
 
@@ -113,11 +118,10 @@ Deploy script: `script/Deploy.s.sol` — see `packages/contracts/README.md`.
 
 ## Roadmap (suggested)
 
-1. Authentication (wallet SIWE or email) and `User` linkage.  
-2. Journal CRUD Server Actions + repositories.  
-3. Anchor pipeline: canonical payload → hash → `MemoryRegistry.anchorMemory` → persist `MemoryAnchor`.  
-4. Public memory page + verification UI (read-only contract call).  
-5. Hardening: rate limits, audit logs, content warnings, data export.  
+1. Wallet linking flow (EIP-4361/SIWE style ownership proof) with `User.walletAddress`.  
+2. Public share page policy + richer verification UX (owner, chain, timestamp display and mismatch recovery).  
+3. Journal CRUD Server Actions + optimistic UI improvements.  
+4. Hardening: rate limits, audit logs, content warnings, data export.  
 
 ## Documentation
 

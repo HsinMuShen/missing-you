@@ -6,7 +6,9 @@
   "nav": {
     "write": "書寫",
     "memories": "回憶",
-    "settings": "設定"
+    "settings": "設定",
+    "signIn": "登入",
+    "signOut": "登出"
   },
   "footer": {
     "tagline": "Missing You — 以慎重之心保存回憶。"
@@ -138,5 +140,23 @@
     "title": "找不到頁面",
     "body": "這個路徑不存在或已移動。",
     "cta": "回到首頁"
+  },
+  "auth": {
+    "title": "登入",
+    "subtitle": "使用 Email 收取安全登入連結，開始書寫不需要先連接錢包。",
+    "email": "Email",
+    "send": "寄送登入連結",
+    "sending": "寄送中…",
+    "sent": "請到信箱點擊登入連結。",
+    "sendError": "登入信寄送失敗，請稍後再試。"
+  },
+  "settings": {
+    "title": "帳號設定",
+    "subtitle": "管理帳號資訊，並為後續錢包綁定預留設定。",
+    "email": "登入信箱",
+    "defaultPrivacy": "預設隱私",
+    "walletLinking": "錢包綁定（即將推出）",
+    "walletPlaceholder": "尚未綁定",
+    "signOut": "登出"
   }
 }

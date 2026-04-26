@@ -1,8 +1,15 @@
 import { getTranslations } from 'next-intl/server';
 import { Container } from '@missing-you/ui';
 import { JournalWriteForm } from '@/components/journals/journal-write-form';
+import { requirePageUser } from '@/lib/auth/page-guards';
 
-export default async function WritePage() {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
+
+export default async function WritePage({ params }: Props) {
+  const { locale } = await params;
+  await requirePageUser(locale, `/${locale}/write`);
   const t = await getTranslations('journals.write');
 
   return (
