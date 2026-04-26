@@ -16,7 +16,10 @@ export function getAnchorChainById(chainId: number): Chain | undefined {
 }
 
 export function getDefaultAnchorChainId(): number {
-  const raw = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_ANCHOR_CHAIN_ID : undefined;
+  const raw =
+    typeof process !== 'undefined'
+      ? process.env.NEXT_PUBLIC_ANCHOR_CHAIN_ID ?? process.env.NEXT_PUBLIC_CHAIN_ID
+      : undefined;
   const parsed = raw ? Number.parseInt(raw, 10) : Number.NaN;
   if (parsed === ANCHOR_CHAIN_IDS.polygon) return ANCHOR_CHAIN_IDS.polygon;
   return ANCHOR_CHAIN_IDS.polygonAmoy;

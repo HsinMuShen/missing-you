@@ -16,6 +16,7 @@ Next.js **App Router** application: **frontend + BFF** (Route Handlers + server 
 4. Prisma setup:
    - `pnpm --filter @missing-you/web db:generate`
    - `pnpm --filter @missing-you/web db:migrate`
+   - (optional reset) `pnpm --filter @missing-you/web db:reset`
 5. Start app:
    - `pnpm --filter @missing-you/web dev`
 6. (Optional) Seed demo data:
@@ -27,10 +28,15 @@ Next.js **App Router** application: **frontend + BFF** (Route Handlers + server 
 - `DATABASE_URL` — PostgreSQL DSN
 - `AUTH_SECRET`, `AUTH_URL` — Auth.js session/sign-in config
 - `AUTH_EMAIL_SERVER`, `AUTH_EMAIL_FROM` — email magic-link provider
+- `SENTRY_DSN` — optional monitoring sink (placeholder integration)
 - `NEXT_PUBLIC_ANCHOR_CHAIN_ID` — `80002` (Amoy) or `137` (Polygon)
+- `NEXT_PUBLIC_CHAIN_ID` — alias for anchor chain id (optional)
 - `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` — deployed `MemoryRegistry`
+- `NEXT_PUBLIC_CONTRACT_ADDRESS` — alias for registry address (optional)
 - `POLYGON_AMOY_RPC_URL`, `POLYGON_MAINNET_RPC_URL` — server-side receipt + chain reads
+- `RPC_URL` — generic RPC alias (optional)
 - `NEXT_PUBLIC_POLYGON_*_EXPLORER_BASE_URL` — optional explorer URL overrides
+- `NEXT_PUBLIC_EXPLORER_BASE_URL` — generic explorer alias (optional)
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — optional WalletConnect
 
 ## API hardening notes
@@ -68,6 +74,14 @@ pnpm --filter @missing-you/web start
 - Prefer migration-based flow:
   - `pnpm --filter @missing-you/web db:migrate:deploy`
 - Ensure migrations are applied during deploy before serving traffic.
+
+### Vercel quick setup
+
+1. Import repository into Vercel.
+2. Set root directory to `apps/web`.
+3. Configure all required env variables.
+4. Run `db:migrate:deploy` as part of release process.
+5. Verify `/api/ready` returns HTTP 200 after deploy.
 
 ### Next.js hosting
 

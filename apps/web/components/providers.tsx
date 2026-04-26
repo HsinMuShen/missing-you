@@ -9,6 +9,10 @@ import { useState, type ReactNode } from 'react';
 
 const wcProjectId =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID : undefined;
+const amoyRpcUrl =
+  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_POLYGON_AMOY_RPC_URL : undefined;
+const polygonRpcUrl =
+  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_POLYGON_MAINNET_RPC_URL : undefined;
 
 /**
  * Polygon-compatible chains for MemoryRegistry. Default chain comes from `NEXT_PUBLIC_ANCHOR_CHAIN_ID`
@@ -42,8 +46,8 @@ const wagmiConfig = createConfig({
   chains: orderedChains,
   connectors,
   transports: {
-    [polygonAmoy.id]: http(),
-    [polygon.id]: http(),
+    [polygonAmoy.id]: http(amoyRpcUrl),
+    [polygon.id]: http(polygonRpcUrl),
   },
   ssr: true,
   storage: createStorage({ storage: cookieStorage }),

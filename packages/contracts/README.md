@@ -30,18 +30,56 @@ pnpm compile
 forge test
 ```
 
-## Deploy (Polygon Amoy example)
+## Deploy
 
-Set `POLYGON_AMOY_RPC_URL`, then:
+Set required env first:
+
+- `PRIVATE_KEY` (deployer wallet private key; never commit)
+- `POLYGON_AMOY_RPC_URL` for testnet
+- `POLYGON_RPC_URL` for Polygon mainnet
+
+### Amoy (testnet)
 
 ```bash
-forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_AMOY_RPC_URL --broadcast
+pnpm deploy:amoy
+DEPLOY_NETWORK=amoy DEPLOY_CHAIN_ID=80002 pnpm save:deployment
 ```
 
-Record the deployed address in `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` for the web app.
+### Polygon mainnet
+
+```bash
+pnpm deploy:polygon
+DEPLOY_NETWORK=polygon DEPLOY_CHAIN_ID=137 pnpm save:deployment
+```
+
+Both commands broadcast `script/Deploy.s.sol` and save deployment metadata to:
+
+- `deployments/MemoryRegistry.amoy.json`
+- `deployments/MemoryRegistry.polygon.json`
+
+### ABI export
+
+After compile/deploy:
+
+```bash
+pnpm compile
+pnpm export:abi
+```
+
+ABI file is exported to `deployments/MemoryRegistry.abi.json`.
+
+### Update web app config
+
+After deployment, set:
+
+- `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` (or `NEXT_PUBLIC_CONTRACT_ADDRESS`)
+- `NEXT_PUBLIC_ANCHOR_CHAIN_ID` (or `NEXT_PUBLIC_CHAIN_ID`)
+- RPC URLs in `apps/web/.env.local` (or deployment platform env)
 
 ## Layout
 
 - `src/MemoryRegistry.sol` — `Ownable` + `Pausable` (OpenZeppelin), `anchorMemory`, `getMemory`, `verifyMemory`, `setShareable`
 - `script/Deploy.s.sol` — deploy entrypoint (`owner` = deployer)
 - `test/MemoryRegistry.t.sol` — unit tests
+- `scripts/export-abi.mjs` — export ABI for infra/frontend consumption
+- `scripts/save-deployment.mjs` — persist deployed address/chain metadata

@@ -6,7 +6,9 @@ import type { Address } from 'viem';
  */
 export function getMemoryRegistryAddress(): Address | undefined {
   const raw =
-    typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS : undefined;
+    typeof process !== 'undefined'
+      ? process.env.NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS ?? process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+      : undefined;
   if (!raw || !raw.startsWith('0x') || raw.length !== 42) {
     return undefined;
   }

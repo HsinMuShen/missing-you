@@ -10,8 +10,9 @@ import {MemoryRegistry} from "../src/MemoryRegistry.sol";
  */
 contract DeployScript is Script {
     function run() external {
-        address deployer = msg.sender;
-        vm.startBroadcast();
+        uint256 privateKey = vm.envUint("PRIVATE_KEY");
+        address deployer = vm.addr(privateKey);
+        vm.startBroadcast(privateKey);
         MemoryRegistry registry = new MemoryRegistry(deployer);
         console2.log("MemoryRegistry:", address(registry));
         console2.log("Owner (pause admin):", deployer);
