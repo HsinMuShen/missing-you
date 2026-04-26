@@ -195,6 +195,8 @@ pnpm hooks:install
 - [Deployment guide](./docs/deployment.md)  
 - [Audit checklist](./docs/audit-checklist.md)  
 - [QA checklist](./docs/qa-checklist.md)  
+- [10-minute QA script](./docs/qa-10-minute-script.md)  
+- [User product guide](./docs/user-readme.md)  
 
 ## License
 

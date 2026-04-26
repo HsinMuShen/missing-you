@@ -1,15 +1,21 @@
 import { z } from 'zod';
 
-const optionalUrl = z.string().url().optional();
+const emptyToUndefined = (value: unknown) => {
+  if (typeof value === 'string' && value.trim() === '') return undefined;
+  return value;
+};
+
+const optionalUrl = z.preprocess(emptyToUndefined, z.string().url().optional());
+const optionalNonEmpty = z.preprocess(emptyToUndefined, z.string().min(1).optional());
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
-  DATABASE_URL: z.string().min(1).optional(),
+  DATABASE_URL: optionalNonEmpty,
 
-  AUTH_SECRET: z.string().min(1).optional(),
+  AUTH_SECRET: optionalNonEmpty,
   AUTH_URL: optionalUrl,
-  AUTH_EMAIL_SERVER: z.string().min(1).optional(),
-  AUTH_EMAIL_FROM: z.string().min(1).optional(),
+  AUTH_EMAIL_SERVER: optionalNonEmpty,
+  AUTH_EMAIL_FROM: optionalNonEmpty,
   SENTRY_DSN: optionalUrl,
 
   NEXT_PUBLIC_APP_URL: optionalUrl,
@@ -17,7 +23,7 @@ const envSchema = z.object({
   NEXT_PUBLIC_ANCHOR_CHAIN_ID: z.enum(['137', '80002']).optional(),
   NEXT_PUBLIC_CONTRACT_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
   NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
-  NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: z.string().min(1).optional(),
+  NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: optionalNonEmpty,
   NEXT_PUBLIC_POLYGON_AMOY_RPC_URL: optionalUrl,
   NEXT_PUBLIC_POLYGON_MAINNET_RPC_URL: optionalUrl,
 
