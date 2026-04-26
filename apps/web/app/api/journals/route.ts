@@ -17,13 +17,13 @@ export async function GET() {
 
 export async function POST(req: Request) {
   try {
-    const { userId, response } = await requireApiUser();
+    const { userId, response } = await requireApiUser(req);
     if (!userId) return response as NextResponse;
 
     const body: unknown = await req.json();
     const journal = await journalService.createJournal(body, userId);
     return NextResponse.json(journal, { status: 201 });
   } catch (err) {
-    return jsonError(err);
+    return jsonError(err, req);
   }
 }

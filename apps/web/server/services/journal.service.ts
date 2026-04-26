@@ -88,7 +88,7 @@ function chainLabelFromId(chainId: number): string {
 
 function assertOwner(row: JournalWithAnchor, requesterUserId: string) {
   if (row.userId !== requesterUserId) {
-    throw new JournalServiceError('You do not have access to this journal', 'FORBIDDEN', 403);
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
   }
 }
 
@@ -135,7 +135,7 @@ async function validateShareabilityTx(input: {
 export async function createJournal(input: unknown, requesterUserId: string): Promise<Journal> {
   const parsed = journalCreateSchema.safeParse(input);
   if (!parsed.success) {
-    throw new JournalServiceError(parsed.error.message, 'VALIDATION', 400);
+    throw new JournalServiceError('Invalid journal payload', 'VALIDATION', 400);
   }
 
   const person =
@@ -165,7 +165,7 @@ export async function getJournalById(id: string, requesterUserId?: string): Prom
 
   const privacy = assertPrivacy(row.privacy);
   if (privacy === 'private' && (!requesterUserId || row.userId !== requesterUserId)) {
-    throw new JournalServiceError('This private journal is not accessible', 'FORBIDDEN', 403);
+    throw new JournalServiceError('Journal not found', 'NOT_FOUND', 404);
   }
 
   return toJournalDto(row);

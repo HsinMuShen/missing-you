@@ -5,6 +5,7 @@ import { Container } from '@missing-you/ui';
 import { getJournalChainVerification } from '@/server/services/blockchain-proof.service';
 import * as journalService from '@/server/services/journal.service';
 import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
+import { getPublicAppUrl } from '@/lib/config/env';
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 
@@ -21,27 +22,31 @@ async function getPublicJournal(id: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const journal = await getPublicJournal(id);
+  const appUrl = getPublicAppUrl();
 
   if (!journal) {
     return {
       title: 'Missing You',
       description: 'Memory unavailable',
       robots: { index: false, follow: false },
+      metadataBase: new URL(appUrl),
     };
   }
 
-  const title = journal.person ? `Memory for ${journal.person} · Missing You` : `Shared Memory · Missing You`;
+  const title = 'Shared Memory · Missing You';
   const description = journal.anchor
     ? 'This memory is shared with cryptographic proof anchored on-chain.'
     : 'This memory is shared from Missing You.';
 
   return {
+    metadataBase: new URL(appUrl),
     title,
     description,
     openGraph: {
       title,
       description,
       type: 'article',
+      url: `/${(await params).locale}/memory/${id}`,
     },
   };
 }

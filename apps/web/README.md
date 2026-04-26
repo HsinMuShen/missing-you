@@ -1,33 +1,85 @@
 # `@missing-you/web`
 
-Next.js **App Router** application: **frontend + BFF** (Route Handlers, Server Actions). Uses **Tailwind**, **next-intl**, **wagmi/viem**, and **Prisma**.
+Next.js **App Router** application: **frontend + BFF** (Route Handlers + server services). Uses **Tailwind**, **next-intl**, **wagmi/viem**, and **Prisma**.
 
 ## Local setup
 
-1. `cp .env.example .env.local` and set `DATABASE_URL`, `AUTH_SECRET`, and `AUTH_URL`.  
-2. (Optional for real email) set `AUTH_EMAIL_SERVER` + `AUTH_EMAIL_FROM`; otherwise dev mode logs magic links.  
-3. From monorepo root: `pnpm install`.  
-4. `pnpm --filter @missing-you/web db:push`  
-5. `pnpm --filter @missing-you/web dev`  
+1. Copy env file:
+   - `cp .env.example .env.local`
+2. Fill required values:
+   - `DATABASE_URL`
+   - `AUTH_SECRET`
+   - `AUTH_URL`
+   - `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS`
+   - RPC URL for selected anchor chain (`POLYGON_AMOY_RPC_URL` or `POLYGON_MAINNET_RPC_URL`)
+3. From monorepo root: `pnpm install`
+4. Prisma setup:
+   - `pnpm --filter @missing-you/web db:generate`
+   - `pnpm --filter @missing-you/web db:migrate`
+5. Start app:
+   - `pnpm --filter @missing-you/web dev`
+
+## Environment checklist
+
+- `NEXT_PUBLIC_APP_URL` — canonical app URL for metadata/share links
+- `DATABASE_URL` — PostgreSQL DSN
+- `AUTH_SECRET`, `AUTH_URL` — Auth.js session/sign-in config
+- `AUTH_EMAIL_SERVER`, `AUTH_EMAIL_FROM` — email magic-link provider
+- `NEXT_PUBLIC_ANCHOR_CHAIN_ID` — `80002` (Amoy) or `137` (Polygon)
+- `NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS` — deployed `MemoryRegistry`
+- `POLYGON_AMOY_RPC_URL`, `POLYGON_MAINNET_RPC_URL` — server-side receipt + chain reads
+- `NEXT_PUBLIC_POLYGON_*_EXPLORER_BASE_URL` — optional explorer URL overrides
+- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` — optional WalletConnect
+
+## API hardening notes
+
+- Request validation uses shared and route-level **zod** schemas.
+- Unauthorized responses include stable error shape (`error`, `code`, `requestId`).
+- Service-level access checks return `404` for non-owned journals to reduce resource enumeration.
+- Private memories are never rendered on public routes.
 
 ## Folders
 
-- `app/[locale]/` — locale-aware pages.  
-- `app/api/` — route handlers (BFF).  
-- `components/` — app UI.  
-- `lib/db`, `lib/hashing`, `lib/blockchain`, `lib/auth` — infrastructure stubs / helpers.  
-- `server/actions|repositories|services` — future domain layer.  
-- `messages/` — `en.json`, `zh-TW.json` copy.  
+- `app/[locale]/` — locale-aware pages
+- `app/api/` — BFF route handlers
+- `lib/db`, `lib/hashing`, `lib/blockchain`, `lib/auth`, `lib/config`, `lib/observability`
+- `server/actions|repositories|services|schemas`
+- `messages/` — `en.json`, `zh-TW.json`
 
-## i18n
+## Deployment notes
 
-Locales: `en`, `zh-TW`. Prefix always on (`/en/...`, `/zh-TW/...`). Language switcher: `components/language-switcher.tsx`.
+### Build + run
 
+```bash
+pnpm --filter @missing-you/web build
+pnpm --filter @missing-you/web start
+```
 
-## Auth
+### Health/readiness endpoint
 
-- Provider: Email magic-link (`next-auth/providers/email`)
-- Adapter: Prisma (`@auth/prisma-adapter`)
-- Route handlers: `app/api/auth/[...nextauth]/route.ts`
-- Page guards: `lib/auth/page-guards.ts`
-- API guards: `lib/auth/route-guards.ts`
+- `GET /api/health` — lightweight health check
+- `GET /api/ready` — readiness (env completeness) check for deployment
+- In production, returns `503` if required env is missing.
+
+### Prisma in production
+
+- Prefer migration-based flow:
+  - `pnpm --filter @missing-you/web db:migrate`
+- Ensure migrations are applied during deploy before serving traffic.
+
+### Next.js hosting
+
+Works on Vercel, Fly.io, Render, Railway, or container-based hosting.
+
+Minimum production requirements:
+
+- stable Postgres
+- persistent Auth.js secret
+- reliable SMTP provider
+- RPC provider for selected chain
+
+## Known limitations
+
+- Tx validation checks receipt status + target contract + contract log presence, but does not yet decode event args.
+- No request rate limiting yet.
+- No background queue/retry system for chain confirmation failures.
