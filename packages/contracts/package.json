@@ -4,6 +4,10 @@
   "scripts": {
     "compile": "forge build",
     "test": "forge test",
+    "deploy:amoy": "forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_AMOY_RPC_URL --broadcast",
+    "deploy:polygon": "forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_RPC_URL --broadcast",
+    "export:abi": "node scripts/export-abi.mjs",
+    "save:deployment": "node scripts/save-deployment.mjs",
     "clean": "rm -rf cache out",
     "lint": "echo \"Solidity: use forge fmt && slither when adopted\"",
     "typecheck": "echo \"N/A for Solidity\""

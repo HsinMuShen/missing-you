@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { Container } from '@missing-you/ui';
+import { Link } from '@/lib/i18n/navigation';
 import { requirePageUser } from '@/lib/auth/page-guards';
 import { OwnerMemoryDetailPanel } from '@/components/journals/owner-memory-detail-panel';
 
@@ -11,9 +12,15 @@ export default async function OwnerJournalPage({ params }: Props) {
   const t = await getTranslations('journals.owner');
 
   return (
-    <Container className="py-16 sm:py-20">
-      <p className="text-xs text-muted-foreground font-mono">{id}</p>
-      <h1 className="mt-2 font-display text-3xl font-medium text-foreground">{t('title')}</h1>
+    <Container className="pb-16 pt-6 sm:pb-20 sm:pt-8">
+      <Link
+        href="/memories"
+        className="mb-10 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <span aria-hidden="true">&lt;</span>
+        <span>{t('backToMemories')}</span>
+      </Link>
+      <h1 className="font-display text-3xl font-medium text-foreground">{t('title')}</h1>
       <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
       <OwnerMemoryDetailPanel id={id} />
     </Container>

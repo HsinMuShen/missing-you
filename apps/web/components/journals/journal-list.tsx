@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import type { Journal } from '@missing-you/shared';
 import { Link } from '@/lib/i18n/navigation';
+import { Button } from '@missing-you/ui';
 
 export function JournalList() {
   const t = useTranslations('journals.memories');
@@ -80,12 +81,11 @@ export function JournalList() {
                 {t('publicPage')}
               </Link>
             ) : null}
-            <Link
-              href={`/journal/${j.id}`}
-              className="shrink-0 text-sm font-medium text-stone-700 underline-offset-4 hover:underline"
-            >
-              {t('open')}
-            </Link>
+            <Button asChild type="button" size="sm" variant="secondary">
+              <Link href={`/journal/${j.id}`} className="shrink-0">
+                {t('open')}
+              </Link>
+            </Button>
           </div>
         </li>
       ))}

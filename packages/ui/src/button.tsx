@@ -9,10 +9,11 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          'bg-stone-800 text-stone-50 hover:bg-stone-700 focus-visible:outline-stone-400',
+          'border border-stone-800 bg-stone-800 text-stone-50 hover:bg-stone-700 focus-visible:outline-stone-400',
         secondary:
           'border border-stone-300 bg-white/80 text-stone-800 hover:bg-stone-50 focus-visible:outline-stone-300',
-        ghost: 'text-stone-700 hover:bg-stone-100/80 focus-visible:outline-stone-300',
+        ghost:
+          'border border-stone-300 bg-stone-50 text-stone-700 hover:bg-stone-100/80 focus-visible:outline-stone-300',
       },
       size: {
         sm: 'h-9 px-4',

@@ -4,6 +4,7 @@
     "description": "一個安靜書寫思念的空間。文字安心保存在鏈下；可將密碼學證明錨定到鏈上。"
   },
   "nav": {
+    "menu": "選單",
     "write": "書寫",
     "memories": "回憶",
     "settings": "設定",
@@ -39,6 +40,88 @@
     "privacy": {
       "title": "以隱私為先",
       "body": "日記內容保存在鏈下。鏈上只保存識別資訊與密碼學承諾——永遠不是你的整封信或完整日記。"
+    },
+    "value": {
+      "cards": {
+        "private": {
+          "title": "預設私人",
+          "body": "完整內容保存在鏈下資料庫，不會公開上鏈。"
+        },
+        "proof": {
+          "title": "值得信任的證明",
+          "body": "系統將標準化雜湊錨定到鏈上，方便日後驗證。"
+        },
+        "share": {
+          "title": "在你準備好時再分享",
+          "body": "可先私密保存，之後再開啟公開頁面。"
+        }
+      }
+    },
+    "flow": {
+      "title": "從心意到證明，一條清楚的路徑",
+      "body": "每個步驟都以簡單、平靜、可信為核心。",
+      "steps": {
+        "write": {
+          "title": "書寫",
+          "body": "用自己的語氣記下回憶。"
+        },
+        "save": {
+          "title": "鏈下儲存",
+          "body": "完整內容以私密方式保存於資料庫。"
+        },
+        "anchor": {
+          "title": "錨定證明",
+          "body": "只把雜湊與必要後設資料送上鏈。"
+        },
+        "share": {
+          "title": "設定可見性",
+          "body": "可保持私人，或開啟公開頁面。"
+        },
+        "verify": {
+          "title": "日後驗證",
+          "body": "隨時比對證明細節是否一致。"
+        }
+      }
+    },
+    "journey": {
+      "title": "為重要回憶設計的溫柔旅程",
+      "body": "Missing You 把情感書寫與可信驗證結合。你可以先安心書寫，準備好再錨定證明，最後再決定是否分享。",
+      "points": {
+        "one": "先寫下回憶，不必先連接錢包。",
+        "two": "上鏈的是證明，不是全文。",
+        "three": "分享時附上可驗證資訊，更安心。"
+      },
+      "card": {
+        "draftLabel": "私人草稿",
+        "draftBody": "「每逢下雨，我還是會想到你的笑聲。」",
+        "proofLabel": "已錨定證明",
+        "proofBody": "已記錄 SHA-256 與交易後設資料。",
+        "shareLabel": "公開頁面",
+        "shareBody": "可分享回憶，並附上驗證面板。"
+      }
+    },
+    "faq": {
+      "title": "大家最先問的問題",
+      "items": {
+        "onChain": {
+          "q": "我的完整回憶會上鏈嗎？",
+          "a": "不會。上鏈的是證明後設資料，完整內容保存在鏈下。"
+        },
+        "stored": {
+          "q": "鏈上實際存了什麼？",
+          "a": "記憶鍵、內容雜湊、擁有者/時間資訊與分享狀態。"
+        },
+        "private": {
+          "q": "可以一直保持私人嗎？",
+          "a": "可以。除非你主動開啟分享，否則只有擁有者可見。"
+        }
+      }
+    },
+    "finalCta": {
+      "title": "今天就從一段回憶開始",
+      "body": "在平靜的空間裡書寫，留下可長久驗證的證明。",
+      "primary": "寫一段回憶",
+      "secondary": "查看回憶"
     }
   },
   "journals": {
@@ -60,7 +143,7 @@
       "title": "你的回憶",
       "empty": "目前還沒有回憶，先寫下一段對你重要的時刻。",
       "loadError": "無法載入回憶列表。",
-      "open": "開啟",
+      "open": "查看內容",
       "status": "狀態",
       "draft": "草稿",
       "anchored": "已錨定",
@@ -123,6 +206,7 @@
     "owner": {
       "title": "你的回憶",
       "subtitle": "在這裡管理可見性、錨定狀態與驗證資訊。",
+      "backToMemories": "回到回憶列表",
       "loading": "正在載入回憶…",
       "visibilityTitle": "分享設定",
       "visibilityHelp": "你可以調整誰能看到這段回憶。內容仍保存在鏈下，鏈上只保存證明資訊。",
@@ -169,6 +253,7 @@
     }
   },
   "wallet": {
+    "connect": "連接錢包",
     "disconnect": "中斷連線"
   },
   "placeholders": {
@@ -209,8 +294,30 @@
     "subtitle": "管理帳號資訊、預設隱私，並為後續錢包綁定做好準備。",
     "email": "登入信箱",
     "defaultPrivacy": "預設隱私",
-    "walletLinking": "錢包綁定（即將推出）",
+    "walletLinking": "錢包綁定",
     "walletPlaceholder": "尚未綁定",
-    "signOut": "登出"
+    "signOut": "登出",
+    "privacy": {
+      "label": "預設隱私",
+      "private": "私人",
+      "share": "可分享",
+      "save": "儲存",
+      "saving": "儲存中…",
+      "saved": "預設隱私已更新。",
+      "saveFailed": "更新預設隱私失敗。"
+    },
+    "wallet": {
+      "notLinked": "尚未綁定",
+      "connectFirst": "請先在頁首選單連接錢包。",
+      "link": "綁定目前連接錢包",
+      "linking": "綁定中…",
+      "unlink": "解除綁定",
+      "unlinking": "解除中…",
+      "hint": "綁定會要求你簽署訊息以驗證所有權，不會產生 Gas 費。",
+      "linkedSuccess": "錢包綁定成功。",
+      "unlinkedSuccess": "錢包已解除綁定。",
+      "linkFailed": "錢包綁定失敗。",
+      "unlinkFailed": "解除綁定失敗。"
+    }
   }
 }

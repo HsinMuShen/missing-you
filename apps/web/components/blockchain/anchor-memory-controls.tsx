@@ -39,9 +39,11 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       {!isConnected ? (
         <p className="text-sm text-amber-900/90">{t('connectPrompt')}</p>
       ) : (
-        <Button type="button" disabled={busy} onClick={() => void runAnchor()}>
-          {t('cta')}
-        </Button>
+        <div className="flex justify-end">
+          <Button type="button" size="sm" disabled={busy} onClick={() => void runAnchor()}>
+            {t('cta')}
+          </Button>
+        </div>
       )}
 
       {phase !== 'idle' && phase !== 'error' ? (
@@ -57,9 +59,11 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       {error ? <p className="text-sm text-red-700">{errLabel}</p> : null}
 
       {phase === 'error' || phase === 'success' ? (
-        <Button type="button" variant="ghost" size="sm" onClick={reset}>
-          {t('reset')}
-        </Button>
+        <div className="flex justify-end">
+          <Button type="button" variant="secondary" size="sm" onClick={reset}>
+            {t('reset')}
+          </Button>
+        </div>
       ) : null}
     </div>
   );

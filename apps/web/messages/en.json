@@ -4,6 +4,7 @@
     "description": "A calm place to write about people you miss. Your words stay private off-chain; a cryptographic proof can be anchored on-chain."
   },
   "nav": {
+    "menu": "Menu",
     "write": "Write",
     "memories": "Memories",
     "settings": "Settings",
@@ -39,6 +40,88 @@
     "privacy": {
       "title": "Privacy-first by design",
       "body": "Journal content stays off-chain. The chain holds only identifiers and cryptographic commitments — never your full letter, story, or diary entry."
+    },
+    "value": {
+      "cards": {
+        "private": {
+          "title": "Private by default",
+          "body": "Your full memory text remains off-chain in secure storage."
+        },
+        "proof": {
+          "title": "Proof you can trust",
+          "body": "A canonical hash is anchored on-chain so authenticity is verifiable."
+        },
+        "share": {
+          "title": "Share only when ready",
+          "body": "Publish a gentle public page while keeping private drafts hidden."
+        }
+      }
+    },
+    "flow": {
+      "title": "A clear flow, from feeling to proof",
+      "body": "Each step is designed to feel simple, calm, and trustworthy.",
+      "steps": {
+        "write": {
+          "title": "Write",
+          "body": "Capture your memory in your own words."
+        },
+        "save": {
+          "title": "Save off-chain",
+          "body": "Store full content privately in the database."
+        },
+        "anchor": {
+          "title": "Anchor proof",
+          "body": "Send only hash metadata to the chain."
+        },
+        "share": {
+          "title": "Choose visibility",
+          "body": "Keep private or enable a public page."
+        },
+        "verify": {
+          "title": "Verify later",
+          "body": "Compare proof details at any time."
+        }
+      }
+    },
+    "journey": {
+      "title": "A gentle journey for memories that matter",
+      "body": "Missing You blends emotional writing with practical trust. You write freely, choose when to anchor proof, and share only if or when it feels right.",
+      "points": {
+        "one": "Write first, no wallet required.",
+        "two": "Anchor only proof, never full journal text.",
+        "three": "Share confidently with verifiable details."
+      },
+      "card": {
+        "draftLabel": "Private draft",
+        "draftBody": "\"I still hear your laugh on rainy days.\"",
+        "proofLabel": "Anchored proof",
+        "proofBody": "SHA-256 hash + tx metadata recorded.",
+        "shareLabel": "Public page",
+        "shareBody": "Shared memory with verification panel."
+      }
+    },
+    "faq": {
+      "title": "Questions people ask first",
+      "items": {
+        "onChain": {
+          "q": "Is my full memory content on-chain?",
+          "a": "No. Only proof metadata is anchored on-chain; full content stays off-chain."
+        },
+        "stored": {
+          "q": "What is stored on-chain?",
+          "a": "A memory key, content hash, owner/time metadata, and shareability state."
+        },
+        "private": {
+          "q": "Can I keep a memory private forever?",
+          "a": "Yes. Private memories remain owner-only unless you choose to share."
+        }
+      }
+    },
+    "finalCta": {
+      "title": "Start with one memory today",
+      "body": "A calm place to remember, with proof that can last.",
+      "primary": "Write a memory",
+      "secondary": "View memories"
     }
   },
   "journals": {
@@ -60,7 +143,7 @@
       "title": "Your memories",
       "empty": "No memories yet. Start with one moment that matters.",
       "loadError": "Could not load memories.",
-      "open": "Open",
+      "open": "View details",
       "status": "Status",
       "draft": "Draft",
       "anchored": "Anchored",
@@ -123,6 +206,7 @@
     "owner": {
       "title": "Your memory",
       "subtitle": "Manage visibility, anchoring, and share confidence from one place.",
+      "backToMemories": "Back to memories",
       "loading": "Loading memory…",
       "visibilityTitle": "Shareability",
       "visibilityHelp": "You can change who sees the memory. The content stays off-chain; only proof metadata is on-chain.",
@@ -169,6 +253,7 @@
     }
   },
   "wallet": {
+    "connect": "Connect wallet",
     "disconnect": "Disconnect"
   },
   "placeholders": {
@@ -209,8 +294,30 @@
     "subtitle": "Manage account details, privacy defaults, and upcoming wallet linking.",
     "email": "Signed-in email",
     "defaultPrivacy": "Default privacy",
-    "walletLinking": "Wallet link (coming soon)",
+    "walletLinking": "Wallet link",
     "walletPlaceholder": "Not linked yet",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "privacy": {
+      "label": "Default privacy",
+      "private": "Private",
+      "share": "Shareable",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Default privacy updated.",
+      "saveFailed": "Could not update default privacy."
+    },
+    "wallet": {
+      "notLinked": "Not linked yet",
+      "connectFirst": "Connect a wallet in the header menu first.",
+      "link": "Link connected wallet",
+      "linking": "Linking…",
+      "unlink": "Unlink wallet",
+      "unlinking": "Unlinking…",
+      "hint": "Linking requires a signature to prove wallet ownership. No gas is charged.",
+      "linkedSuccess": "Wallet linked successfully.",
+      "unlinkedSuccess": "Wallet unlinked successfully.",
+      "linkFailed": "Could not link wallet.",
+      "unlinkFailed": "Could not unlink wallet."
+    }
   }
 }

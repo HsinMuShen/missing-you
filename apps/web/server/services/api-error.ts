@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import { JournalServiceError } from '@/server/services/journal.service';
 import { getRequestId, logger, serializeError } from '@/lib/observability/logger';
+import { captureException } from '@/lib/observability/sentry';
 
 export type ApiErrorBody = {
   error: string;
@@ -47,5 +48,6 @@ export function jsonError(err: unknown, req?: Request) {
   }
 
   logger.error('Unhandled API error', { requestId, ...serializeError(err) });
+  captureException(err, { requestId });
   return jsonApiError(500, { error: 'Internal server error', code: 'INTERNAL_ERROR' }, requestId);
 }

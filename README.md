@@ -39,6 +39,17 @@ pnpm dev
 
 Opens the Next.js app (default [http://localhost:3000](http://localhost:3000)) — middleware redirects to a locale prefix (e.g. `/en`).
 
+## Deploy (Vercel recommended)
+
+1. Import repository into Vercel.
+2. Set project root to `apps/web`.
+3. Configure required environment variables from `apps/web/.env.example`.
+4. Provision PostgreSQL (Neon/Supabase/Railway) and set `DATABASE_URL`.
+5. Run Prisma migrations before serving traffic:
+   - `pnpm --filter @missing-you/web db:migrate:deploy`
+6. Verify readiness endpoint:
+   - `GET /api/ready` returns HTTP 200.
+
 ## Build
 
 TypeScript / Next.js (contracts use Foundry separately — see below):
@@ -134,6 +145,15 @@ Deploy script: `script/Deploy.s.sol` — see `packages/contracts/README.md`.
 `GET /api/health` — JSON `{ ok: true }` (not locale-prefixed).
 `GET /api/ready` — readiness probe (env completeness).
 
+## CI/CD
+
+GitHub Actions workflow: `.github/workflows/ci.yml`
+
+- Web: install, lint, test, build
+- Contracts: `forge test`
+
+Recommended branch protection: require CI checks before merging to `main`.
+
 ## Testing
 
 Web tests (Vitest):
@@ -175,6 +195,9 @@ pnpm hooks:install
 - [Deployment guide](./docs/deployment.md)  
 - [Audit checklist](./docs/audit-checklist.md)  
 - [QA checklist](./docs/qa-checklist.md)  
+- [10-minute QA script](./docs/qa-10-minute-script.md)  
+- [User product guide](./docs/user-readme.md)  
+- [User product guide (zh-TW)](./docs/user-readme.zh-TW.md)  
 
 ## License
 
