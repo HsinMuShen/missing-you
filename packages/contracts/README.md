@@ -10,8 +10,8 @@ Foundry project for **MemoryRegistry** — on-chain proof metadata only; journal
 
 ```bash
 cd packages/contracts
-forge install --no-commit foundry-rs/forge-std
-forge install --no-commit OpenZeppelin/openzeppelin-contracts@v5.1.0
+forge install foundry-rs/forge-std
+forge install OpenZeppelin/openzeppelin-contracts@v5.1.0
 ```
 
 See `lib/README.md` for remapped paths.
