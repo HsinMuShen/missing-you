@@ -143,7 +143,7 @@
       "title": "你的回憶",
       "empty": "目前還沒有回憶，先寫下一段對你重要的時刻。",
       "loadError": "無法載入回憶列表。",
-      "open": "開啟",
+      "open": "查看內容",
       "status": "狀態",
       "draft": "草稿",
       "anchored": "已錨定",
@@ -206,6 +206,7 @@
     "owner": {
       "title": "你的回憶",
       "subtitle": "在這裡管理可見性、錨定狀態與驗證資訊。",
+      "backToMemories": "回到回憶列表",
       "loading": "正在載入回憶…",
       "visibilityTitle": "分享設定",
       "visibilityHelp": "你可以調整誰能看到這段回憶。內容仍保存在鏈下，鏈上只保存證明資訊。",
@@ -293,8 +294,30 @@
     "subtitle": "管理帳號資訊、預設隱私，並為後續錢包綁定做好準備。",
     "email": "登入信箱",
     "defaultPrivacy": "預設隱私",
-    "walletLinking": "錢包綁定（即將推出）",
+    "walletLinking": "錢包綁定",
     "walletPlaceholder": "尚未綁定",
-    "signOut": "登出"
+    "signOut": "登出",
+    "privacy": {
+      "label": "預設隱私",
+      "private": "私人",
+      "share": "可分享",
+      "save": "儲存",
+      "saving": "儲存中…",
+      "saved": "預設隱私已更新。",
+      "saveFailed": "更新預設隱私失敗。"
+    },
+    "wallet": {
+      "notLinked": "尚未綁定",
+      "connectFirst": "請先在頁首選單連接錢包。",
+      "link": "綁定目前連接錢包",
+      "linking": "綁定中…",
+      "unlink": "解除綁定",
+      "unlinking": "解除中…",
+      "hint": "綁定會要求你簽署訊息以驗證所有權，不會產生 Gas 費。",
+      "linkedSuccess": "錢包綁定成功。",
+      "unlinkedSuccess": "錢包已解除綁定。",
+      "linkFailed": "錢包綁定失敗。",
+      "unlinkFailed": "解除綁定失敗。"
+    }
   }
 }

@@ -61,7 +61,7 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
   const explorer = getTxExplorerUrl(journal.anchor?.chainId, journal.anchor?.txHash ?? '');
 
   return (
-    <div className="mt-6 space-y-8 max-w-xl">
+    <div className="mt-6 w-full space-y-8">
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
       <section className="space-y-2">
@@ -78,13 +78,17 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
 
       <section className="rounded-lg border border-border bg-card p-4 space-y-3">
         <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button type="button" variant="secondary" onClick={() => void copyShareLink()}>
-            {to('copyShareLink')}
-          </Button>
-          {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
+        <div className="flex items-end justify-between gap-3">
+          <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
+            {shareUrl || to('shareLinkUnavailable')}
+          </p>
+          <div className="flex items-center gap-2">
+            {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
+            <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
+              {to('copyShareLink')}
+            </Button>
+          </div>
         </div>
-        <p className="text-xs text-muted-foreground break-all">{shareUrl || to('shareLinkUnavailable')}</p>
       </section>
 
       <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />

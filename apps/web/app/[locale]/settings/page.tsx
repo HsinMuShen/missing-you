@@ -3,6 +3,8 @@ import { Container } from '@missing-you/ui';
 import { requirePageUser } from '@/lib/auth/page-guards';
 import { prisma } from '@/lib/db/client';
 import { SignOutButton } from '@/components/auth/sign-out-button';
+import { WalletLinkControls } from '@/components/settings/wallet-link-controls';
+import { DefaultPrivacyControl } from '@/components/settings/default-privacy-control';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -32,12 +34,12 @@ export default async function SettingsPage({ params }: Props) {
 
       <section className="rounded-lg border border-border bg-card p-5 space-y-2">
         <p className="text-sm text-muted-foreground">{t('defaultPrivacy')}</p>
-        <p className="text-foreground">{dbUser?.defaultPrivacy ?? 'private'}</p>
+        <DefaultPrivacyControl initialValue={(dbUser?.defaultPrivacy as 'private' | 'share') ?? 'private'} />
       </section>
 
       <section className="rounded-lg border border-border bg-card p-5 space-y-2">
         <p className="text-sm text-muted-foreground">{t('walletLinking')}</p>
-        <p className="text-foreground">{dbUser?.walletAddress ?? t('walletPlaceholder')}</p>
+        <WalletLinkControls linkedWalletAddress={dbUser?.walletAddress ?? null} />
       </section>
 
       <SignOutButton label={t('signOut')} />

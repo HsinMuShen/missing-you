@@ -143,7 +143,7 @@
       "title": "Your memories",
       "empty": "No memories yet. Start with one moment that matters.",
       "loadError": "Could not load memories.",
-      "open": "Open",
+      "open": "View details",
       "status": "Status",
       "draft": "Draft",
       "anchored": "Anchored",
@@ -206,6 +206,7 @@
     "owner": {
       "title": "Your memory",
       "subtitle": "Manage visibility, anchoring, and share confidence from one place.",
+      "backToMemories": "Back to memories",
       "loading": "Loading memory…",
       "visibilityTitle": "Shareability",
       "visibilityHelp": "You can change who sees the memory. The content stays off-chain; only proof metadata is on-chain.",
@@ -293,8 +294,30 @@
     "subtitle": "Manage account details, privacy defaults, and upcoming wallet linking.",
     "email": "Signed-in email",
     "defaultPrivacy": "Default privacy",
-    "walletLinking": "Wallet link (coming soon)",
+    "walletLinking": "Wallet link",
     "walletPlaceholder": "Not linked yet",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "privacy": {
+      "label": "Default privacy",
+      "private": "Private",
+      "share": "Shareable",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Default privacy updated.",
+      "saveFailed": "Could not update default privacy."
+    },
+    "wallet": {
+      "notLinked": "Not linked yet",
+      "connectFirst": "Connect a wallet in the header menu first.",
+      "link": "Link connected wallet",
+      "linking": "Linking…",
+      "unlink": "Unlink wallet",
+      "unlinking": "Unlinking…",
+      "hint": "Linking requires a signature to prove wallet ownership. No gas is charged.",
+      "linkedSuccess": "Wallet linked successfully.",
+      "unlinkedSuccess": "Wallet unlinked successfully.",
+      "linkFailed": "Could not link wallet.",
+      "unlinkFailed": "Could not unlink wallet."
+    }
   }
 }

@@ -32,16 +32,17 @@ export function ShareabilityControl({
       <h3 className="text-sm font-medium text-foreground">{t('visibilityTitle')}</h3>
       <p className="text-xs text-muted-foreground">{t('visibilityHelp')}</p>
 
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-foreground">{isShare ? t('shareOn') : t('shareOff')}</span>
-        <Button type="button" variant="secondary" disabled={busy} onClick={() => void toggle()}>
+      <div className="flex items-end justify-between gap-3">
+        <div className="space-y-1">
+          <p className="text-sm text-foreground">{isShare ? t('shareOn') : t('shareOff')}</p>
+          {busy ? <p className="text-xs text-muted-foreground">{t(`sharePhase.${phase}`)}</p> : null}
+          {phase === 'success' ? <p className="text-xs text-stone-600">{t('shareSaved')}</p> : null}
+          {errLabel ? <p className="text-sm text-red-700">{errLabel}</p> : null}
+        </div>
+        <Button type="button" size="sm" variant="secondary" disabled={busy} onClick={() => void toggle()}>
           {isShare ? t('makePrivate') : t('makeShareable')}
         </Button>
       </div>
-
-      {busy ? <p className="text-xs text-muted-foreground">{t(`sharePhase.${phase}`)}</p> : null}
-      {phase === 'success' ? <p className="text-xs text-stone-600">{t('shareSaved')}</p> : null}
-      {errLabel ? <p className="text-sm text-red-700">{errLabel}</p> : null}
     </section>
   );
 }

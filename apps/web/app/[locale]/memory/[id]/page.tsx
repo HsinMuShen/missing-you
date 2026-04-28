@@ -9,6 +9,12 @@ import { getPublicAppUrl } from '@/lib/config/env';
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 
+function toExcerpt(content: string, maxLength = 120) {
+  const normalized = content.replace(/\s+/g, ' ').trim();
+  if (normalized.length <= maxLength) return normalized;
+  return `${normalized.slice(0, maxLength).trimEnd()}...`;
+}
+
 async function getPublicJournal(id: string) {
   try {
     const journal = await journalService.getJournalById(id);
@@ -33,17 +39,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const title = 'Shared Memory · Missing You';
-  const description = journal.anchor
-    ? 'This memory is shared with cryptographic proof anchored on-chain.'
-    : 'This memory is shared from Missing You.';
+  const dynamicTitle = journal.person?.trim() ? `${journal.person.trim()} · Missing You` : 'Shared Memory · Missing You';
+  const dynamicDescription = toExcerpt(journal.content, 160);
+  const description =
+    dynamicDescription ||
+    (journal.anchor
+      ? 'This memory is shared with cryptographic proof anchored on-chain.'
+      : 'This memory is shared from Missing You.');
 
   return {
     metadataBase: new URL(appUrl),
-    title,
+    title: dynamicTitle,
     description,
     openGraph: {
-      title,
+      title: dynamicTitle,
       description,
       type: 'article',
       url: `/${(await params).locale}/memory/${id}`,
@@ -67,12 +76,13 @@ export default async function PublicMemoryPage({ params }: Props) {
     dateStyle: 'medium',
     timeStyle: 'short',
   }).format(new Date(journal.createdAt));
+  const dynamicTitle = journal.person?.trim() || t('title');
+  const dynamicSubtitle = toExcerpt(journal.content) || t('subtitle');
 
   return (
     <Container className="py-16 sm:py-20 max-w-2xl">
-      <p className="text-xs text-muted-foreground font-mono">{id}</p>
-      <h1 className="mt-2 font-display text-3xl font-medium text-foreground">{t('title')}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
+      <h1 className="font-display text-3xl font-medium text-foreground">{dynamicTitle}</h1>
+      <p className="mt-2 text-sm text-muted-foreground">{dynamicSubtitle}</p>
 
       <div className="mt-8 space-y-5 rounded-lg border border-border bg-card p-5">
         <p className="text-xs text-muted-foreground">{t('createdAt')}: {createdDate}</p>

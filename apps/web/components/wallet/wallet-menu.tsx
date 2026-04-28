@@ -19,7 +19,7 @@ export function WalletMenu() {
         </span>
         <Button
           type="button"
-          variant="ghost"
+          variant="secondary"
           size="sm"
           className="h-7 px-2.5 text-xs"
           onClick={() => disconnect()}
