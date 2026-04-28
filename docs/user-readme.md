@@ -29,19 +29,18 @@ Only a cryptographic proof is anchored on-chain so authenticity can be verified 
 
 ## Visual User Flow
 
-```mermaid
-flowchart TD
-  A[Sign In with Email] --> B[Write Memory]
-  B --> C[Save Off-Chain in Database]
-  C --> D{Anchor to Blockchain?}
-  D -- No --> E[Keep as Draft/Private]
-  D -- Yes --> F[Generate Canonical Payload + Hash]
-  F --> G[Submit Proof to MemoryRegistry]
-  G --> H[Store Tx Metadata Off-Chain]
-  H --> I{Share Publicly?}
-  I -- No --> J[Owner-Only Access]
-  I -- Yes --> K[Public Memory Page]
-  K --> L[Anyone Can Verify Proof]
+```text
+Sign in with email
+  -> Write memory
+  -> Save full content off-chain
+  -> [Optional] Anchor proof on-chain
+     -> Create canonical payload + hash
+     -> Submit proof to MemoryRegistry
+     -> Save tx metadata off-chain
+  -> Choose visibility
+     -> Private: owner-only
+     -> Shareable: public memory page
+  -> Anyone with link can verify proof details
 ```
 
 ---

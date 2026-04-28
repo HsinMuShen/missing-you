@@ -197,6 +197,7 @@ pnpm hooks:install
 - [QA checklist](./docs/qa-checklist.md)  
 - [10-minute QA script](./docs/qa-10-minute-script.md)  
 - [User product guide](./docs/user-readme.md)  
+- [User product guide (zh-TW)](./docs/user-readme.zh-TW.md)  
 
 ## License
 
