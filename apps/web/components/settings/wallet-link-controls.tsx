@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
@@ -21,10 +20,9 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
   const autoLinkAttemptedRef = useRef<string | null>(null);
 
   const normalizedLinked = linkedWalletAddress?.toLowerCase() ?? null;
-  const normalizedConnected = address?.toLowerCase() ?? null;
   const hasLinkedWallet = Boolean(normalizedLinked);
 
-  async function linkWallet() {
+  const linkWallet = useCallback(async () => {
     if (!address) {
       setError(t('connectFirst'));
       return;
@@ -63,7 +61,7 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
     } finally {
       setStatus('idle');
     }
-  }
+  }, [address, signMessageAsync, t]);
 
   async function unlinkWallet() {
     setStatus('unlinking');
@@ -94,7 +92,7 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
     if (autoLinkAttemptedRef.current === current) return;
     autoLinkAttemptedRef.current = current;
     void linkWallet();
-  }, [address, hasLinkedWallet, isConnected, status]);
+  }, [address, hasLinkedWallet, isConnected, linkWallet, status]);
 
   return (
     <div className="space-y-3">
