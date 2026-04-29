@@ -7,6 +7,7 @@
     "menu": "Menu",
     "write": "Write",
     "memories": "Memories",
+    "calendar": "Calendar",
     "settings": "Settings",
     "signIn": "Sign in",
     "signOut": "Sign out"
@@ -154,6 +155,26 @@
       "private": "Private",
       "publicPage": "Public page",
       "subtitle": "Your private timeline of memories, with optional public sharing and on-chain proof."
+    },
+    "calendar": {
+      "title": "Memory calendar",
+      "subtitle": "Browse all memories by date and add backdated memories when you need to preserve an earlier moment.",
+      "addTitle": "Add memory to a past date/time",
+      "content": "Memory content",
+      "person": "About (optional)",
+      "datetime": "Date and time",
+      "privacy": "Privacy",
+      "privacyPrivate": "Private",
+      "privacyShare": "Shareable",
+      "create": "Add memory",
+      "creating": "Adding…",
+      "cancel": "Cancel",
+      "createSuccess": "Memory added to your calendar.",
+      "createError": "Could not add memory.",
+      "loadError": "Could not load calendar memories.",
+      "selectDateHint": "Click a date block on the calendar to add a memory for that day.",
+      "prevMonth": "Previous",
+      "nextMonth": "Next"
     },
     "memory": {
       "title": "Memory",

@@ -7,6 +7,7 @@
     "menu": "選單",
     "write": "書寫",
     "memories": "回憶",
+    "calendar": "日曆",
     "settings": "設定",
     "signIn": "登入",
     "signOut": "登出"
@@ -154,6 +155,26 @@
       "private": "私人",
       "publicPage": "公開頁面",
       "subtitle": "你的私人回憶時間軸，可選擇公開分享並附上鏈上證明。"
+    },
+    "calendar": {
+      "title": "回憶日曆",
+      "subtitle": "依日期查看所有回憶，也可補寫過去日期與時間的回憶。",
+      "addTitle": "新增過去日期/時間的回憶",
+      "content": "回憶內容",
+      "person": "關於誰（選填）",
+      "datetime": "日期與時間",
+      "privacy": "隱私",
+      "privacyPrivate": "私人",
+      "privacyShare": "可分享",
+      "create": "新增回憶",
+      "creating": "新增中…",
+      "cancel": "取消",
+      "createSuccess": "已加入回憶日曆。",
+      "createError": "新增回憶失敗。",
+      "loadError": "無法載入日曆回憶。",
+      "selectDateHint": "請先點擊日曆中的日期區塊，再新增該日的回憶。",
+      "prevMonth": "上個月",
+      "nextMonth": "下個月"
     },
     "memory": {
       "title": "回憶",

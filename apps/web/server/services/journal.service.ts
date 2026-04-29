@@ -142,12 +142,17 @@ export async function createJournal(input: unknown, requesterUserId: string): Pr
     parsed.data.person === undefined || parsed.data.person === null || parsed.data.person === ''
       ? null
       : parsed.data.person.trim() || null;
+  const createdAt = parsed.data.createdAt ? new Date(parsed.data.createdAt) : undefined;
+  if (createdAt && createdAt.getTime() > Date.now()) {
+    throw new JournalServiceError('createdAt cannot be in the future', 'VALIDATION', 400);
+  }
 
   const row = await journalRepo.createJournal({
     userId: requesterUserId,
     content: parsed.data.content.trim(),
     person,
     privacy: parsed.data.privacy,
+    createdAt,
   });
 
   const full = await journalRepo.getJournalById(row.id);

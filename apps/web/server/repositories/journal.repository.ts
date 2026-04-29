@@ -10,6 +10,7 @@ export async function createJournal(data: {
   content: string;
   person: string | null;
   privacy: string;
+  createdAt?: Date;
 }): Promise<JournalRow> {
   return prisma.journal.create({
     data: {
@@ -18,6 +19,7 @@ export async function createJournal(data: {
       person: data.person,
       privacy: data.privacy,
       status: 'draft',
+      ...(data.createdAt ? { createdAt: data.createdAt } : {}),
     },
   });
 }

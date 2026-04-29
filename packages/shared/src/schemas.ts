@@ -12,6 +12,7 @@ export const journalCreateSchema = z.object({
     .nullable()
     .optional(),
   privacy: journalPrivacySchema,
+  createdAt: z.string().datetime().optional(),
 });
 
 export type JournalCreateInput = z.infer<typeof journalCreateSchema>;
