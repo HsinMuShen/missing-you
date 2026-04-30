@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http, createStorage, cookieStorage } from 'wagmi';
-import { polygon, polygonAmoy } from 'viem/chains';
+import { polygon, polygonAmoy, sepolia } from 'viem/chains';
 import { getDefaultAnchorChainId } from '@missing-you/shared';
 import { injected, walletConnect } from 'wagmi/connectors';
 import { useState, type ReactNode } from 'react';
@@ -13,6 +13,8 @@ const amoyRpcUrl =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_POLYGON_AMOY_RPC_URL : undefined;
 const polygonRpcUrl =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_POLYGON_MAINNET_RPC_URL : undefined;
+const sepoliaRpcUrl =
+  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL : undefined;
 
 /**
  * Polygon-compatible chains for MemoryRegistry. Default chain comes from `NEXT_PUBLIC_ANCHOR_CHAIN_ID`
@@ -21,8 +23,10 @@ const polygonRpcUrl =
 const defaultAnchorChainId = getDefaultAnchorChainId();
 const orderedChains =
   defaultAnchorChainId === polygon.id
-    ? ([polygon, polygonAmoy] as const)
-    : ([polygonAmoy, polygon] as const);
+    ? ([polygon, polygonAmoy, sepolia] as const)
+    : defaultAnchorChainId === sepolia.id
+      ? ([sepolia, polygonAmoy, polygon] as const)
+      : ([polygonAmoy, polygon, sepolia] as const);
 
 const connectors = [
   injected({ shimDisconnect: true }),
@@ -48,6 +52,7 @@ const wagmiConfig = createConfig({
   transports: {
     [polygonAmoy.id]: http(amoyRpcUrl),
     [polygon.id]: http(polygonRpcUrl),
+    [sepolia.id]: http(sepoliaRpcUrl),
   },
   ssr: true,
   storage: createStorage({ storage: cookieStorage }),

@@ -12,6 +12,10 @@ export class AnchorTxValidationError extends Error {
   }
 }
 
+async function sleep(ms: number) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 /**
  * Confirms the user-submitted hash landed successfully before we persist `MemoryAnchor`.
  */
@@ -28,7 +32,7 @@ export async function assertAnchorTransactionSucceeded(params: {
   const url = getServerRpcUrl(params.chainId);
   if (!url) {
     throw new AnchorTxValidationError(
-      'Server RPC not configured for this chain (set POLYGON_AMOY_RPC_URL or POLYGON_MAINNET_RPC_URL)',
+      'Server RPC not configured for this chain (set SEPOLIA_RPC_URL, POLYGON_AMOY_RPC_URL, or POLYGON_MAINNET_RPC_URL)',
       503
     );
   }
@@ -38,9 +42,15 @@ export async function assertAnchorTransactionSucceeded(params: {
     transport: http(url),
   });
 
-  const receipt = await client.getTransactionReceipt({ hash: params.txHash }).catch(() => null);
+  // Sepolia/Amoy public RPC can index receipts with a short delay after wallet confirmation.
+  let receipt: Awaited<ReturnType<typeof client.getTransactionReceipt>> | null = null;
+  for (let i = 0; i < 6; i += 1) {
+    receipt = await client.getTransactionReceipt({ hash: params.txHash }).catch(() => null);
+    if (receipt) break;
+    await sleep(1500);
+  }
   if (!receipt) {
-    throw new AnchorTxValidationError('Transaction receipt not found', 400);
+    throw new AnchorTxValidationError('Transaction receipt not found yet; please retry in a few seconds', 400);
   }
   if (receipt.status !== 'success') {
     throw new AnchorTxValidationError('Transaction reverted on-chain', 400);
