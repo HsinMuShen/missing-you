@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import type { Journal } from '@missing-you/shared';
 import { useAccount } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useAnchorMemory } from '@/hooks/use-anchor-memory';
 import { useTranslations } from 'next-intl';
+import type { Hex } from 'viem';
 
 type Props = {
   journalId: string;
@@ -15,7 +17,11 @@ type Props = {
 export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
   const t = useTranslations('journals.blockchain');
   const { isConnected } = useAccount();
-  const { phase, error, lastTxHash, runAnchor, reset } = useAnchorMemory(journalId, onRefresh);
+  const { phase, error, lastTxHash, runAnchor, recoverFromConfirmedTx, reset } = useAnchorMemory(
+    journalId,
+    onRefresh
+  );
+  const [recoveryTxHash, setRecoveryTxHash] = useState('');
   const busy = ['preparing', 'switching', 'signing', 'confirming'].includes(phase);
 
   if (journal.status !== 'draft') {
@@ -27,9 +33,13 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       ? t('connectWallet')
       : error === 'USER_REJECTED'
         ? t('userRejected')
+        : error === 'ALREADY_ANCHORED'
+          ? t('alreadyAnchored')
         : error === 'SWITCH_NETWORK'
           ? t('switchNetwork')
           : error;
+
+  const recoveryHashValid = /^0x[a-fA-F0-9]{64}$/.test(recoveryTxHash.trim());
 
   return (
     <div className="rounded-lg border border-border bg-card p-4 space-y-3">
@@ -57,6 +67,30 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       ) : null}
 
       {error ? <p className="text-sm text-red-700">{errLabel}</p> : null}
+
+      {phase === 'error' ? (
+        <div className="space-y-2 rounded-md border border-border/80 bg-background p-3">
+          <p className="text-xs text-muted-foreground">{t('recoveryHint')}</p>
+          <input
+            type="text"
+            placeholder={t('recoveryPlaceholder')}
+            value={recoveryTxHash}
+            onChange={(e) => setRecoveryTxHash(e.target.value)}
+            className="w-full rounded-md border border-border bg-card px-2 py-1.5 text-xs font-mono text-foreground"
+          />
+          <div className="flex justify-end">
+            <Button
+              type="button"
+              size="sm"
+              variant="secondary"
+              disabled={!recoveryHashValid || busy}
+              onClick={() => void recoverFromConfirmedTx(recoveryTxHash.trim() as Hex)}
+            >
+              {t('recoveryCta')}
+            </Button>
+          </div>
+        </div>
+      ) : null}
 
       {phase === 'error' || phase === 'success' ? (
         <div className="flex justify-end">

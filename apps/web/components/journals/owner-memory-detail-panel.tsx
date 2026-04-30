@@ -78,17 +78,23 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
 
       <section className="rounded-lg border border-border bg-card p-4 space-y-3">
         <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
-        <div className="flex items-end justify-between gap-3">
-          <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
-            {shareUrl || to('shareLinkUnavailable')}
-          </p>
-          <div className="flex items-center gap-2">
-            {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
-            <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
-              {to('copyShareLink')}
-            </Button>
+        {journal.privacy === 'share' ? (
+          <div className="flex items-end justify-between gap-3">
+            <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
+              {shareUrl || to('shareLinkUnavailable')}
+            </p>
+            <div className="flex items-center gap-2">
+              {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
+              <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
+                {to('copyShareLink')}
+              </Button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="rounded-md border border-border/80 bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+            {to('shareLinkPrivate')}
+          </div>
+        )}
       </section>
 
       <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />
@@ -123,14 +129,13 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
               ) : null}
             </div>
             {explorer ? (
-              <a
-                href={explorer}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm text-stone-700 underline-offset-4 hover:underline"
-              >
-                {to('viewExplorer')}
-              </a>
+              <div className="flex justify-end">
+                <Button asChild size="sm" variant="secondary">
+                  <a href={explorer} target="_blank" rel="noreferrer">
+                    {to('viewExplorer')}
+                  </a>
+                </Button>
+              </div>
             ) : null}
           </>
         ) : (

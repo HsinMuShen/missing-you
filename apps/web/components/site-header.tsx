@@ -28,6 +28,7 @@ export async function SiteHeader() {
             menuLabel={t('menu')}
             writeLabel={t('write')}
             memoriesLabel={t('memories')}
+            calendarLabel={t('calendar')}
             settingsLabel={t('settings')}
             signInLabel={t('signIn')}
             email={session?.user?.id ? session.user.email : null}

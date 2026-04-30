@@ -8,6 +8,7 @@ type Props = {
   menuLabel: string;
   writeLabel: string;
   memoriesLabel: string;
+  calendarLabel: string;
   settingsLabel: string;
   signInLabel: string;
   email?: string | null;
@@ -19,6 +20,7 @@ export function SiteMenuDropdown({
   menuLabel,
   writeLabel,
   memoriesLabel,
+  calendarLabel,
   settingsLabel,
   signInLabel,
   email,
@@ -78,6 +80,13 @@ export function SiteMenuDropdown({
             className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
           >
             {memoriesLabel}
+          </Link>
+          <Link
+            href="/calendar"
+            onClick={closeMenu}
+            className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
+          >
+            {calendarLabel}
           </Link>
           <Link
             href="/settings"

@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@missing-you/ui';
-import { Link } from '@/lib/i18n/navigation';
+import { Link, useRouter } from '@/lib/i18n/navigation';
 
 export function JournalWriteForm() {
   const t = useTranslations('journals.write');
+  const router = useRouter();
   const [content, setContent] = useState('');
   const [person, setPerson] = useState('');
   const [privacy, setPrivacy] = useState<'private' | 'share'>('private');
@@ -31,10 +32,12 @@ export function JournalWriteForm() {
         const err = await res.json().catch(() => ({}));
         throw new Error(typeof err.error === 'string' ? err.error : t('error'));
       }
+      const created = (await res.json()) as { id: string };
       setContent('');
       setPerson('');
       setPrivacy('private');
       setMessage({ type: 'ok', text: t('success') });
+      router.push(`/journal/${created.id}`);
     } catch {
       setMessage({ type: 'err', text: t('error') });
     } finally {

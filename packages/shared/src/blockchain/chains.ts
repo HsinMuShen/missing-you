@@ -1,10 +1,11 @@
 import type { Chain } from 'viem';
-import { polygon, polygonAmoy } from 'viem/chains';
+import { polygon, polygonAmoy, sepolia } from 'viem/chains';
 
 /** Polygon-family chains supported for MemoryRegistry anchoring in this MVP. */
 export const ANCHOR_CHAIN_IDS = {
   polygon: polygon.id,
   polygonAmoy: polygonAmoy.id,
+  sepolia: sepolia.id,
 } as const;
 
 export type AnchorChainSlug = keyof typeof ANCHOR_CHAIN_IDS;
@@ -12,6 +13,7 @@ export type AnchorChainSlug = keyof typeof ANCHOR_CHAIN_IDS;
 export function getAnchorChainById(chainId: number): Chain | undefined {
   if (chainId === polygon.id) return polygon;
   if (chainId === polygonAmoy.id) return polygonAmoy;
+  if (chainId === sepolia.id) return sepolia;
   return undefined;
 }
 
@@ -22,5 +24,6 @@ export function getDefaultAnchorChainId(): number {
       : undefined;
   const parsed = raw ? Number.parseInt(raw, 10) : Number.NaN;
   if (parsed === ANCHOR_CHAIN_IDS.polygon) return ANCHOR_CHAIN_IDS.polygon;
+  if (parsed === ANCHOR_CHAIN_IDS.sepolia) return ANCHOR_CHAIN_IDS.sepolia;
   return ANCHOR_CHAIN_IDS.polygonAmoy;
 }

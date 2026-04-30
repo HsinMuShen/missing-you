@@ -19,21 +19,24 @@ const envSchema = z.object({
   SENTRY_DSN: optionalUrl,
 
   NEXT_PUBLIC_APP_URL: optionalUrl,
-  NEXT_PUBLIC_CHAIN_ID: z.enum(['137', '80002']).optional(),
-  NEXT_PUBLIC_ANCHOR_CHAIN_ID: z.enum(['137', '80002']).optional(),
+  NEXT_PUBLIC_CHAIN_ID: z.enum(['137', '80002', '11155111']).optional(),
+  NEXT_PUBLIC_ANCHOR_CHAIN_ID: z.enum(['137', '80002', '11155111']).optional(),
   NEXT_PUBLIC_CONTRACT_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
   NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS: z.string().regex(/^0x[a-fA-F0-9]{40}$/).optional(),
   NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID: optionalNonEmpty,
   NEXT_PUBLIC_POLYGON_AMOY_RPC_URL: optionalUrl,
   NEXT_PUBLIC_POLYGON_MAINNET_RPC_URL: optionalUrl,
+  NEXT_PUBLIC_SEPOLIA_RPC_URL: optionalUrl,
 
   RPC_URL: optionalUrl,
   POLYGON_AMOY_RPC_URL: optionalUrl,
   POLYGON_MAINNET_RPC_URL: optionalUrl,
+  SEPOLIA_RPC_URL: optionalUrl,
 
   NEXT_PUBLIC_EXPLORER_BASE_URL: optionalUrl,
   NEXT_PUBLIC_POLYGON_AMOY_EXPLORER_BASE_URL: optionalUrl,
   NEXT_PUBLIC_POLYGON_MAINNET_EXPLORER_BASE_URL: optionalUrl,
+  NEXT_PUBLIC_SEPOLIA_EXPLORER_BASE_URL: optionalUrl,
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -61,6 +64,9 @@ export function getExplorerBaseUrl(chainId: number): string | undefined {
   if (chainId === 80002) {
     return env.NEXT_PUBLIC_POLYGON_AMOY_EXPLORER_BASE_URL ?? 'https://amoy.polygonscan.com';
   }
+  if (chainId === 11155111) {
+    return env.NEXT_PUBLIC_SEPOLIA_EXPLORER_BASE_URL ?? 'https://sepolia.etherscan.io';
+  }
   return undefined;
 }
 
@@ -68,6 +74,7 @@ export function getServerRpcUrlByChainId(chainId: number): string | undefined {
   if (env.RPC_URL) return env.RPC_URL;
   if (chainId === 137) return env.POLYGON_MAINNET_RPC_URL;
   if (chainId === 80002) return env.POLYGON_AMOY_RPC_URL;
+  if (chainId === 11155111) return env.SEPOLIA_RPC_URL;
   return undefined;
 }
 
@@ -93,6 +100,9 @@ export function getMissingRequiredEnvForDeployment(): string[] {
   if (chain === 137 && !getServerRpcUrlByChainId(137)) missing.push('POLYGON_MAINNET_RPC_URL (or RPC_URL)');
   if (chain === 80002 && !getServerRpcUrlByChainId(80002)) {
     missing.push('POLYGON_AMOY_RPC_URL (or RPC_URL)');
+  }
+  if (chain === 11155111 && !getServerRpcUrlByChainId(11155111)) {
+    missing.push('SEPOLIA_RPC_URL (or RPC_URL)');
   }
 
   return missing;

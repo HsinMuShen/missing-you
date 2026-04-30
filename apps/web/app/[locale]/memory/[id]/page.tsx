@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Container } from '@missing-you/ui';
+import { Button, Container } from '@missing-you/ui';
 import { getJournalChainVerification } from '@/server/services/blockchain-proof.service';
 import * as journalService from '@/server/services/journal.service';
 import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
@@ -123,14 +123,13 @@ export default async function PublicMemoryPage({ params }: Props) {
               {t('network')}: {journal.anchor.chainId ?? '—'} ({journal.anchor.chain})
             </p>
             {explorer ? (
-              <a
-                href={explorer}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-block text-sm text-stone-700 underline-offset-4 hover:underline"
-              >
-                {t('viewExplorer')}
-              </a>
+              <div className="flex justify-end">
+                <Button asChild size="sm" variant="secondary">
+                  <a href={explorer} target="_blank" rel="noreferrer">
+                    {t('viewExplorer')}
+                  </a>
+                </Button>
+              </div>
             ) : null}
           </>
         ) : (

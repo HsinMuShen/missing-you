@@ -41,6 +41,44 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
     setLastTxHash(null);
   }, []);
 
+  const recoverFromConfirmedTx = useCallback(
+    async (txHash: Hex) => {
+      const contract = getMemoryRegistryAddress();
+      if (!contract) {
+        setError('NEXT_PUBLIC_MEMORY_REGISTRY_ADDRESS is not set');
+        setPhase('error');
+        return;
+      }
+
+      setError(null);
+      setPhase('confirming');
+      try {
+        const conf = await fetch(`/api/journals/${journalId}/confirm-anchor`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            txHash,
+            chainId: targetChainId,
+            contractAddress: contract,
+          }),
+        });
+        if (!conf.ok) {
+          const body = (await conf.json().catch(() => ({}))) as { error?: string };
+          throw new Error(typeof body.error === 'string' ? body.error : 'confirm failed');
+        }
+
+        setLastTxHash(txHash);
+        setPhase('success');
+        await onRefresh();
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : 'Anchor recovery failed';
+        setError(msg);
+        setPhase('error');
+      }
+    },
+    [journalId, onRefresh, targetChainId]
+  );
+
   const runAnchor = useCallback(async () => {
     setError(null);
     setLastTxHash(null);
@@ -115,7 +153,13 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
         (e instanceof Error ? e.message : 'Anchor failed');
       if (msg.includes('User rejected') || msg.includes('denied')) {
         setError('USER_REJECTED');
-      } else if (msg === 'SWITCH_NETWORK') {
+      } else if (msg.includes('AlreadyAnchored') || msg.toLowerCase().includes('already anchored')) {
+        setError('ALREADY_ANCHORED');
+      } else if (
+        msg === 'SWITCH_NETWORK' ||
+        msg.includes('does not match the target chain') ||
+        msg.includes('wrong network')
+      ) {
         setError('SWITCH_NETWORK');
       } else {
         setError(msg);
@@ -124,5 +168,5 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
     }
   }, [activeChainId, address, journalId, onRefresh, switchChainAsync, targetChainId, writeContractAsync]);
 
-  return { phase, error, lastTxHash, runAnchor, reset };
+  return { phase, error, lastTxHash, runAnchor, recoverFromConfirmedTx, reset };
 }
