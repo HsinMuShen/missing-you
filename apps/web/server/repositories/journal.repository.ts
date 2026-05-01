@@ -39,6 +39,37 @@ export async function listJournals(userId: string): Promise<JournalWithAnchor[]>
   });
 }
 
+export async function listPublicJournals(params: {
+  page: number;
+  pageSize: number;
+  person?: string;
+}): Promise<{ rows: JournalWithAnchor[]; total: number }> {
+  const where: Prisma.JournalWhereInput = {
+    privacy: 'share',
+    ...(params.person
+      ? {
+          person: {
+            equals: params.person,
+            mode: 'insensitive',
+          },
+        }
+      : {}),
+  };
+
+  const [rows, total] = await prisma.$transaction([
+    prisma.journal.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (params.page - 1) * params.pageSize,
+      take: params.pageSize,
+      include: journalInclude,
+    }),
+    prisma.journal.count({ where }),
+  ]);
+
+  return { rows, total };
+}
+
 export async function updateJournal(
   id: string,
   data: Prisma.JournalUpdateInput

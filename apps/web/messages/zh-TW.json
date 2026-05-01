@@ -7,6 +7,7 @@
     "menu": "選單",
     "write": "書寫",
     "memories": "回憶",
+    "publicMemories": "公開回憶",
     "calendar": "日曆",
     "settings": "設定",
     "signIn": "登入",
@@ -117,6 +118,11 @@
           "a": "可以。除非你主動開啟分享，否則只有擁有者可見。"
         }
       }
+    },
+    "publicMemories": {
+      "title": "探索公開回憶",
+      "body": "查看其他人願意分享的回憶，並可依人物與分頁瀏覽。",
+      "cta": "前往公開回憶"
     },
     "finalCta": {
       "title": "今天就從一段回憶開始",
@@ -276,6 +282,20 @@
         "skipped_no_metadata": "目前無法驗證",
         "skipped_no_rpc": "目前無法驗證"
       }
+    },
+    "publicList": {
+      "title": "公開回憶",
+      "subtitle": "探索 Missing You 上分享出來的回憶。",
+      "subtitlePerson": "目前顯示「{person}」的公開回憶。",
+      "open": "查看回憶",
+      "prev": "上一頁",
+      "next": "下一頁",
+      "range": "顯示第 {start}-{end} 筆，共 {total} 筆",
+      "rangeNone": "目前還沒有公開回憶。",
+      "clearPerson": "清除人物篩選",
+      "anonymous": "未填人物",
+      "empty": "目前還沒有公開回憶。",
+      "emptyPerson": "找不到「{person}」的公開回憶。"
     }
   },
   "wallet": {

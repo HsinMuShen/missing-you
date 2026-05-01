@@ -190,6 +190,24 @@ export async function listJournalsForUser(userId: string): Promise<Journal[]> {
   return rows.map(toJournalDto);
 }
 
+export async function listPublicJournals(input?: {
+  page?: number;
+  pageSize?: number;
+  person?: string;
+}): Promise<{ items: Journal[]; total: number; page: number; pageSize: number }> {
+  const page = Math.max(1, Math.floor(input?.page ?? 1));
+  const pageSize = Math.min(50, Math.max(1, Math.floor(input?.pageSize ?? 12)));
+  const person = input?.person?.trim() ? input.person.trim() : undefined;
+  const result = await journalRepo.listPublicJournals({ page, pageSize, person });
+
+  return {
+    items: result.rows.map(toJournalDto),
+    total: result.total,
+    page,
+    pageSize,
+  };
+}
+
 export async function updateJournal(
   id: string,
   requesterUserId: string,

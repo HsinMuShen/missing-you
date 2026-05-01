@@ -7,6 +7,7 @@
     "menu": "Menu",
     "write": "Write",
     "memories": "Memories",
+    "publicMemories": "Public memories",
     "calendar": "Calendar",
     "settings": "Settings",
     "signIn": "Sign in",
@@ -117,6 +118,11 @@
           "a": "Yes. Private memories remain owner-only unless you choose to share."
         }
       }
+    },
+    "publicMemories": {
+      "title": "Explore public memories",
+      "body": "Read memories that others chose to share, and browse by person with pagination.",
+      "cta": "Go to public memories"
     },
     "finalCta": {
       "title": "Start with one memory today",
@@ -276,6 +282,20 @@
         "skipped_no_metadata": "Verification unavailable",
         "skipped_no_rpc": "Verification unavailable"
       }
+    },
+    "publicList": {
+      "title": "Public memories",
+      "subtitle": "Explore memories shared from Missing You.",
+      "subtitlePerson": "Showing public memories for {person}.",
+      "open": "Open memory",
+      "prev": "Previous",
+      "next": "Next",
+      "range": "Showing {start}-{end} of {total}",
+      "rangeNone": "No public memories yet.",
+      "clearPerson": "Clear person filter",
+      "anonymous": "No person label",
+      "empty": "No public memories yet.",
+      "emptyPerson": "No public memories found for {person}."
     }
   },
   "wallet": {
