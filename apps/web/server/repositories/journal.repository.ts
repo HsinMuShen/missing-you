@@ -7,6 +7,7 @@ export type JournalWithAnchor = JournalRow & { anchor: MemoryAnchor | null };
 
 export async function createJournal(data: {
   userId: string;
+  title: string | null;
   content: string;
   person: string | null;
   privacy: string;
@@ -15,6 +16,7 @@ export async function createJournal(data: {
   return prisma.journal.create({
     data: {
       userId: data.userId,
+      title: data.title,
       content: data.content,
       person: data.person,
       privacy: data.privacy,

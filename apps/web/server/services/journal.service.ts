@@ -69,6 +69,7 @@ export function toJournalDto(row: JournalWithAnchor): Journal {
   return {
     id: row.id,
     userId: row.userId,
+    title: row.title,
     content: row.content,
     person: row.person,
     privacy: assertPrivacy(row.privacy),
@@ -138,6 +139,10 @@ export async function createJournal(input: unknown, requesterUserId: string): Pr
     throw new JournalServiceError('Invalid journal payload', 'VALIDATION', 400);
   }
 
+  const title =
+    parsed.data.title === undefined || parsed.data.title === null || parsed.data.title === ''
+      ? null
+      : parsed.data.title.trim() || null;
   const person =
     parsed.data.person === undefined || parsed.data.person === null || parsed.data.person === ''
       ? null
@@ -149,6 +154,7 @@ export async function createJournal(input: unknown, requesterUserId: string): Pr
 
   const row = await journalRepo.createJournal({
     userId: requesterUserId,
+    title,
     content: parsed.data.content.trim(),
     person,
     privacy: parsed.data.privacy,
@@ -211,7 +217,7 @@ export async function listPublicJournals(input?: {
 export async function updateJournal(
   id: string,
   requesterUserId: string,
-  patch: { content?: string; person?: string | null; privacy?: JournalPrivacy }
+  patch: { title?: string | null; content?: string; person?: string | null; privacy?: JournalPrivacy }
 ): Promise<Journal> {
   const existing = await journalRepo.getJournalById(id);
   if (!existing) {
@@ -223,6 +229,9 @@ export async function updateJournal(
   }
 
   const data: Prisma.JournalUpdateInput = {};
+  if (patch.title !== undefined) {
+    data.title = patch.title === null || patch.title.trim() === '' ? null : patch.title.trim();
+  }
   if (patch.content !== undefined) data.content = patch.content.trim();
   if (patch.person !== undefined) {
     data.person = patch.person === null || patch.person.trim() === '' ? null : patch.person.trim();

@@ -15,9 +15,6 @@ export default async function WritePage({ params }: Props) {
   return (
     <Container className="py-16 sm:py-20">
       <h1 className="font-display text-3xl font-medium text-foreground">{t('title')}</h1>
-      <p className="mt-2 max-w-xl text-sm text-muted-foreground">
-        Content is saved off-chain via <code className="rounded bg-muted px-1">POST /api/journals</code>.
-      </p>
       <JournalWriteForm />
     </Container>
   );

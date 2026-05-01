@@ -30,6 +30,7 @@ model Journal {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  title    String?
   content  String
   person   String?
   privacy  String

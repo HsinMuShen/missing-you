@@ -15,6 +15,7 @@ export type JournalStatus = 'draft' | 'anchored';
 export interface Journal {
   id: string;
   userId: string;
+  title: string | null;
   content: string;
   person: string | null;
   privacy: JournalPrivacy;

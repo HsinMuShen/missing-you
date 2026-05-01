@@ -30,6 +30,7 @@ function splitDateTime(value: string) {
 
 export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Props) {
   const t = useTranslations('journals.calendar');
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [person, setPerson] = useState('');
   const [privacy, setPrivacy] = useState<'private' | 'share'>('private');
@@ -72,6 +73,7 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          title: title.trim() ? title.trim() : null,
           content,
           person: person.trim() ? person.trim() : null,
           privacy,
@@ -84,6 +86,7 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
         throw new Error(typeof err.error === 'string' ? err.error : t('createError'));
       }
 
+      setTitle('');
       setContent('');
       setPerson('');
       setPrivacy('private');
@@ -105,6 +108,15 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
   return (
     <form onSubmit={onSubmit} className="rounded-lg border border-border bg-card p-4 space-y-4">
       <h2 className="text-sm font-medium text-foreground">{t('addTitle')}</h2>
+      <div>
+        <label className="block text-sm text-foreground">{t('entryTitle')}</label>
+        <input
+          required
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="mt-1 w-full rounded-lg border border-border bg-background px-3 py-2 text-foreground"
+        />
+      </div>
       <div>
         <label className="block text-sm text-foreground">{t('content')}</label>
         <textarea

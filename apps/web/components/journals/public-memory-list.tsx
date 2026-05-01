@@ -78,6 +78,9 @@ export function PublicMemoryList({ items, page, pageSize, total, personFilter }:
                 )}
               </div>
 
+              {journal.title?.trim() ? (
+                <p className="mt-3 text-sm font-medium text-foreground">{journal.title.trim()}</p>
+              ) : null}
               <p className="mt-3 text-sm leading-relaxed text-foreground">{toExcerpt(journal.content)}</p>
 
               <div className="mt-4 flex justify-end">

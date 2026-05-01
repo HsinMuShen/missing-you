@@ -4,6 +4,12 @@ const journalPrivacySchema = z.enum(['private', 'share']);
 const journalStatusSchema = z.enum(['draft', 'anchored']);
 
 export const journalCreateSchema = z.object({
+  title: z
+    .string()
+    .trim()
+    .max(200)
+    .nullable()
+    .optional(),
   content: z.string().trim().min(1).max(50_000),
   person: z
     .string()

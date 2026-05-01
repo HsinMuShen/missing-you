@@ -59,89 +59,102 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
   }
 
   const explorer = getTxExplorerUrl(journal.anchor?.chainId, journal.anchor?.txHash ?? '');
+  const createdDate = new Intl.DateTimeFormat(undefined, {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(new Date(journal.createdAt));
 
   return (
-    <div className="mt-6 w-full space-y-8">
+    <div className="mt-6 w-full max-w-3xl space-y-6">
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
-      <section className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground">{t('person')}</h2>
-        <p className="text-foreground">{journal.person ?? '—'}</p>
+      <section className="space-y-5 px-1">
+        <p className="text-3xl font-medium leading-tight text-foreground">
+          {journal.title?.trim() || t('title')}
+        </p>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+          <span className="rounded-full border border-border bg-muted/50 px-2.5 py-1">{createdDate}</span>
+          <span className="rounded-full border border-border bg-muted/50 px-2.5 py-1">
+            {t('person')}: {journal.person?.trim() || '—'}
+          </span>
+        </div>
+        <p className="whitespace-pre-wrap text-base leading-8 text-foreground sm:text-lg">{journal.content}</p>
       </section>
 
-      <section className="space-y-2">
-        <h2 className="text-sm font-medium text-muted-foreground">{t('content')}</h2>
-        <p className="whitespace-pre-wrap text-foreground leading-relaxed">{journal.content}</p>
-      </section>
+      <div className="pt-4">
+        <div className="h-px w-full bg-border" />
+      </div>
 
-      <ShareabilityControl journal={journal} onRefresh={load} />
+      <div className="space-y-8 pt-2">
+        <ShareabilityControl journal={journal} onRefresh={load} />
 
-      <section className="rounded-lg border border-border bg-card p-4 space-y-3">
-        <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
-        {journal.privacy === 'share' ? (
-          <div className="flex items-end justify-between gap-3">
-            <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
-              {shareUrl || to('shareLinkUnavailable')}
-            </p>
-            <div className="flex items-center gap-2">
-              {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
-              <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
-                {to('copyShareLink')}
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <div className="rounded-md border border-border/80 bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
-            {to('shareLinkPrivate')}
-          </div>
-        )}
-      </section>
-
-      <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />
-
-      <section className="rounded-lg border border-border bg-muted/40 p-4 space-y-3">
-        <h2 className="text-sm font-medium text-foreground">{t('verification')}</h2>
-        {journal.anchor ? (
-          <>
-            <p className="text-sm text-muted-foreground">
-              {t('localDigest')}: {journal.localVerification ? t('verified') : t('notVerified')}
-            </p>
-            <p className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">{t('onChainBadge')}:</span>{' '}
-              {tb(`chainState.${journal.chainVerification?.state ?? 'skipped_no_anchor'}`)}
-            </p>
-            <div className="space-y-1 text-xs font-mono text-muted-foreground break-all">
-              <p>
-                <span className="font-sans font-medium text-foreground">{t('contentHash')}:</span>{' '}
-                {journal.anchor.contentHash}
+        <section className="rounded-lg border border-border bg-card p-4 space-y-3">
+          <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
+          {journal.privacy === 'share' ? (
+            <div className="flex items-end justify-between gap-3">
+              <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
+                {shareUrl || to('shareLinkUnavailable')}
               </p>
-              {journal.anchor.txHash ? (
-                <p>
-                  <span className="font-sans font-medium text-foreground">{t('txHash')}:</span>{' '}
-                  {journal.anchor.txHash}
-                </p>
-              ) : null}
-              {journal.anchor.anchoredAt ? (
-                <p>
-                  <span className="font-sans font-medium text-foreground">{t('anchoredAt')}:</span>{' '}
-                  {journal.anchor.anchoredAt}
-                </p>
-              ) : null}
-            </div>
-            {explorer ? (
-              <div className="flex justify-end">
-                <Button asChild size="sm" variant="secondary">
-                  <a href={explorer} target="_blank" rel="noreferrer">
-                    {to('viewExplorer')}
-                  </a>
+              <div className="flex items-center gap-2">
+                {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
+                <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
+                  {to('copyShareLink')}
                 </Button>
               </div>
-            ) : null}
-          </>
-        ) : (
-          <p className="text-sm text-muted-foreground">{to('notAnchored')}</p>
-        )}
-      </section>
+            </div>
+          ) : (
+            <div className="rounded-md border border-border/80 bg-muted/40 px-3 py-2 text-xs text-muted-foreground">
+              {to('shareLinkPrivate')}
+            </div>
+          )}
+        </section>
+
+        <AnchorMemoryControls journalId={id} journal={journal} onRefresh={load} />
+
+        <section className="rounded-lg border border-border bg-muted/40 p-4 space-y-3">
+          <h2 className="text-sm font-medium text-foreground">{t('verification')}</h2>
+          {journal.anchor ? (
+            <>
+              <p className="text-sm text-muted-foreground">
+                {t('localDigest')}: {journal.localVerification ? t('verified') : t('notVerified')}
+              </p>
+                <p>
+                  <span className="font-medium text-foreground">{t('onChainBadge')}:</span>{' '}
+                  {tb(`chainState.${journal.chainVerification?.state ?? 'skipped_no_anchor'}`)}
+                </p>
+              <div className="space-y-1 text-xs font-mono text-muted-foreground break-all">
+                <p>
+                  <span className="font-sans font-medium text-foreground">{t('contentHash')}:</span>{' '}
+                  {journal.anchor.contentHash}
+                </p>
+                {journal.anchor.txHash ? (
+                  <p>
+                    <span className="font-sans font-medium text-foreground">{t('txHash')}:</span>{' '}
+                    {journal.anchor.txHash}
+                  </p>
+                ) : null}
+                {journal.anchor.anchoredAt ? (
+                  <p>
+                    <span className="font-sans font-medium text-foreground">{t('anchoredAt')}:</span>{' '}
+                    {journal.anchor.anchoredAt}
+                  </p>
+                ) : null}
+              </div>
+              {explorer ? (
+                <div className="flex justify-end">
+                  <Button asChild size="sm" variant="secondary">
+                    <a href={explorer} target="_blank" rel="noreferrer">
+                      {to('viewExplorer')}
+                    </a>
+                  </Button>
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <p className="text-sm text-muted-foreground">{to('notAnchored')}</p>
+          )}
+        </section>
+      </div>
     </div>
   );
 }
