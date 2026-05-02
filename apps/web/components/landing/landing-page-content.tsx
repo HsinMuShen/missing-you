@@ -139,6 +139,20 @@ export function LandingPageContent() {
         </Container>
       </section>
 
+      <section className="border-y border-border/60 bg-muted/40 py-16 sm:py-20">
+        <Container className="max-w-3xl text-center">
+          <ScrollReveal>
+            <h2 className="font-display text-3xl font-medium text-foreground">{t('publicMemories.title')}</h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{t('publicMemories.body')}</p>
+            <div className="mt-7">
+              <Button asChild size="lg" variant="secondary">
+                <Link href="/public-memories">{t('publicMemories.cta')}</Link>
+              </Button>
+            </div>
+          </ScrollReveal>
+        </Container>
+      </section>
+
       <section className="border-t border-border/60 bg-accent/20 py-16">
         <Container className="max-w-3xl text-center">
           <ScrollReveal>

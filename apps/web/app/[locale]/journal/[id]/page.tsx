@@ -20,8 +20,6 @@ export default async function OwnerJournalPage({ params }: Props) {
         <span aria-hidden="true">&lt;</span>
         <span>{t('backToMemories')}</span>
       </Link>
-      <h1 className="font-display text-3xl font-medium text-foreground">{t('title')}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{t('subtitle')}</p>
       <OwnerMemoryDetailPanel id={id} />
     </Container>
   );

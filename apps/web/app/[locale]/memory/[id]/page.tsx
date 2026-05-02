@@ -39,7 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const dynamicTitle = journal.person?.trim() ? `${journal.person.trim()} · Missing You` : 'Shared Memory · Missing You';
+  const titleSeed = journal.title?.trim() || journal.person?.trim();
+  const dynamicTitle = titleSeed ? `${titleSeed} · Missing You` : 'Shared Memory · Missing You';
   const dynamicDescription = toExcerpt(journal.content, 160);
   const description =
     dynamicDescription ||
@@ -76,21 +77,14 @@ export default async function PublicMemoryPage({ params }: Props) {
     dateStyle: 'medium',
     timeStyle: 'short',
   }).format(new Date(journal.createdAt));
-  const dynamicTitle = journal.person?.trim() || t('title');
-  const dynamicSubtitle = toExcerpt(journal.content) || t('subtitle');
+  const dynamicTitle = journal.title?.trim() || journal.person?.trim() || t('title');
 
   return (
     <Container className="py-16 sm:py-20 max-w-2xl">
       <h1 className="font-display text-3xl font-medium text-foreground">{dynamicTitle}</h1>
-      <p className="mt-2 text-sm text-muted-foreground">{dynamicSubtitle}</p>
 
       <div className="mt-8 space-y-5 rounded-lg border border-border bg-card p-5">
         <p className="text-xs text-muted-foreground">{t('createdAt')}: {createdDate}</p>
-        {journal.person ? (
-          <p className="text-sm text-muted-foreground">
-            {t('person')}: <span className="text-foreground">{journal.person}</span>
-          </p>
-        ) : null}
 
         <div className="rounded-lg bg-muted/50 p-4">
           <p className="whitespace-pre-wrap leading-relaxed text-foreground">{journal.content}</p>

@@ -54,6 +54,7 @@ export function JournalList() {
           className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-card p-4 shadow-sm"
         >
           <div className="min-w-0 flex-1">
+            {j.title?.trim() ? <p className="truncate text-sm font-medium text-foreground">{j.title.trim()}</p> : null}
             <p className="truncate text-sm text-foreground">
               {j.content.slice(0, 120)}
               {j.content.length > 120 ? '…' : ''}

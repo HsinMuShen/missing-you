@@ -35,6 +35,7 @@ function makeRow(overrides: Partial<any> = {}) {
   return {
     id: '6d0f1961-cce8-44da-8a26-bca4b7f7f0b9',
     userId: 'user-1',
+    title: 'A gentle memory',
     content: 'A gentle memory',
     person: 'Grandma',
     privacy: 'private',

@@ -7,6 +7,7 @@ export type JournalWithAnchor = JournalRow & { anchor: MemoryAnchor | null };
 
 export async function createJournal(data: {
   userId: string;
+  title: string | null;
   content: string;
   person: string | null;
   privacy: string;
@@ -15,6 +16,7 @@ export async function createJournal(data: {
   return prisma.journal.create({
     data: {
       userId: data.userId,
+      title: data.title,
       content: data.content,
       person: data.person,
       privacy: data.privacy,
@@ -37,6 +39,37 @@ export async function listJournals(userId: string): Promise<JournalWithAnchor[]>
     orderBy: { createdAt: 'desc' },
     include: journalInclude,
   });
+}
+
+export async function listPublicJournals(params: {
+  page: number;
+  pageSize: number;
+  person?: string;
+}): Promise<{ rows: JournalWithAnchor[]; total: number }> {
+  const where: Prisma.JournalWhereInput = {
+    privacy: 'share',
+    ...(params.person
+      ? {
+          person: {
+            equals: params.person,
+            mode: 'insensitive',
+          },
+        }
+      : {}),
+  };
+
+  const [rows, total] = await prisma.$transaction([
+    prisma.journal.findMany({
+      where,
+      orderBy: { createdAt: 'desc' },
+      skip: (params.page - 1) * params.pageSize,
+      take: params.pageSize,
+      include: journalInclude,
+    }),
+    prisma.journal.count({ where }),
+  ]);
+
+  return { rows, total };
 }
 
 export async function updateJournal(

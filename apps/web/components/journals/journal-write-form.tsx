@@ -8,6 +8,7 @@ import { Link, useRouter } from '@/lib/i18n/navigation';
 export function JournalWriteForm() {
   const t = useTranslations('journals.write');
   const router = useRouter();
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [person, setPerson] = useState('');
   const [privacy, setPrivacy] = useState<'private' | 'share'>('private');
@@ -23,6 +24,7 @@ export function JournalWriteForm() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          title: title.trim() === '' ? null : title.trim(),
           content,
           person: person.trim() === '' ? null : person.trim(),
           privacy,
@@ -33,13 +35,17 @@ export function JournalWriteForm() {
         throw new Error(typeof err.error === 'string' ? err.error : t('error'));
       }
       const created = (await res.json()) as { id: string };
+      setTitle('');
       setContent('');
       setPerson('');
       setPrivacy('private');
       setMessage({ type: 'ok', text: t('success') });
       router.push(`/journal/${created.id}`);
-    } catch {
-      setMessage({ type: 'err', text: t('error') });
+    } catch (err) {
+      setMessage({
+        type: 'err',
+        text: err instanceof Error && err.message ? err.message : t('error'),
+      });
     } finally {
       setPending(false);
     }
@@ -47,6 +53,19 @@ export function JournalWriteForm() {
 
   return (
     <form onSubmit={onSubmit} className="mt-8 max-w-xl space-y-6">
+      <div>
+        <label htmlFor="journal-title" className="block text-sm font-medium text-foreground">
+          {t('entryTitle')}
+        </label>
+        <input
+          id="journal-title"
+          required
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          className="mt-2 w-full rounded-lg border border-border bg-card px-3 py-2 text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-stone-300"
+        />
+      </div>
       <div>
         <label htmlFor="journal-content" className="block text-sm font-medium text-foreground">
           {t('content')}
@@ -101,12 +120,12 @@ export function JournalWriteForm() {
           {message.text}
         </p>
       ) : null}
-      <div className="flex flex-wrap gap-3">
-        <Button type="submit" disabled={pending}>
-          {pending ? t('saving') : t('submit')}
-        </Button>
-        <Button type="button" variant="secondary" asChild>
+      <div className="flex flex-wrap justify-end gap-3">
+        <Button type="button" asChild>
           <Link href="/memories">{t('viewMemories')}</Link>
+        </Button>
+        <Button type="submit" variant="secondary" disabled={pending}>
+          {pending ? t('saving') : t('submit')}
         </Button>
       </div>
     </form>
