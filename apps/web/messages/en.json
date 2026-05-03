@@ -11,10 +11,142 @@
     "calendar": "Calendar",
     "settings": "Settings",
     "signIn": "Sign in",
-    "signOut": "Sign out"
+    "signOut": "Sign out",
+    "learnHeading": "Learn",
+    "helpQa": "Q & A",
+    "helpBlockchain": "Blockchain & this app",
+    "helpHowItWorks": "How it works"
   },
   "footer": {
-    "tagline": "Missing You — preserving memories with care."
+    "tagline": "Missing You — preserving memories with care.",
+    "learnHeading": "Learn",
+    "helpQa": "Q & A",
+    "helpBlockchain": "Blockchain",
+    "helpHowItWorks": "How it works"
+  },
+  "help": {
+    "backHome": "Back to home",
+    "qa": {
+      "metaTitle": "Q & A — Missing You",
+      "metaDescription": "Simple answers about Missing You, privacy, and optional blockchain proof.",
+      "title": "Questions & answers",
+      "intro": "Short answers for everyday readers. If you want to go deeper, use the trusted links at the bottom — they open in a new tab.",
+      "faq": [
+        {
+          "q": "Do I need a wallet or crypto to write a memory?",
+          "a": "No. You can sign in with email and write like a normal website. A wallet is only needed if you choose to anchor proof on-chain."
+        },
+        {
+          "q": "Is my full diary text stored on the blockchain?",
+          "a": "No. Your story stays in the app’s database (off-chain). The chain only receives a small fingerprint (a hash) and related metadata — not your full letter."
+        },
+        {
+          "q": "What does “anchor” mean here?",
+          "a": "It means recording a tamper-evident fingerprint of your memory on a public ledger. Later, anyone can check that the same memory still matches that record — without reading your private text."
+        },
+        {
+          "q": "Why use blockchain at all?",
+          "a": "It’s optional. Some people want an independent, time-stamped record that isn’t controlled by one company. It’s about trust and verification, not trading coins."
+        },
+        {
+          "q": "Will I make money from this?",
+          "a": "Missing You is not an investment product. Test networks may use test ETH with no real-world value. Always be careful with real money and scams elsewhere."
+        },
+        {
+          "q": "What is a test network (e.g. Sepolia)?",
+          "a": "A practice network developers use so real money isn’t at risk. Think of it as a sandbox. The app may be configured to use one while you try things out."
+        }
+      ],
+      "linksTitle": "Trusted sites to learn more",
+      "links": [
+        {
+          "label": "Ethereum.org — What is Ethereum?",
+          "href": "https://ethereum.org/en/what-is-ethereum/"
+        },
+        {
+          "label": "Ethereum.org — What are smart contracts?",
+          "href": "https://ethereum.org/en/smart-contracts/"
+        },
+        {
+          "label": "EFF — What is cryptography?",
+          "href": "https://ssd.eff.org/module/what-cryptography"
+        },
+        {
+          "label": "Investopedia — Blockchain explained",
+          "href": "https://www.investopedia.com/terms/b/blockchain.asp"
+        }
+      ]
+    },
+    "blockchain": {
+      "metaTitle": "Blockchain & Missing You",
+      "metaDescription": "A simple explanation of blockchain and why Missing You uses it optionally.",
+      "title": "What is blockchain? Why use it here?",
+      "lead": "You don’t need to be technical. Here’s the idea in plain language.",
+      "s1Title": "Blockchain in one sentence",
+      "s1Body": "A blockchain is a shared digital ledger many computers keep in sync. Once something is written according to the rules, it’s very hard to change it quietly — which helps with trust and timestamps.",
+      "s2Title": "Why Missing You uses it (optional)",
+      "s2Body": "Your words stay private in the app. If you want, you can anchor a fingerprint of your memory on-chain. That gives you an independent place to prove “this memory existed in this form at this time” — without publishing your full story.",
+      "s3Title": "What we are not doing",
+      "s3Body": "We’re not selling tokens or promising returns. Wallet actions are for signing and optional anchoring. If someone asks you to “invest” in a memory app, be skeptical — that’s not what this is for.",
+      "linksTitle": "Read more from reputable sources",
+      "links": [
+        {
+          "label": "Ethereum.org — What is Ethereum?",
+          "href": "https://ethereum.org/en/what-is-ethereum/"
+        },
+        {
+          "label": "Ethereum.org — Introduction to Ethereum",
+          "href": "https://ethereum.org/en/developers/docs/intro-to-ethereum/"
+        },
+        {
+          "label": "IBM — What is blockchain technology?",
+          "href": "https://www.ibm.com/topics/blockchain"
+        },
+        {
+          "label": "Cloudflare Learning Center — What is a blockchain?",
+          "href": "https://www.cloudflare.com/learning/distributed-network/what-is-blockchain/"
+        }
+      ]
+    },
+    "howItWorks": {
+      "metaTitle": "How Missing You works",
+      "metaDescription": "A simple overview of how you write, save, optionally anchor, and share memories.",
+      "title": "How this app works",
+      "lead": "A calm flow: write first, prove only if you want, share only if you want.",
+      "steps": [
+        {
+          "title": "Sign in and write",
+          "body": "Create an account with email. Add a title, your memory, and optionally who it’s for. Everything feels like a normal journal app."
+        },
+        {
+          "title": "Saved in the app",
+          "body": "Your text is stored securely in the app’s database. You can keep it private or mark it as shareable for a public page later."
+        },
+        {
+          "title": "Optional: anchor a fingerprint",
+          "body": "If you connect a wallet, you can record a cryptographic fingerprint on a blockchain. That’s separate from your private text — it’s for verification, not for reading your diary on-chain."
+        },
+        {
+          "title": "Optional: share",
+          "body": "When a memory is shareable, you can copy a public link so others read what you chose to share — and see proof details if you anchored."
+        }
+      ],
+      "linksTitle": "Deeper reading (technical & neutral)",
+      "links": [
+        {
+          "label": "Ethereum.org — What is Ethereum?",
+          "href": "https://ethereum.org/en/what-is-ethereum/"
+        },
+        {
+          "label": "OWASP — Cryptographic storage cheat sheet",
+          "href": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+        },
+        {
+          "label": "NIST — Cryptography",
+          "href": "https://www.nist.gov/cryptography"
+        }
+      ]
+    }
   },
   "home": {
     "eyebrow": "Web3 journaling",

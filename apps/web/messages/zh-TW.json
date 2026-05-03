@@ -11,10 +11,142 @@
     "calendar": "日曆",
     "settings": "設定",
     "signIn": "登入",
-    "signOut": "登出"
+    "signOut": "登出",
+    "learnHeading": "認識更多",
+    "helpQa": "常見問題",
+    "helpBlockchain": "區塊鏈與本產品",
+    "helpHowItWorks": "運作方式"
   },
   "footer": {
-    "tagline": "Missing You — 以慎重之心保存回憶。"
+    "tagline": "Missing You — 以慎重之心保存回憶。",
+    "learnHeading": "認識更多",
+    "helpQa": "常見問題",
+    "helpBlockchain": "區塊鏈",
+    "helpHowItWorks": "運作方式"
+  },
+  "help": {
+    "backHome": "回到首頁",
+    "qa": {
+      "metaTitle": "常見問題 — Missing You",
+      "metaDescription": "以簡單方式說明 Missing You、隱私與可選的區塊鏈證明。",
+      "title": "常見問題",
+      "intro": "這裡用最直白的說法回答常見疑問。若想再深入，可參考下方連結（會在新分頁開啟）。",
+      "faq": [
+        {
+          "q": "寫回憶一定要先連錢包或買加密貨幣嗎？",
+          "a": "不用。你可以用 Email 登入，像一般網站一樣書寫。只有在你想把「證明」記到鏈上時，才需要連接錢包。"
+        },
+        {
+          "q": "我的日記全文會上區塊鏈嗎？",
+          "a": "不會。你的文字主要保存在應用程式的資料庫（鏈下）。鏈上通常只會記錄一小段指紋（雜湊）與相關資訊，而不是整封信或長文。"
+        },
+        {
+          "q": "「錨定」是什麼意思？",
+          "a": "意思是把一段與回憶對應的、難以竄改的指紋，記到公開帳本上。之後任何人都能核對：這段回憶是否仍與當初記錄一致——而不必讀到你的私密全文。"
+        },
+        {
+          "q": "為什麼要用區塊鏈？",
+          "a": "這是可選的。有些人希望有一份不依賴單一公司的、可驗證的時間與完整性紀錄。重點是信任與查核，不是炒幣或投資。"
+        },
+        {
+          "q": "這能賺錢嗎？",
+          "a": "Missing You 不是投資商品。測試網使用的測試代幣通常沒有真實金錢價值。涉及真實資金時務必提高警覺、提防詐騙。"
+        },
+        {
+          "q": "什麼是測試網（例如 Sepolia）？",
+          "a": "給開發與試用用的練習網路，降低真錢風險。你可以把它想成沙盒環境；本產品在試用階段可能會設定使用測試網。"
+        }
+      ],
+      "linksTitle": "想更了解？可參考這些來源",
+      "links": [
+        {
+          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
+        },
+        {
+          "label": "Ethereum.org（繁中）— 什麼是智能合約？",
+          "href": "https://ethereum.org/zh-tw/smart-contracts/"
+        },
+        {
+          "label": "EFF — 什麼是密碼學？（英文）",
+          "href": "https://ssd.eff.org/module/what-cryptography"
+        },
+        {
+          "label": "Investopedia — 區塊鏈說明（英文）",
+          "href": "https://www.investopedia.com/terms/b/blockchain.asp"
+        }
+      ]
+    },
+    "blockchain": {
+      "metaTitle": "區塊鏈與 Missing You",
+      "metaDescription": "用簡單方式說明區塊鏈，以及 Missing You 為何可選擇使用它。",
+      "title": "什麼是區塊鏈？為什麼這個專案會用到？",
+      "lead": "不必懂技術細節，只要抓住幾個核心觀念就好。",
+      "s1Title": "一句話形容區塊鏈",
+      "s1Body": "區塊鏈像一本許多電腦一起維護的帳本。依規則寫入後，要偷偷改動會非常困難，因此有助於建立信任與時間順序感。",
+      "s2Title": "Missing You 為什麼用它（而且可選）",
+      "s2Body": "你的文字留在應用程式裡、保持隱私。若你願意，可以把回憶的「指紋」記到鏈上，多一個可公開查核的依據，證明「這段內容曾以這個形式存在」——而不必把整篇日記公開上鏈。",
+      "s3Title": "我們沒有在做的事",
+      "s3Body": "這不是代幣銷售，也不保證投資報酬。錢包主要用於簽署與可選的錨定流程。若有人要你「投資回憶 App」，請提高警覺——這不是本產品的目的。",
+      "linksTitle": "更多參考（中立／機構來源）",
+      "links": [
+        {
+          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
+        },
+        {
+          "label": "Ethereum.org（繁中）— 以太坊入門",
+          "href": "https://ethereum.org/zh-tw/developers/docs/intro-to-ethereum/"
+        },
+        {
+          "label": "IBM — 什麼是區塊鏈？（英文）",
+          "href": "https://www.ibm.com/topics/blockchain"
+        },
+        {
+          "label": "Cloudflare — 什麼是區塊鏈？（英文）",
+          "href": "https://www.cloudflare.com/learning/distributed-network/what-is-blockchain/"
+        }
+      ]
+    },
+    "howItWorks": {
+      "metaTitle": "運作方式 — Missing You",
+      "metaDescription": "簡單說明如何書寫、儲存、可選錨定與分享回憶。",
+      "title": "本產品的運作方式",
+      "lead": "流程很單純：先安心書寫；要不要留下鏈上證明、要不要分享，都由你決定。",
+      "steps": [
+        {
+          "title": "登入並書寫",
+          "body": "用 Email 建立帳號。填寫標題、回憶內容，以及選填「這段回憶是給誰」。體驗上就像一般的日記或紀錄工具。"
+        },
+        {
+          "title": "保存在應用程式內",
+          "body": "文字會存在應用程式的資料庫中。你可以保持私人，或設定為日後可分享，開啟公開頁面。"
+        },
+        {
+          "title": "可選：把指紋錨定到鏈上",
+          "body": "若你連接錢包，可以選擇把密碼學指紋記到區塊鏈。這與私密全文分開——目的是讓人日後能驗證，而不是把整篇日記公開在鏈上。"
+        },
+        {
+          "title": "可選：分享",
+          "body": "當回憶設為可分享時，你可以複製公開連結，讓他人閱讀你願意公開的部分；若有錨定，也可一併查看證明相關資訊。"
+        }
+      ],
+      "linksTitle": "想再深入（技術／中立資源）",
+      "links": [
+        {
+          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
+        },
+        {
+          "label": "OWASP — 密碼儲存重點（英文）",
+          "href": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
+        },
+        {
+          "label": "NIST — 密碼學（英文）",
+          "href": "https://www.nist.gov/cryptography"
+        }
+      ]
+    }
   },
   "home": {
     "eyebrow": "Web3 日記",

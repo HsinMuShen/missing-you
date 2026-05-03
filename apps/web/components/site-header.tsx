@@ -30,6 +30,10 @@ export async function SiteHeader() {
             memoriesLabel={t('memories')}
             publicMemoriesLabel={t('publicMemories')}
             calendarLabel={t('calendar')}
+            learnHeading={t('learnHeading')}
+            helpQaLabel={t('helpQa')}
+            helpBlockchainLabel={t('helpBlockchain')}
+            helpHowItWorksLabel={t('helpHowItWorks')}
             settingsLabel={t('settings')}
             signInLabel={t('signIn')}
             email={session?.user?.id ? session.user.email : null}
