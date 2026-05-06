@@ -87,7 +87,9 @@ export default async function PublicMemoryPage({ params }: Props) {
         <p className="text-xs text-muted-foreground">{t('createdAt')}: {createdDate}</p>
 
         <div className="rounded-lg bg-muted/50 p-4">
-          <p className="whitespace-pre-wrap leading-relaxed text-foreground">{journal.content}</p>
+          <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed text-foreground">
+            {journal.content}
+          </p>
         </div>
       </div>
 

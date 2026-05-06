@@ -469,7 +469,7 @@
     "email": "Email address",
     "send": "Send magic link",
     "sending": "Sending…",
-    "sent": "Check your email for a sign-in link.",
+    "sent": "Check your email for a sign-in link. If you do not see it, check your spam folder.",
     "sendError": "Could not send sign-in email. Please try again."
   },
   "settings": {
