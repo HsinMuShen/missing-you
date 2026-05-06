@@ -39,9 +39,9 @@ export function JournalList() {
     return (
       <div className="rounded-lg border border-border bg-card p-6 text-center">
         <p className="text-muted-foreground">{t('empty')}</p>
-        <Link href="/write" className="mt-3 inline-block text-sm text-stone-700 underline-offset-4 hover:underline">
-          {t('emptyCta')}
-        </Link>
+        <Button asChild className="mt-4">
+          <Link href="/write">{t('emptyCta')}</Link>
+        </Button>
       </div>
     );
   }
