@@ -82,6 +82,7 @@ export function toJournalDto(row: JournalWithAnchor): Journal {
 }
 
 function chainLabelFromId(chainId: number): string {
+  if (chainId === 1) return 'ethereum';
   if (chainId === 137) return 'polygon';
   if (chainId === 80002) return 'polygon-amoy';
   return `chain-${chainId}`;

@@ -7,6 +7,7 @@
     "deploy:sepolia": "forge script script/Deploy.s.sol:DeployScript --rpc-url $SEPOLIA_RPC_URL --broadcast",
     "deploy:amoy": "forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_AMOY_RPC_URL --broadcast",
     "deploy:polygon": "forge script script/Deploy.s.sol:DeployScript --rpc-url $POLYGON_RPC_URL --broadcast",
+    "deploy:mainnet": "forge script script/Deploy.s.sol:DeployScript --rpc-url $ETHEREUM_MAINNET_RPC_URL --broadcast",
     "export:abi": "node scripts/export-abi.mjs",
     "save:deployment": "node scripts/save-deployment.mjs",
     "clean": "rm -rf cache out",
