@@ -2,7 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider, createConfig, http, createStorage, cookieStorage } from 'wagmi';
-import { polygon, polygonAmoy, sepolia } from 'viem/chains';
+import { mainnet, polygon, polygonAmoy, sepolia } from 'viem/chains';
 import { getDefaultAnchorChainId } from '@missing-you/shared';
 import { injected, walletConnect } from 'wagmi/connectors';
 import { useState, type ReactNode } from 'react';
@@ -15,18 +15,22 @@ const polygonRpcUrl =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_POLYGON_MAINNET_RPC_URL : undefined;
 const sepoliaRpcUrl =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL : undefined;
+const ethereumMainnetRpcUrl =
+  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_ETHEREUM_MAINNET_RPC_URL : undefined;
 
 /**
- * Polygon-compatible chains for MemoryRegistry. Default chain comes from `NEXT_PUBLIC_ANCHOR_CHAIN_ID`
- * (80002 Amoy or 137 Polygon). Wallet is only needed when submitting `anchorMemory`, not for drafts.
+ * EVM chains for MemoryRegistry. Default chain comes from `NEXT_PUBLIC_ANCHOR_CHAIN_ID`.
+ * Wallet is only needed when submitting `anchorMemory`, not for drafts.
  */
 const defaultAnchorChainId = getDefaultAnchorChainId();
 const orderedChains =
-  defaultAnchorChainId === polygon.id
-    ? ([polygon, polygonAmoy, sepolia] as const)
-    : defaultAnchorChainId === sepolia.id
-      ? ([sepolia, polygonAmoy, polygon] as const)
-      : ([polygonAmoy, polygon, sepolia] as const);
+  defaultAnchorChainId === mainnet.id
+    ? ([mainnet, sepolia, polygon, polygonAmoy] as const)
+    : defaultAnchorChainId === polygon.id
+      ? ([polygon, mainnet, sepolia, polygonAmoy] as const)
+      : defaultAnchorChainId === sepolia.id
+        ? ([sepolia, mainnet, polygon, polygonAmoy] as const)
+        : ([polygonAmoy, mainnet, sepolia, polygon] as const);
 
 const connectors = [
   injected({ shimDisconnect: true }),
@@ -50,6 +54,7 @@ const wagmiConfig = createConfig({
   chains: orderedChains,
   connectors,
   transports: {
+    [mainnet.id]: http(ethereumMainnetRpcUrl),
     [polygonAmoy.id]: http(amoyRpcUrl),
     [polygon.id]: http(polygonRpcUrl),
     [sepolia.id]: http(sepoliaRpcUrl),

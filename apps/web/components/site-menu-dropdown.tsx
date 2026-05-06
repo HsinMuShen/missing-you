@@ -10,6 +10,10 @@ type Props = {
   memoriesLabel: string;
   publicMemoriesLabel: string;
   calendarLabel: string;
+  learnHeading: string;
+  helpQaLabel: string;
+  helpBlockchainLabel: string;
+  helpHowItWorksLabel: string;
   settingsLabel: string;
   signInLabel: string;
   email?: string | null;
@@ -23,6 +27,10 @@ export function SiteMenuDropdown({
   memoriesLabel,
   publicMemoriesLabel,
   calendarLabel,
+  learnHeading,
+  helpQaLabel,
+  helpBlockchainLabel,
+  helpHowItWorksLabel,
   settingsLabel,
   signInLabel,
   email,
@@ -96,6 +104,30 @@ export function SiteMenuDropdown({
             className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
           >
             {publicMemoriesLabel}
+          </Link>
+          <p className="px-2 pt-2 text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            {learnHeading}
+          </p>
+          <Link
+            href="/qa"
+            onClick={closeMenu}
+            className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
+          >
+            {helpQaLabel}
+          </Link>
+          <Link
+            href="/blockchain"
+            onClick={closeMenu}
+            className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
+          >
+            {helpBlockchainLabel}
+          </Link>
+          <Link
+            href="/how-it-works"
+            onClick={closeMenu}
+            className="block rounded-md px-2 py-1.5 text-foreground hover:bg-muted"
+          >
+            {helpHowItWorksLabel}
           </Link>
           <Link
             href="/settings"
