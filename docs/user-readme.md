@@ -73,11 +73,12 @@ Result: emotional writing remains private, while trust is publicly verifiable.
 
 ## Key Screens
 
-- **Write**: create memories
-- **Memories**: your list/dashboard
-- **Journal Detail**: owner controls, anchoring, visibility
-- **Public Memory Page**: shared content + verification details
-- **Settings**: account and future wallet-linking area
+- **Write**: create memories (optional expandable “where your words go” trust summary)
+- **Memories**: your list, grouped by person remembered, with a first-visit welcome when the list is empty
+- **Journal Detail**: owner controls, anchoring (step-by-step copy + retry), visibility
+- **Public Memory Page**: shared content, visibility banner, and plain-language “what verification means”
+- **Privacy & security** (`/privacy-security`): operator-oriented privacy, rate limits, and safety summary
+- **Settings**: account and wallet linking
 
 ---
 

@@ -1,4 +1,10 @@
-import { createPublicClient, http, type Address, type Hex } from 'viem';
+import {
+  createPublicClient,
+  http,
+  type Address,
+  type Hex,
+  WaitForTransactionReceiptTimeoutError,
+} from 'viem';
 import { getAnchorChainById } from '@missing-you/shared';
 import { getServerRpcUrl } from '@/lib/blockchain/rpc-urls';
 
@@ -12,9 +18,11 @@ export class AnchorTxValidationError extends Error {
   }
 }
 
-async function sleep(ms: number) {
-  await new Promise((resolve) => setTimeout(resolve, ms));
-}
+/** Default wait: public testnet RPCs often index receipts tens of seconds after MetaMask shows “confirmed”. */
+const RECEIPT_WAIT_MS = (() => {
+  const raw = Number(process.env.ANCHOR_RECEIPT_WAIT_MS);
+  return Number.isFinite(raw) && raw > 0 ? raw : 120_000;
+})();
 
 /**
  * Confirms the user-submitted hash landed successfully before we persist `MemoryAnchor`.
@@ -42,15 +50,24 @@ export async function assertAnchorTransactionSucceeded(params: {
     transport: http(url),
   });
 
-  // Sepolia/Amoy public RPC can index receipts with a short delay after wallet confirmation.
-  let receipt: Awaited<ReturnType<typeof client.getTransactionReceipt>> | null = null;
-  for (let i = 0; i < 6; i += 1) {
-    receipt = await client.getTransactionReceipt({ hash: params.txHash }).catch(() => null);
-    if (receipt) break;
-    await sleep(1500);
-  }
-  if (!receipt) {
-    throw new AnchorTxValidationError('Transaction receipt not found yet; please retry in a few seconds', 400);
+  let receipt: Awaited<ReturnType<typeof client.waitForTransactionReceipt>>;
+  try {
+    receipt = await client.waitForTransactionReceipt({
+      hash: params.txHash,
+      pollingInterval: 2_000,
+      timeout: RECEIPT_WAIT_MS,
+    });
+  } catch (e) {
+    if (e instanceof WaitForTransactionReceiptTimeoutError) {
+      throw new AnchorTxValidationError(
+        'Transaction receipt not found yet; please retry in a few seconds',
+        400
+      );
+    }
+    throw new AnchorTxValidationError(
+      e instanceof Error ? e.message : 'Failed to fetch transaction receipt from RPC',
+      503
+    );
   }
   if (receipt.status !== 'success') {
     throw new AnchorTxValidationError('Transaction reverted on-chain', 400);

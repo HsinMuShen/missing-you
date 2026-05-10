@@ -19,6 +19,36 @@ export type AnchorPhase =
   | 'success'
   | 'error';
 
+const CONFIRM_RETRY_MAX = 4;
+const CONFIRM_RETRY_DELAY_MS = 4_000;
+
+function isReceiptPendingMessage(msg: string) {
+  return msg.toLowerCase().includes('receipt not found') || msg.toLowerCase().includes('retry in a few seconds');
+}
+
+async function postConfirmAnchor(journalId: string, body: { txHash: Hex; chainId: number; contractAddress: string }) {
+  let lastError = 'confirm failed';
+  for (let attempt = 0; attempt < CONFIRM_RETRY_MAX; attempt += 1) {
+    const conf = await fetch(`/api/journals/${journalId}/confirm-anchor`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (conf.ok) return conf;
+
+    const errBody = (await conf.json().catch(() => ({}))) as { error?: string };
+    lastError = typeof errBody.error === 'string' ? errBody.error : 'confirm failed';
+
+    const retryable = conf.status === 400 && isReceiptPendingMessage(lastError);
+    if (!retryable || attempt === CONFIRM_RETRY_MAX - 1) {
+      throw new Error(lastError);
+    }
+
+    await new Promise((r) => setTimeout(r, CONFIRM_RETRY_DELAY_MS));
+  }
+  throw new Error(lastError);
+}
+
 /**
  * Orchestrates: BFF prepare → wallet `anchorMemory` → BFF confirm with receipt hash.
  * Journal prose never leaves the browser for the chain call — only `memoryId` and `contentHash` bytes.
@@ -53,19 +83,11 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
       setError(null);
       setPhase('confirming');
       try {
-        const conf = await fetch(`/api/journals/${journalId}/confirm-anchor`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            txHash,
-            chainId: targetChainId,
-            contractAddress: contract,
-          }),
+        await postConfirmAnchor(journalId, {
+          txHash,
+          chainId: targetChainId,
+          contractAddress: contract,
         });
-        if (!conf.ok) {
-          const body = (await conf.json().catch(() => ({}))) as { error?: string };
-          throw new Error(typeof body.error === 'string' ? body.error : 'confirm failed');
-        }
 
         setLastTxHash(txHash);
         setPhase('success');
@@ -127,19 +149,11 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
       setLastTxHash(txHash);
 
       setPhase('confirming');
-      const conf = await fetch(`/api/journals/${journalId}/confirm-anchor`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          txHash,
-          chainId: targetChainId,
-          contractAddress: contract,
-        }),
+      await postConfirmAnchor(journalId, {
+        txHash,
+        chainId: targetChainId,
+        contractAddress: contract,
       });
-      if (!conf.ok) {
-        const body = (await conf.json().catch(() => ({}))) as { error?: string };
-        throw new Error(typeof body.error === 'string' ? body.error : 'confirm failed');
-      }
 
       setPhase('success');
       await onRefresh();
@@ -155,6 +169,11 @@ export function useAnchorMemory(journalId: string, onRefresh: () => Promise<void
         setError('USER_REJECTED');
       } else if (msg.includes('AlreadyAnchored') || msg.toLowerCase().includes('already anchored')) {
         setError('ALREADY_ANCHORED');
+      } else if (
+        msg.toLowerCase().includes('insufficient funds') ||
+        msg.toLowerCase().includes('exceeds the balance')
+      ) {
+        setError('INSUFFICIENT_FUNDS');
       } else if (
         msg === 'SWITCH_NETWORK' ||
         msg.includes('does not match the target chain') ||

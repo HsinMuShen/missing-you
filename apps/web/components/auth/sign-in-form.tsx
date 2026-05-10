@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@missing-you/ui';
+import { Spinner } from '@/components/ui/spinner';
 import { actionBtnFullMobile } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
@@ -58,7 +59,13 @@ export function SignInForm({ callbackUrl }: Props) {
       {message ? <p className="text-sm text-stone-600">{message}</p> : null}
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
-      <Button type="submit" className={actionBtnFullMobile} disabled={pending}>
+      <Button
+        type="submit"
+        className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
+        disabled={pending}
+        aria-busy={pending}
+      >
+        {pending ? <Spinner size="sm" label={t('sending')} /> : null}
         {pending ? t('sending') : t('send')}
       </Button>
     </form>

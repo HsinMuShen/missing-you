@@ -30,6 +30,15 @@ const config: Config = {
       boxShadow: {
         soft: '0 1px 2px rgba(41, 37, 36, 0.06), 0 8px 24px rgba(41, 37, 36, 0.06)',
       },
+      keyframes: {
+        'nav-progress': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(250%)' },
+        },
+      },
+      animation: {
+        'nav-progress': 'nav-progress 0.45s ease-out forwards',
+      },
     },
   },
   plugins: [],

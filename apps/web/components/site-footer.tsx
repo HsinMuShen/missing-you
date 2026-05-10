@@ -27,6 +27,9 @@ export async function SiteFooter() {
           <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground hover:underline">
             {t('helpHowItWorks')}
           </Link>
+          <Link href="/privacy-security" className="text-muted-foreground hover:text-foreground hover:underline">
+            {t('helpPrivacySecurity')}
+          </Link>
         </nav>
         <p className="mt-6 border-t border-border/60 pt-6 text-xs text-muted-foreground">
           {t('copyright', { year })}

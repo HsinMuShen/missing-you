@@ -4,9 +4,11 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
 import { WalletAnchorHelpIcon } from '@/components/help/wallet-anchor-help-icon';
+import { Spinner } from '@/components/ui/spinner';
 
 export function WalletMenu() {
   const t = useTranslations('wallet');
+  const tc = useTranslations('common');
   const { address, isConnected } = useAccount();
   const { connectors, connect, isPending, error } = useConnect();
   const { disconnect } = useDisconnect();
@@ -39,14 +41,16 @@ export function WalletMenu() {
           type="button"
           variant="secondary"
           size="sm"
-          className="h-7 px-2.5 text-xs"
+          className="inline-flex h-7 items-center gap-1.5 px-2.5 text-xs"
           disabled={!preferredConnector || isPending}
+          aria-busy={isPending}
           onClick={() => {
             if (!preferredConnector) return;
             connect({ connector: preferredConnector });
           }}
         >
-          {t('connect')}
+          {isPending ? <Spinner size="sm" label={tc('connectingWallet')} /> : null}
+          {isPending ? tc('connectingWallet') : t('connect')}
         </Button>
         <WalletAnchorHelpIcon tooltipAlign="inline-end" />
       </div>

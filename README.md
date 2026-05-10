@@ -338,10 +338,10 @@ We welcome issues and pull requests that respect the product’s tone: **privacy
 
 Near-term priorities that fit the current architecture:
 
-- **Hardening:** Rate limits, structured audit logs, deeper tx / event validation where needed.  
+- **Hardening:** Per-user API rate limits (in-process; add Redis/Upstash for multi-instance), structured audit logs, deeper tx / event validation where needed.  
 - **Observability:** Monitoring, alerting, and runbooks for production operators.  
 - **Security testing:** Expanded API fuzzing and E2E regression around auth, privacy, and anchor edge cases.  
-- **Product:** Richer editor experience and continued i18n polish while keeping off-chain/on-chain boundaries crisp.  
+- **Product:** First-session welcome + trust copy on Memories/Write, person grouping on the list, clearer anchor and public-share UX, `/privacy-security` help page — plus richer editor and i18n polish while keeping off-chain/on-chain boundaries crisp.  
 
 Scaling vision stays **operational simplicity**: one primary web deploy, one registry contract per supported chain environment, managed Postgres — unless a future fork explicitly targets full decentralized storage.
 

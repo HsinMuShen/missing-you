@@ -18,6 +18,7 @@ type Props = {
   helpBlockchainLabel: string;
   helpHowItWorksLabel: string;
   helpWalletGuideLabel: string;
+  helpPrivacySecurityLabel: string;
   settingsLabel: string;
   signInLabel: string;
   email?: string | null;
@@ -69,6 +70,7 @@ export function SiteMenuDropdown({
   helpBlockchainLabel,
   helpHowItWorksLabel,
   helpWalletGuideLabel,
+  helpPrivacySecurityLabel,
   settingsLabel,
   signInLabel,
   email,
@@ -158,6 +160,9 @@ export function SiteMenuDropdown({
                 </Link>
                 <Link href="/how-it-works" onClick={closeMenu} className={`${navLinkClassName()} pl-3 text-[13px]`}>
                   {helpHowItWorksLabel}
+                </Link>
+                <Link href="/privacy-security" onClick={closeMenu} className={`${navLinkClassName()} pl-3 text-[13px]`}>
+                  {helpPrivacySecurityLabel}
                 </Link>
               </div>
             </details>

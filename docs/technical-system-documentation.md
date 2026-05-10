@@ -201,6 +201,15 @@ flowchart LR
 - **`@missing-you/ui`:** `Button` (Radix Slot + CVA), `Container`, `cn()` helper — intentionally small surface.
 - **App components:** `components/journals/*`, `components/landing/*`, `components/auth/*`, `components/blockchain/*`, layout chrome in `site-header` / `site-footer`.
 
+### First-time and trust UX (product)
+
+- **Memories (empty state):** `FirstSessionWelcome` (`components/journals/first-session-welcome.tsx`) — skippable three-step dialog (welcome → trust bullets → CTA to write); dismissal persisted in `localStorage` key `missing-you:v1:firstWelcomeDismissed`.
+- **Write flow:** `WriteTrustPanel` — collapsible “where your words go” summary on the write form.
+- **Memories list:** Entries grouped/filtered by `Journal.person` (`journal-list.tsx`); “no name” bucket for null/empty person.
+- **Anchor panel:** Numbered steps, mobile WalletConnect hint, mapped `INSUFFICIENT_FUNDS`, **Try again** after errors (`anchor-memory-controls.tsx`).
+- **Public memory page:** Visibility banner, expanded “what verification means” copy, canonical/Open Graph metadata (`memory/[id]/page.tsx`).
+- **Shareability:** Extra copy on who can see a public vs private memory (`shareability-control.tsx`).
+
 ### i18n
 
 - Messages live in `apps/web/messages/en.json` and `apps/web/messages/zh-TW.json`.
@@ -258,6 +267,10 @@ All backend logic is **Next.js Route Handlers** (`app/api/**/route.ts`). There i
 | `account/settings` | PATCH `defaultPrivacy` for authenticated user |
 | `health`, `ready` | Env completeness probes |
 
+**Rate limiting:** `POST` handlers for journal create, `prepare-anchor`, `confirm-anchor`, and wallet link (`link-challenge` / `link-confirm` share one per-user bucket) call `enforceUserRateLimit` (`lib/rate-limit/enforce.ts`). Over limit → **429** + `Retry-After`. Counters are **in-process** per runtime instance; see `docs/security-and-hardening.md` for multi-instance notes.
+
+**Localized marketing / help:** `app/[locale]/*/page.tsx` includes **`/privacy-security`** (privacy & security copy), alongside Q&A, blockchain, wallet guide, and how-it-works pages.
+
 ### Service layer
 
 - **`journal.service.ts`:** Validation, ownership checks, canonical payload + hash, anchor preparation, anchoring confirmation, public listing, shareability updates (with on-chain requirement when anchored).
@@ -285,7 +298,7 @@ All backend logic is **Next.js Route Handlers** (`app/api/**/route.ts`). There i
 
 | Topic | Status in codebase |
 |-------|---------------------|
-| Rate limiting | Not implemented in Route Handlers (rely on platform / future middleware) |
+| Rate limiting | Per-user limits on journal create, anchor prepare/confirm, wallet-link POSTs (`lib/rate-limit/`); in-process window (not cross-instance) |
 | Queues / workers | None |
 | File storage | Not used for journals (text in DB) |
 | Email | SMTP via Auth.js provider config |

@@ -111,6 +111,13 @@ If you decide to anchor a memory, the product may ask you to connect a **digital
 
 Most of the complexity—hashes, networks, verification—is handled so you can focus on **writing** and **choices** (private, shared, anchored or not). The technology is there to **support** the experience, not to turn you into a trader or an engineer.
 
+**What you might notice in the product**
+
+- The first time you open **Memories** and your list is still empty, a short **welcome and privacy overview** may appear (you can skip it). On the **Write** page, you can open a small **“where your words go”** summary before you type.
+- Your **Memories** list can be **grouped or filtered by who each entry is for** (the optional “who this is for” field), so related entries stay together.
+- When the app is **loading** or **saving**, you should see gentle indicators—small spinners or a thin progress hint at the top—so it’s clear something is in progress, not frozen.
+- **Public** memory pages include a **short note** about what is public versus what stays off-chain, plus a plain-language section on **what “verification” means** when a memory is anchored.
+
 ---
 
 ## 6. Privacy, Trust & Safety
@@ -133,6 +140,10 @@ Technology can’t guarantee how anyone will feel. What Missing You aims for is 
 **If you’re skeptical**
 
 That’s reasonable. New tools deserve scrutiny, especially around loss. Ask questions, read the shorter [Product Guide for Users](./user-readme.md), and use only what feels right for you—including **skipping** blockchain entirely if anchoring doesn’t serve your needs.
+
+**Privacy & security page (in the app)**
+
+The site includes a **Privacy & security** page (linked from the footer and learn menu) that summarizes, in everyday language, where your text lives, when wallets are needed, and how the service approaches abuse protection (such as API rate limits) and monitoring. It complements technical docs for people running or auditing the service—not a substitute for legal advice.
 
 ---
 
