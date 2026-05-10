@@ -12,7 +12,7 @@ export default async function OwnerJournalPage({ params }: Props) {
   const t = await getTranslations('journals.owner');
 
   return (
-    <Container className="pb-16 pt-6 sm:pb-20 sm:pt-8">
+    <Container className="px-4 pb-16 pt-6 sm:px-6 sm:pb-20 sm:pt-8">
       <Link
         href="/memories"
         className="mb-10 inline-flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground"

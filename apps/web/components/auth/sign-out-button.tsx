@@ -1,4 +1,5 @@
 import { signOut } from '@/auth';
+import { SignOutSubmit } from '@/components/auth/sign-out-submit';
 
 export function SignOutButton({ label, className }: { label: string; className?: string }) {
   return (
@@ -9,12 +10,7 @@ export function SignOutButton({ label, className }: { label: string; className?:
         await signOut({ redirectTo: '/en' });
       }}
     >
-      <button
-        type="submit"
-        className={`rounded-full border border-border px-3 py-1.5 text-xs text-foreground hover:bg-muted ${className ?? ''}`}
-      >
-        {label}
-      </button>
+      <SignOutSubmit label={label} className={className} />
     </form>
   );
 }

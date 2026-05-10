@@ -5,7 +5,8 @@ import { WagmiProvider, createConfig, http, createStorage, cookieStorage } from 
 import { mainnet, polygon, polygonAmoy, sepolia } from 'viem/chains';
 import { getDefaultAnchorChainId } from '@missing-you/shared';
 import { injected, walletConnect } from 'wagmi/connectors';
-import { useState, type ReactNode } from 'react';
+import { Suspense, useState, type ReactNode } from 'react';
+import { NavigationProgress } from '@/components/navigation/navigation-progress';
 
 const wcProjectId =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID : undefined;
@@ -68,7 +69,12 @@ export function Providers({ children }: { children: ReactNode }) {
 
   return (
     <WagmiProvider config={wagmiConfig}>
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <QueryClientProvider client={queryClient}>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
+        {children}
+      </QueryClientProvider>
     </WagmiProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { requireApiUser } from '@/lib/auth/route-guards';
+import { enforceUserRateLimit } from '@/lib/rate-limit/enforce';
 import { jsonApiError, jsonError } from '@/server/services/api-error';
 import { getRequestId } from '@/lib/observability/logger';
 import { prisma } from '@/lib/db/client';
@@ -14,6 +15,9 @@ export async function POST(req: Request) {
   try {
     const { userId, response } = await requireApiUser(req);
     if (!userId) return response as NextResponse;
+
+    const limited = enforceUserRateLimit(req, userId, 'wallet_link');
+    if (limited) return limited;
 
     const parsed = bodySchema.safeParse(await req.json());
     if (!parsed.success) {

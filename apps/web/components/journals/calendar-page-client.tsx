@@ -5,6 +5,7 @@ import type { Journal } from '@missing-you/shared';
 import { useTranslations } from 'next-intl';
 import { CalendarMemoryForm } from '@/components/journals/calendar-memory-form';
 import { CalendarView } from '@/components/journals/calendar-view';
+import { LoadingBlock } from '@/components/ui/loading-block';
 
 export function CalendarPageClient() {
   const t = useTranslations('journals.calendar');
@@ -45,7 +46,7 @@ export function CalendarPageClient() {
 
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
       {rows === null ? (
-        <p className="text-sm text-muted-foreground">{tm('loading')}</p>
+        <LoadingBlock messageKey="listLoading" />
       ) : rows.length === 0 ? (
         <p className="text-sm text-muted-foreground">{tm('empty')}</p>
       ) : (

@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { requireApiUser } from '@/lib/auth/route-guards';
+
+/** Lets `waitForTransactionReceipt` run long enough on slow testnet RPCs (override via host limits / plan). */
+export const maxDuration = 180;
+import { enforceUserRateLimit } from '@/lib/rate-limit/enforce';
 import { jsonApiError, jsonError } from '@/server/services/api-error';
 import * as journalService from '@/server/services/journal.service';
 import { confirmAnchorBodySchema, journalIdParamSchema } from '@/server/schemas/journal-api';
@@ -11,6 +15,9 @@ export async function POST(req: NextRequest, ctx: Ctx) {
   try {
     const { userId, response } = await requireApiUser(req);
     if (!userId) return response as NextResponse;
+
+    const limited = enforceUserRateLimit(req, userId, 'anchor_confirm');
+    if (limited) return limited;
 
     const parsedParams = journalIdParamSchema.safeParse(await ctx.params);
     if (!parsedParams.success) {

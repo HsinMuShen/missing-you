@@ -1,4 +1,12 @@
 {
+  "common": {
+    "pageLoading": "Loading…",
+    "listLoading": "Loading your list…",
+    "detailLoading": "Loading this memory…",
+    "navigating": "Opening…",
+    "saving": "Saving…",
+    "connectingWallet": "Connecting wallet…"
+  },
   "metadata": {
     "title": "Missing You: memories with gentle proof",
     "description": "A calm place to write about people you miss. Your words stay private off-chain; a cryptographic proof can be anchored on-chain."
@@ -19,7 +27,8 @@
     "helpQa": "Q & A",
     "helpBlockchain": "Blockchain & this app",
     "helpHowItWorks": "How it works",
-    "helpWalletGuide": "Wallet & anchoring"
+    "helpWalletGuide": "Wallet & anchoring",
+    "helpPrivacySecurity": "Privacy & security"
   },
   "footer": {
     "tagline": "Missing You: preserving memories with care.",
@@ -28,7 +37,8 @@
     "helpQa": "Q & A",
     "helpBlockchain": "Blockchain",
     "helpHowItWorks": "How it works",
-    "helpWalletGuide": "Wallet & anchoring"
+    "helpWalletGuide": "Wallet & anchoring",
+    "helpPrivacySecurity": "Privacy & security"
   },
   "help": {
     "backHome": "Back to home",
@@ -203,6 +213,34 @@
           "href": "https://ethereum.org/en/developers/docs/networks/"
         }
       ]
+    },
+    "privacySecurity": {
+      "metaTitle": "Privacy & security · Missing You",
+      "metaDescription": "How Missing You handles your memories, optional blockchain proof, rate limits, and operational security.",
+      "title": "Privacy & security",
+      "lead": "This page summarizes how we approach safety and trust for a grief-sensitive product. It is not legal advice; it complements the technical documentation for operators.",
+      "sections": [
+        {
+          "title": "Where your words live",
+          "body": "Full journal text is stored in the application database (off-chain), not on a public blockchain. Only optional fingerprints (hashes) and related metadata are written on-chain when you choose to anchor. Private entries are not exposed to other visitors through the app’s public routes."
+        },
+        {
+          "title": "Optional anchoring & wallets",
+          "body": "Connecting a wallet is only required for anchoring or for certain shareability changes on anchored memories. Network fees are paid to the blockchain, not to Missing You. Your email account and your on-chain transaction sender can differ; the proof record follows the wallet that submitted the anchor transaction."
+        },
+        {
+          "title": "Abuse protection (API rate limits)",
+          "body": "Authenticated API routes apply per-user rate limits (for example creating memories, preparing or confirming anchors, and wallet-link challenges). When a limit is exceeded, the API responds with HTTP 429 and a Retry-After hint. Limits are enforced in-process on each server instance; for multi-instance production, consider a shared limiter (for example Redis) so thresholds stay global."
+        },
+        {
+          "title": "Monitoring",
+          "body": "Operators should ship structured logs, alerts, and runbooks for production. The codebase emits JSON logs including rate-limit events; wire your preferred observability stack (for example Sentry, Datadog, or cloud-native tools) per your deployment guide."
+        },
+        {
+          "title": "What you can do",
+          "body": "Use a strong, unique password on your email provider, keep your wallet seed phrase private, and review shareability before copying a public link. If something looks wrong with verification, compare the proof panel on the public page with the block explorer entry."
+        }
+      ]
     }
   },
   "home": {
@@ -342,6 +380,33 @@
       "viewMemories": "Go to memories",
       "error": "Could not save. Try again."
     },
+    "writeTrust": {
+      "toggleLabel": "Where your words go (privacy & optional proof)",
+      "lead": "A one-minute overview before you write:",
+      "bullets": [
+        "Your full memory text is saved in Missing You’s database — not on a public blockchain.",
+        "“Private” means other visitors cannot open your entry through the app; we treat private pages as not found.",
+        "If you later choose to anchor, only a cryptographic fingerprint and metadata go on-chain — never your full letter.",
+        "You can use the product as a simple journal and ignore wallets entirely."
+      ],
+      "footer": "Questions? Open Privacy & security or Q & A from the footer."
+    },
+    "onboarding": {
+      "welcomeTitle": "Welcome to your memories space",
+      "welcomeBody": "This is a quiet place to write about someone you miss. There is no feed, no likes — just your words, saved carefully.",
+      "trustTitle": "Privacy and proof, in plain words",
+      "trustLead": "A few things worth knowing up front:",
+      "trustBullets": [
+        "Your journal text stays off-chain in our systems unless you choose a shareable page.",
+        "Blockchain here is optional: it can record a tamper-evident fingerprint of a memory, not your full story.",
+        "You can skip wallets and anchoring entirely and still use Missing You as a private journal."
+      ],
+      "ctaTitle": "When you are ready",
+      "ctaBody": "Start with one short memory — a detail, a voice, a small moment. You can always come back to write more.",
+      "skip": "Skip for now",
+      "next": "Next",
+      "startWriting": "Start writing"
+    },
     "memories": {
       "title": "Your memories",
       "empty": "No memories yet. Start with one moment that matters.",
@@ -356,7 +421,10 @@
       "share": "Shareable",
       "private": "Private",
       "publicPage": "Public page",
-      "subtitle": "Your private timeline of memories, with optional public sharing and on-chain proof."
+      "subtitle": "Your private timeline of memories, with optional public sharing and on-chain proof.",
+      "filterByPerson": "Show memories for",
+      "filterAllPeople": "Everyone remembered",
+      "noPersonGroup": "No name set"
     },
     "calendar": {
       "title": "Memory calendar",
@@ -403,12 +471,22 @@
     "blockchain": {
       "title": "Anchor to blockchain",
       "body": "Only a bytes32 memory key and your content hash are sent on-chain, never your journal text.",
+      "stepsTitle": "What happens when you anchor",
+      "anchorSteps": [
+        "The server prepares a stable fingerprint (hash) of your memory — your prose is not uploaded in the transaction.",
+        "Your wallet must be on the same network the app uses for anchoring (check the site menu or settings).",
+        "You approve one transaction; a small network fee goes to the chain, not to Missing You.",
+        "After confirmation, this page updates so readers can match your text to the on-chain record."
+      ],
+      "mobileHint": "On a phone, use WalletConnect from the menu if a browser extension wallet is awkward.",
       "cta": "Anchor to blockchain",
       "connectPrompt": "Connect your wallet in the header to sign the anchor transaction.",
       "connectWallet": "Connect a wallet first.",
       "userRejected": "Transaction was rejected in your wallet.",
       "alreadyAnchored": "This memory was already anchored on-chain. You can sync the confirmed transaction hash below.",
-      "switchNetwork": "Please switch your wallet to the configured Polygon network.",
+      "switchNetwork": "Please switch your wallet to the network this app uses for anchoring (see wallet guide).",
+      "insufficientFunds": "Your wallet does not have enough native coin for the network fee. Add funds on this network or try a testnet faucet when practicing.",
+      "tryAgain": "Try again",
       "recoveryHint": "Paste the confirmed transaction hash from MetaMask activity to reconcile this memory in the database.",
       "recoveryPlaceholder": "0x... confirmed transaction hash",
       "recoveryCta": "Sync confirmed tx",
@@ -446,7 +524,7 @@
       "makeShareable": "Make shareable",
       "shareNeedsWallet": "Connect your wallet to sync shareability for anchored memories.",
       "shareTxRejected": "Shareability transaction was rejected.",
-      "shareSwitchNetwork": "Please switch to the configured Polygon network.",
+      "shareSwitchNetwork": "Please switch your wallet to the network this app uses for on-chain actions.",
       "shareSaved": "Visibility updated.",
       "sharePhase": {
         "switching": "Switching wallet network…",
@@ -459,7 +537,9 @@
       "shareLinkPrivate": "This memory is private now. Enable shareability to use a public link.",
       "shareLinkUnavailable": "Open this page in your browser to generate a share link.",
       "viewExplorer": "View transaction in explorer",
-      "notAnchored": "Not anchored yet. Anchor when you are ready to publish cryptographic proof."
+      "notAnchored": "Not anchored yet. Anchor when you are ready to publish cryptographic proof.",
+      "whoCanSeeShare": "Anyone with the link can read this page. It is not broadcast on a social feed — only people you share the URL with are likely to see it.",
+      "whoCanSeePrivate": "Only you can open this memory in the app. There is no public link until you make it shareable."
     },
     "public": {
       "title": "Shared memory",
@@ -467,6 +547,22 @@
       "entryTitle": "Title",
       "createdAt": "Created",
       "person": "In memory of",
+      "visibilityBanner": "You are viewing a public page: the author chose to share this memory. The full text is served from Missing You; it is not stored on-chain.",
+      "proofClarity": {
+        "title": "What “verification” means here",
+        "verifiedIntro": "When a memory is anchored, a reader can check:",
+        "verifiedBullets": [
+          "A fingerprint (hash) of the memory was committed on a public network at a given time.",
+          "The text you see still matches that fingerprint, using the app’s published rules.",
+          "Basic metadata (for example shareability) lines up with what the registry stores."
+        ],
+        "limitsIntro": "Verification does not guarantee:",
+        "limitsBullets": [
+          "That the story is factually “true” in a legal sense — only that it matches a recorded commitment.",
+          "That the site will always stay online; availability still depends on the operator and hosting.",
+          "That every word was written by a particular legal identity — only that the chosen wallet paid for the anchor transaction."
+        ]
+      },
       "proofTitle": "Proof details",
       "status": "Verification status",
       "contentHash": "Content hash",
@@ -533,7 +629,8 @@
     "send": "Send magic link",
     "sending": "Sending…",
     "sent": "Check your email for a sign-in link. If you do not see it, check your spam folder.",
-    "sendError": "Could not send sign-in email. Please try again."
+    "sendError": "Could not send sign-in email. Please try again.",
+    "signingOut": "Signing out…"
   },
   "settings": {
     "title": "Account settings",

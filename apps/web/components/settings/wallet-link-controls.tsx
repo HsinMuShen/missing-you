@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { Spinner } from '@/components/ui/spinner';
 import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
@@ -106,20 +107,24 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
             type="button"
             size="sm"
             variant="secondary"
-            className={actionBtnFullMobile}
+            className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
             onClick={() => void unlinkWallet()}
             disabled={status !== 'idle'}
+            aria-busy={status === 'unlinking'}
           >
+            {status === 'unlinking' ? <Spinner size="sm" label={t('unlinking')} /> : null}
             {status === 'unlinking' ? t('unlinking') : t('unlink')}
           </Button>
         ) : (
           <Button
             type="button"
             size="sm"
-            className={actionBtnFullMobile}
+            className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
             onClick={() => void linkWallet()}
             disabled={!isConnected || status !== 'idle'}
+            aria-busy={status === 'linking'}
           >
+            {status === 'linking' ? <Spinner size="sm" label={t('linking')} /> : null}
             {status === 'linking' ? t('linking') : t('link')}
           </Button>
         )}

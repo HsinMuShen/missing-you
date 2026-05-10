@@ -13,8 +13,8 @@ export default async function WritePage({ params }: Props) {
   const t = await getTranslations('journals.write');
 
   return (
-    <Container className="py-16 sm:py-20">
-      <h1 className="font-display text-3xl font-medium text-foreground">{t('title')}</h1>
+    <Container className="px-4 py-12 sm:px-6 sm:py-20">
+      <h1 className="font-display text-2xl font-medium text-foreground sm:text-3xl">{t('title')}</h1>
       <JournalWriteForm />
     </Container>
   );

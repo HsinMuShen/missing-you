@@ -7,6 +7,7 @@ import { AnchorMemoryControls } from '@/components/blockchain/anchor-memory-cont
 import { ShareabilityControl } from '@/components/journals/shareability-control';
 import { Button } from '@missing-you/ui';
 import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
+import { LoadingBlock } from '@/components/ui/loading-block';
 import { actionBtnFullMobile, mobileStackActionsBetween, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type JournalDetailResponse = Journal & {
@@ -56,7 +57,7 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
     return <p className="text-sm text-red-700">{error}</p>;
   }
   if (!journal) {
-    return <p className="text-sm text-muted-foreground">{to('loading')}</p>;
+    return <LoadingBlock messageKey="detailLoading" />;
   }
 
   const explorer = getTxExplorerUrl(journal.anchor?.chainId, journal.anchor?.txHash ?? '');
@@ -66,11 +67,11 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
   }).format(new Date(journal.createdAt));
 
   return (
-    <div className="mt-6 w-full max-w-3xl space-y-6">
+    <div className="mt-6 w-full max-w-3xl space-y-6 pb-4">
       {error ? <p className="text-sm text-red-700">{error}</p> : null}
 
-      <section className="space-y-5 px-1">
-        <p className="text-3xl font-medium leading-tight text-foreground">
+      <section className="space-y-5 px-0 sm:px-1">
+        <p className="text-2xl font-medium leading-tight text-foreground sm:text-3xl">
           {journal.title?.trim() || t('title')}
         </p>
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">

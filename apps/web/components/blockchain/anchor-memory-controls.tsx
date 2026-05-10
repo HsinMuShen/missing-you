@@ -7,6 +7,7 @@ import { Button } from '@missing-you/ui';
 import { useAnchorMemory } from '@/hooks/use-anchor-memory';
 import { useTranslations } from 'next-intl';
 import { WalletAnchorHelpIcon } from '@/components/help/wallet-anchor-help-icon';
+import { Spinner } from '@/components/ui/spinner';
 import {
   actionBtnFullMobile,
   mobileStackActionsBetween,
@@ -42,16 +43,33 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
         ? t('userRejected')
         : error === 'ALREADY_ANCHORED'
           ? t('alreadyAnchored')
-        : error === 'SWITCH_NETWORK'
-          ? t('switchNetwork')
-          : error;
+          : error === 'SWITCH_NETWORK'
+            ? t('switchNetwork')
+            : error === 'INSUFFICIENT_FUNDS'
+              ? t('insufficientFunds')
+              : error;
 
   const recoveryHashValid = /^0x[a-fA-F0-9]{64}$/.test(recoveryTxHash.trim());
+  const anchorSteps = t.raw('anchorSteps') as string[];
+  const steps = Array.isArray(anchorSteps) ? anchorSteps : [];
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 space-y-3">
+    <div className="rounded-lg border border-border bg-card p-4 space-y-4">
       <h3 className="text-sm font-medium text-foreground">{t('title')}</h3>
       <p className="text-xs text-muted-foreground leading-relaxed">{t('body')}</p>
+
+      {steps.length > 0 ? (
+        <div className="rounded-md border border-border/80 bg-muted/30 px-3 py-3">
+          <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{t('stepsTitle')}</p>
+          <ol className="mt-2 list-decimal space-y-1.5 pl-5 text-xs leading-relaxed text-foreground">
+            {steps.map((line, i) => (
+              <li key={i}>{line}</li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
+
+      <p className="text-xs leading-relaxed text-muted-foreground sm:hidden">{t('mobileHint')}</p>
 
       {!isConnected ? (
         <div className={`${mobileStackActionsBetween} items-start sm:items-end`}>
@@ -63,10 +81,12 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
           <Button
             type="button"
             size="sm"
-            className={actionBtnFullMobile}
+            className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
             disabled={busy}
+            aria-busy={busy}
             onClick={() => void runAnchor()}
           >
+            {busy ? <Spinner size="sm" label={t(`phase.${phase}`)} /> : null}
             {t('cta')}
           </Button>
           <WalletAnchorHelpIcon className="self-center sm:self-auto" />
@@ -93,7 +113,7 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
             placeholder={t('recoveryPlaceholder')}
             value={recoveryTxHash}
             onChange={(e) => setRecoveryTxHash(e.target.value)}
-            className="w-full rounded-md border border-border bg-card px-2 py-1.5 text-xs font-mono text-foreground"
+            className="min-h-10 w-full rounded-md border border-border bg-card px-2 py-2 text-xs font-mono text-foreground"
           />
           <div className={mobileStackActionsEnd}>
             <Button
@@ -112,6 +132,20 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
 
       {phase === 'error' || phase === 'success' ? (
         <div className={mobileStackActionsEnd}>
+          {phase === 'error' && isConnected ? (
+            <Button
+              type="button"
+              size="sm"
+              className={actionBtnFullMobile}
+              disabled={busy}
+              onClick={() => {
+                reset();
+                void runAnchor();
+              }}
+            >
+              {t('tryAgain')}
+            </Button>
+          ) : null}
           <Button type="button" variant="secondary" size="sm" className={actionBtnFullMobile} onClick={reset}>
             {t('reset')}
           </Button>

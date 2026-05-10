@@ -76,6 +76,8 @@ After deployment, set:
 - `NEXT_PUBLIC_ANCHOR_CHAIN_ID` (or `NEXT_PUBLIC_CHAIN_ID`)
 - RPC URLs in `apps/web/.env.local` (or deployment platform env)
 
+The **web app** (`apps/web`) owns all **journal text**, auth, optional **anchor** orchestration (prepare → wallet tx → confirm), **verification** UI, **i18n**, **rate limiting** on sensitive APIs, and user-facing **loading** states. This Foundry package only needs to stay aligned on **ABI**, **bytecode**, and **deployed addresses**; product copy and UX live outside this folder.
+
 ## Layout
 
 - `src/MemoryRegistry.sol` — `Ownable` + `Pausable` (OpenZeppelin), `anchorMemory`, `getMemory`, `verifyMemory`, `setShareable`

@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { Spinner } from '@/components/ui/spinner';
 import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
@@ -185,7 +186,14 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
         <Button type="button" size="sm" variant="secondary" className={actionBtnFullMobile} onClick={onCancel}>
           {t('cancel')}
         </Button>
-        <Button type="submit" size="sm" className={actionBtnFullMobile} disabled={pending}>
+        <Button
+          type="submit"
+          size="sm"
+          className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
+          disabled={pending}
+          aria-busy={pending}
+        >
+          {pending ? <Spinner size="sm" label={t('creating')} /> : null}
           {pending ? t('creating') : t('create')}
         </Button>
       </div>

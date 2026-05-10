@@ -38,6 +38,7 @@ export async function SiteHeader() {
             helpBlockchainLabel={t('helpBlockchain')}
             helpHowItWorksLabel={t('helpHowItWorks')}
             helpWalletGuideLabel={t('helpWalletGuide')}
+            helpPrivacySecurityLabel={t('helpPrivacySecurity')}
             settingsLabel={t('settings')}
             signInLabel={t('signIn')}
             email={session?.user?.id ? session.user.email : null}

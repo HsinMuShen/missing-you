@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { Spinner } from '@/components/ui/spinner';
 import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 type Privacy = 'private' | 'share';
@@ -59,10 +60,12 @@ export function DefaultPrivacyControl({ initialValue }: { initialValue: Privacy 
         <Button
           type="button"
           size="sm"
-          className={actionBtnFullMobile}
+          className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
           onClick={() => void save()}
           disabled={saving || value === initialValue}
+          aria-busy={saving}
         >
+          {saving ? <Spinner size="sm" label={t('saving')} /> : null}
           {saving ? t('saving') : t('save')}
         </Button>
       </div>

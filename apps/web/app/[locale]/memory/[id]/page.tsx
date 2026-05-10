@@ -27,16 +27,18 @@ async function getPublicJournal(id: string) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { id, locale } = await params;
   const journal = await getPublicJournal(id);
-  const appUrl = getPublicAppUrl();
+  const appUrlRaw = getPublicAppUrl();
+  const appUrl = appUrlRaw.replace(/\/$/, '');
+  const metadataBase = new URL(`${appUrl}/`);
 
   if (!journal) {
     return {
       title: 'Missing You',
       description: 'Memory unavailable',
       robots: { index: false, follow: false },
-      metadataBase: new URL(appUrl),
+      metadataBase,
     };
   }
 
@@ -46,21 +48,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description =
     dynamicDescription ||
     (journal.anchor
-      ? 'This memory is shared with cryptographic proof anchored on-chain.'
-      : 'This memory is shared from Missing You.');
+      ? 'A shared memory with optional on-chain integrity proof — your full letter is not stored on the blockchain.'
+      : 'A shared memory from Missing You.');
+
+  const canonical = new URL(`/${locale}/memory/${id}`, appUrl).toString();
 
   return {
-    metadataBase: new URL(appUrl),
+    metadataBase,
     title: dynamicTitle,
     description,
+    alternates: { canonical },
     openGraph: {
       title: dynamicTitle,
       description,
       type: 'article',
-      url: `/${(await params).locale}/memory/${id}`,
+      url: canonical,
+      siteName: 'Missing You',
+      locale,
+    },
+    twitter: {
+      card: 'summary',
+      title: dynamicTitle,
+      description,
     },
   };
 }
+
+type ProofClarity = {
+  title: string;
+  verifiedIntro: string;
+  verifiedBullets: string[];
+  limitsIntro: string;
+  limitsBullets: string[];
+};
 
 export default async function PublicMemoryPage({ params }: Props) {
   const { locale, id } = await params;
@@ -80,22 +100,62 @@ export default async function PublicMemoryPage({ params }: Props) {
   }).format(new Date(journal.createdAt));
   const dynamicTitle = journal.title?.trim() || journal.person?.trim() || t('title');
 
-  return (
-    <Container className="py-16 sm:py-20 max-w-2xl">
-      <h1 className="font-display text-3xl font-medium text-foreground">{dynamicTitle}</h1>
+  const proofClarity = t.raw('proofClarity') as ProofClarity;
 
-      <div className="mt-8 space-y-5 rounded-lg border border-border bg-card p-5">
+  return (
+    <Container className="px-4 py-12 sm:px-6 sm:py-20 max-w-2xl">
+      <p className="rounded-md border border-amber-900/20 bg-amber-50/80 px-3 py-2 text-xs leading-relaxed text-amber-950 dark:border-amber-500/30 dark:bg-amber-950/20 dark:text-amber-100/90">
+        {t('visibilityBanner')}
+      </p>
+
+      <h1 className="mt-6 font-display text-2xl font-medium text-foreground sm:text-3xl">{dynamicTitle}</h1>
+
+      {journal.person?.trim() ? (
+        <p className="mt-2 text-sm text-muted-foreground">
+          {t('person')}: {journal.person.trim()}
+        </p>
+      ) : null}
+
+      <div className="mt-8 space-y-5 rounded-lg border border-border bg-card p-4 sm:p-5">
         <p className="text-xs text-muted-foreground">{t('createdAt')}: {createdDate}</p>
 
-        <div className="rounded-lg bg-muted/50 p-4">
-          <p className="whitespace-pre-wrap break-words [overflow-wrap:anywhere] leading-relaxed text-foreground">
+        <div className="rounded-lg bg-muted/50 p-3 sm:p-4">
+          <p className="whitespace-pre-wrap break-words text-base leading-relaxed text-foreground [overflow-wrap:anywhere] sm:text-[15px]">
             {journal.content}
           </p>
         </div>
       </div>
 
-      <section className="mt-8 rounded-lg border border-border bg-muted/40 p-4 space-y-3">
+      <section className="mt-8 rounded-lg border border-border bg-muted/40 p-4 space-y-4">
         <h2 className="text-sm font-medium text-foreground">{t('proofTitle')}</h2>
+
+        {proofClarity?.title ? (
+          <div className="space-y-3 rounded-md border border-border/70 bg-card/50 p-3 text-xs leading-relaxed">
+            <h3 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+              {proofClarity.title}
+            </h3>
+            {proofClarity.verifiedIntro ? (
+              <p className="text-muted-foreground">{proofClarity.verifiedIntro}</p>
+            ) : null}
+            {Array.isArray(proofClarity.verifiedBullets) && proofClarity.verifiedBullets.length > 0 ? (
+              <ul className="list-disc space-y-1 pl-4 text-foreground">
+                {proofClarity.verifiedBullets.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            ) : null}
+            {proofClarity.limitsIntro ? (
+              <p className="pt-1 text-muted-foreground">{proofClarity.limitsIntro}</p>
+            ) : null}
+            {Array.isArray(proofClarity.limitsBullets) && proofClarity.limitsBullets.length > 0 ? (
+              <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
+                {proofClarity.limitsBullets.map((line, i) => (
+                  <li key={i}>{line}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+        ) : null}
 
         {journal.anchor ? (
           <>
