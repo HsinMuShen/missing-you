@@ -159,14 +159,14 @@ sequenceDiagram
 
 ```mermaid
 flowchart LR
-  web[@missing-you/web]
-  shared[@missing-you/shared]
-  ui[@missing-you/ui]
-  contracts[@missing-you/contracts]
+  webPkg["@missing-you/web"]
+  sharedPkg["@missing-you/shared"]
+  uiPkg["@missing-you/ui"]
+  contractsPkg["@missing-you/contracts"]
 
-  web --> shared
-  web --> ui
-  web -.->|ABI must match Solidity| contracts
+  webPkg --> sharedPkg
+  webPkg --> uiPkg
+  webPkg -.->|ABI must match Solidity| contractsPkg
 ```
 
 `next.config.ts` transpiles `@missing-you/shared` and `@missing-you/ui` from source; contracts are not imported at runtime by the web app — alignment is operational (deploy addresses + ABI copy in `memoryRegistryAbi.ts`).
@@ -325,21 +325,21 @@ erDiagram
   Journal ||--o| MemoryAnchor : has
 
   User {
-    uuid id PK
-    string email UK
+    string id PK
+    string email
     datetime emailVerified
     string name
     string image
-    string walletAddress UK
+    string walletAddress
     string defaultPrivacy
     datetime createdAt
   }
 
   Journal {
-    uuid id PK
-    uuid userId FK
+    string id PK
+    string userId FK
     string title
-    text content
+    string content
     string person
     string privacy
     string status
@@ -349,8 +349,8 @@ erDiagram
   }
 
   MemoryAnchor {
-    uuid id PK
-    uuid journalId FK UK
+    string id PK
+    string journalId FK
     string memoryId
     string contentHash
     string txHash
@@ -362,10 +362,10 @@ erDiagram
   }
 
   Account {
-    uuid userId FK
+    string userId FK
     string type
-    string provider PK_part
-    string providerAccountId PK_part
+    string provider
+    string providerAccountId
     string refresh_token
     string access_token
     int expires_at
@@ -376,14 +376,14 @@ erDiagram
   }
 
   Session {
-    string sessionToken UK
-    uuid userId FK
+    string sessionToken
+    string userId FK
     datetime expires
   }
 
   WalletLinkChallenge {
-    uuid id PK
-    uuid userId FK UK
+    string id PK
+    string userId FK
     string address
     string nonce
     datetime expiresAt
@@ -392,13 +392,13 @@ erDiagram
   }
 
   VerificationToken {
-    string identifier PK_part
-    string token PK_part UK
+    string identifier
+    string token
     datetime expires
   }
 ```
 
-**Note:** `VerificationToken` has **no Prisma relation** to `User` (Auth.js stores `identifier` / `token` / `expires` only). It appears in the diagram as a standalone entity for completeness.
+**Note:** Mermaid `erDiagram` only shows **PK** / **FK** markers here; **unique** fields (`email`, `walletAddress`, `sessionToken`, `journalId` on `MemoryAnchor`, `userId` on `WalletLinkChallenge`) and **composite** keys (`Account`, `VerificationToken`) match `schema.prisma`. `VerificationToken` has **no Prisma relation** to `User` (Auth.js stores `identifier` / `token` / `expires` only).
 
 ### Table-by-table notes
 
