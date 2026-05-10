@@ -62,6 +62,51 @@
   .floating-card-slow {
     animation: float-3 7s ease-in-out infinite;
   }
+
+  /**
+   * Site menu: no visible scrollbar by default (wheel / trackpad / touch still scroll).
+   * On fine pointers, show a thin bar only while the panel is hovered or focus-within.
+   */
+  .menu-dropdown-scroll {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .menu-dropdown-scroll::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .menu-dropdown-scroll:hover,
+    .menu-dropdown-scroll:focus-within {
+      scrollbar-width: thin;
+      scrollbar-color: hsl(var(--muted-foreground) / 0.38) transparent;
+    }
+
+    .menu-dropdown-scroll:hover::-webkit-scrollbar,
+    .menu-dropdown-scroll:focus-within::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .menu-dropdown-scroll:hover::-webkit-scrollbar-track,
+    .menu-dropdown-scroll:focus-within::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .menu-dropdown-scroll:hover::-webkit-scrollbar-thumb,
+    .menu-dropdown-scroll:focus-within::-webkit-scrollbar-thumb {
+      border-radius: 9999px;
+      background-color: hsl(var(--muted-foreground) / 0.32);
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .menu-dropdown-scroll:hover::-webkit-scrollbar-thumb:hover,
+    .menu-dropdown-scroll:focus-within::-webkit-scrollbar-thumb:hover {
+      background-color: hsl(var(--muted-foreground) / 0.5);
+    }
+  }
 }
 
 @keyframes float-1 {

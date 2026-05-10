@@ -6,6 +6,7 @@ import { getJournalChainVerification } from '@/server/services/blockchain-proof.
 import * as journalService from '@/server/services/journal.service';
 import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
 import { getPublicAppUrl } from '@/lib/config/env';
+import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type Props = { params: Promise<{ locale: string; id: string }> };
 
@@ -116,11 +117,11 @@ export default async function PublicMemoryPage({ params }: Props) {
               </p>
             ) : null}
             <p className="text-xs text-muted-foreground">
-              {t('network')}: {journal.anchor.chainId ?? '—'} ({journal.anchor.chain})
+              {t('network')}: {journal.anchor.chainId ?? '-'} ({journal.anchor.chain})
             </p>
             {explorer ? (
-              <div className="flex justify-end">
-                <Button asChild size="sm" variant="secondary">
+              <div className={mobileStackActionsEnd}>
+                <Button asChild size="sm" variant="secondary" className={actionBtnFullMobile}>
                   <a href={explorer} target="_blank" rel="noreferrer">
                     {t('viewExplorer')}
                   </a>

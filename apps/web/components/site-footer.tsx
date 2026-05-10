@@ -4,6 +4,7 @@ import { Link } from '@/lib/i18n/navigation';
 
 export async function SiteFooter() {
   const t = await getTranslations('footer');
+  const year = new Date().getFullYear();
 
   return (
     <footer className="mt-auto border-t border-border/80 py-10 text-sm text-muted-foreground">
@@ -20,10 +21,16 @@ export async function SiteFooter() {
           <Link href="/blockchain" className="text-muted-foreground hover:text-foreground hover:underline">
             {t('helpBlockchain')}
           </Link>
+          <Link href="/wallet-and-anchor" className="text-muted-foreground hover:text-foreground hover:underline">
+            {t('helpWalletGuide')}
+          </Link>
           <Link href="/how-it-works" className="text-muted-foreground hover:text-foreground hover:underline">
             {t('helpHowItWorks')}
           </Link>
         </nav>
+        <p className="mt-6 border-t border-border/60 pt-6 text-xs text-muted-foreground">
+          {t('copyright', { year })}
+        </p>
       </Container>
     </footer>
   );

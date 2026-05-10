@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAccount, useSignMessage } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
   linkedWalletAddress: string | null;
@@ -96,7 +97,7 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-3">
+      <div className={`${mobileStackActionsBetween} sm:items-center`}>
         <p className="min-w-0 flex-1 truncate text-foreground" title={linkedWalletAddress ?? t('notLinked')}>
           {linkedWalletAddress ?? t('notLinked')}
         </p>
@@ -105,6 +106,7 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
             type="button"
             size="sm"
             variant="secondary"
+            className={actionBtnFullMobile}
             onClick={() => void unlinkWallet()}
             disabled={status !== 'idle'}
           >
@@ -114,6 +116,7 @@ export function WalletLinkControls({ linkedWalletAddress }: Props) {
           <Button
             type="button"
             size="sm"
+            className={actionBtnFullMobile}
             onClick={() => void linkWallet()}
             disabled={!isConnected || status !== 'idle'}
           >

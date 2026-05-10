@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import type { Journal } from '@missing-you/shared';
 import { Link } from '@/lib/i18n/navigation';
 import { Button } from '@missing-you/ui';
+import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 export function JournalList() {
   const t = useTranslations('journals.memories');
@@ -39,7 +40,7 @@ export function JournalList() {
     return (
       <div className="rounded-lg border border-border bg-card p-6 text-center">
         <p className="text-muted-foreground">{t('empty')}</p>
-        <Button asChild className="mt-4">
+        <Button asChild className={`mt-4 ${actionBtnFullMobile}`}>
           <Link href="/write">{t('emptyCta')}</Link>
         </Button>
       </div>
@@ -73,19 +74,17 @@ export function JournalList() {
               ) : null}
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className={`${mobileStackActionsEnd} shrink-0`}>
             {j.privacy === 'share' ? (
               <Link
                 href={`/memory/${j.id}`}
-                className="text-xs text-muted-foreground underline-offset-4 hover:underline"
+                className="py-1.5 text-center text-xs text-muted-foreground underline-offset-4 hover:underline sm:py-0 sm:text-left"
               >
                 {t('publicPage')}
               </Link>
             ) : null}
-            <Button asChild type="button" size="sm" variant="secondary">
-              <Link href={`/journal/${j.id}`} className="shrink-0">
-                {t('open')}
-              </Link>
+            <Button asChild type="button" size="sm" variant="secondary" className={actionBtnFullMobile}>
+              <Link href={`/journal/${j.id}`}>{t('open')}</Link>
             </Button>
           </div>
         </li>

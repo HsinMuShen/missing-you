@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
   onCreated: () => Promise<void>;
@@ -180,11 +181,11 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
         <p className={message.type === 'ok' ? 'text-sm text-stone-600' : 'text-sm text-red-700'}>{message.text}</p>
       ) : null}
 
-      <div className="flex justify-end gap-2">
-        <Button type="button" size="sm" variant="secondary" onClick={onCancel}>
+      <div className={mobileStackActionsEnd}>
+        <Button type="button" size="sm" variant="secondary" className={actionBtnFullMobile} onClick={onCancel}>
           {t('cancel')}
         </Button>
-        <Button type="submit" size="sm" disabled={pending}>
+        <Button type="submit" size="sm" className={actionBtnFullMobile} disabled={pending}>
           {pending ? t('creating') : t('create')}
         </Button>
       </div>

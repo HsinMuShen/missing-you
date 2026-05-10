@@ -26,14 +26,18 @@ export async function SiteHeader() {
           <LanguageSwitcher />
           <SiteMenuDropdown
             menuLabel={t('menu')}
+            sectionMemoriesLabel={t('sectionMemories')}
+            sectionAccountLabel={t('sectionAccount')}
             writeLabel={t('write')}
             memoriesLabel={t('memories')}
             publicMemoriesLabel={t('publicMemories')}
             calendarLabel={t('calendar')}
             learnHeading={t('learnHeading')}
+            learnSubmenuHint={t('learnSubmenuHint')}
             helpQaLabel={t('helpQa')}
             helpBlockchainLabel={t('helpBlockchain')}
             helpHowItWorksLabel={t('helpHowItWorks')}
+            helpWalletGuideLabel={t('helpWalletGuide')}
             settingsLabel={t('settings')}
             signInLabel={t('signIn')}
             email={session?.user?.id ? session.user.email : null}

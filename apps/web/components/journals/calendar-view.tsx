@@ -86,20 +86,24 @@ export function CalendarView({
 
   return (
     <div className="mt-8 rounded-lg border border-border bg-card p-3 sm:p-4">
-      <div className="mb-3 flex items-center justify-between gap-2">
+      <div className="mb-3 flex flex-wrap items-center justify-center gap-2 sm:flex-nowrap sm:justify-between">
         <Button
           type="button"
           size="sm"
           variant="secondary"
+          className="order-2 min-w-0 flex-1 sm:order-1 sm:flex-none"
           onClick={() => setMonthCursor(new Date(monthCursor.getFullYear(), monthCursor.getMonth() - 1, 1))}
         >
           {previousMonthLabel}
         </Button>
-        <h2 className="text-sm font-medium text-foreground">{monthTitle}</h2>
+        <h2 className="order-1 w-full basis-full text-center text-sm font-medium text-foreground sm:order-2 sm:w-auto sm:basis-auto sm:flex-1">
+          {monthTitle}
+        </h2>
         <Button
           type="button"
           size="sm"
           variant="secondary"
+          className="order-3 min-w-0 flex-1 sm:order-3 sm:flex-none"
           onClick={() => setMonthCursor(new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 1))}
         >
           {nextMonthLabel}

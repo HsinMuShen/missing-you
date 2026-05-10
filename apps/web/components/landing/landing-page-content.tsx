@@ -4,18 +4,49 @@ import { useTranslations } from 'next-intl';
 import { Button, Container } from '@missing-you/ui';
 import { Link } from '@/lib/i18n/navigation';
 import { ScrollReveal } from '@/components/landing/scroll-reveal';
+import { actionBtnFullMobile } from '@/lib/ui/mobile-action-layout';
+
+function ValueGlyph({ variant }: { variant: 'private' | 'proof' | 'share' }) {
+  const cls = 'h-6 w-6 shrink-0 text-foreground';
+  if (variant === 'private') {
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"
+        />
+      </svg>
+    );
+  }
+  if (variant === 'proof') {
+    return (
+      <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+        />
+      </svg>
+    );
+  }
+  return (
+    <svg className={cls} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+      />
+    </svg>
+  );
+}
 
 export function LandingPageContent() {
   const t = useTranslations('home');
 
-  const values = [
-    { key: 'private', icon: '🔒' },
-    { key: 'proof', icon: '🧾' },
-    { key: 'share', icon: '🤍' },
-  ] as const;
+  const values = [{ key: 'private' }, { key: 'proof' }, { key: 'share' }] as const;
 
   const flow = ['write', 'save', 'anchor', 'share', 'verify'] as const;
-  const faq = ['onChain', 'stored', 'private'] as const;
 
   return (
     <div className="overflow-hidden">
@@ -35,11 +66,11 @@ export function LandingPageContent() {
           </ScrollReveal>
 
           <ScrollReveal delayMs={120}>
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild size="lg" className="shadow-soft">
+            <div className="mx-auto mt-10 flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
+              <Button asChild size="lg" className={`shadow-soft ${actionBtnFullMobile}`}>
                 <Link href="/write">{t('cta.write')}</Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" variant="secondary" className={actionBtnFullMobile}>
                 <Link href="/memories">{t('cta.memories')}</Link>
               </Button>
             </div>
@@ -49,13 +80,90 @@ export function LandingPageContent() {
             <div className="mt-14 grid gap-3 sm:grid-cols-3">
               {values.map((item) => (
                 <div key={item.key} className="rounded-xl border border-border bg-card/80 p-5 text-left shadow-soft">
-                  <p className="text-xl">{item.icon}</p>
+                  <ValueGlyph variant={item.key} />
                   <p className="mt-2 text-sm font-medium text-foreground">{t(`value.cards.${item.key}.title`)}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{t(`value.cards.${item.key}.body`)}</p>
                 </div>
               ))}
             </div>
           </ScrollReveal>
+        </Container>
+      </section>
+
+      <section className="border-y border-border/60 bg-muted/35 py-16 sm:py-24">
+        <Container className="max-w-3xl">
+          <ScrollReveal>
+            <p className="text-sm font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              {t('blockchainStory.eyebrow')}
+            </p>
+            <h2 className="mt-4 font-display text-3xl font-medium leading-snug text-foreground sm:text-4xl">
+              {t('blockchainStory.title')}
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t('blockchainStory.intro')}
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-12 space-y-6">
+            {(['uses', 'what', 'why'] as const).map((key, index) => (
+              <ScrollReveal key={key} delayMs={80 + index * 90}>
+                <div className="rounded-2xl border border-border bg-card/90 p-6 shadow-soft sm:p-8">
+                  <p className="font-mono text-xs text-muted-foreground">0{index + 1}</p>
+                  <h3 className="mt-2 font-display text-xl font-medium text-foreground sm:text-2xl">
+                    {t(`blockchainStory.${key}Title`)}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                    {t(`blockchainStory.${key}Body`)}
+                  </p>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-16 sm:py-24">
+        <Container className="max-w-5xl">
+          <ScrollReveal>
+            <h2 className="font-display text-3xl font-medium text-foreground">{t('learn.title')}</h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">{t('learn.subtitle')}</p>
+          </ScrollReveal>
+
+          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {(
+              [
+                { href: '/qa' as const, titleKey: 'learn.qaTitle' as const, descKey: 'learn.qaDesc' as const },
+                {
+                  href: '/blockchain' as const,
+                  titleKey: 'learn.blockchainTitle' as const,
+                  descKey: 'learn.blockchainDesc' as const,
+                },
+                {
+                  href: '/wallet-and-anchor' as const,
+                  titleKey: 'learn.walletTitle' as const,
+                  descKey: 'learn.walletDesc' as const,
+                },
+                {
+                  href: '/how-it-works' as const,
+                  titleKey: 'learn.howTitle' as const,
+                  descKey: 'learn.howDesc' as const,
+                },
+              ] as const
+            ).map((item, index) => (
+              <ScrollReveal key={item.href} delayMs={index * 70}>
+                <Link
+                  href={item.href}
+                  className="group flex h-full flex-col rounded-2xl border border-border bg-card p-5 shadow-soft transition-colors hover:border-foreground/25 hover:bg-card"
+                >
+                  <h3 className="font-display text-lg font-medium text-foreground group-hover:underline group-hover:underline-offset-4">
+                    {t(item.titleKey)}
+                  </h3>
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{t(item.descKey)}</p>
+                  <p className="mt-4 text-xs font-medium text-foreground/80">→</p>
+                </Link>
+              </ScrollReveal>
+            ))}
+          </div>
         </Container>
       </section>
 
@@ -121,31 +229,13 @@ export function LandingPageContent() {
         </Container>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <Container className="max-w-4xl">
-          <ScrollReveal>
-            <h2 className="font-display text-3xl font-medium text-foreground">{t('faq.title')}</h2>
-          </ScrollReveal>
-          <div className="mt-8 space-y-3">
-            {faq.map((item, idx) => (
-              <ScrollReveal key={item} delayMs={idx * 80}>
-                <div className="rounded-xl border border-border bg-card p-5 shadow-soft">
-                  <p className="text-sm font-medium text-foreground">{t(`faq.items.${item}.q`)}</p>
-                  <p className="mt-2 text-sm text-muted-foreground">{t(`faq.items.${item}.a`)}</p>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </Container>
-      </section>
-
       <section className="border-y border-border/60 bg-muted/40 py-16 sm:py-20">
         <Container className="max-w-3xl text-center">
           <ScrollReveal>
             <h2 className="font-display text-3xl font-medium text-foreground">{t('publicMemories.title')}</h2>
             <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{t('publicMemories.body')}</p>
-            <div className="mt-7">
-              <Button asChild size="lg" variant="secondary">
+            <div className="mx-auto mt-7 w-full max-w-sm sm:max-w-none">
+              <Button asChild size="lg" variant="secondary" className={actionBtnFullMobile}>
                 <Link href="/public-memories">{t('publicMemories.cta')}</Link>
               </Button>
             </div>
@@ -158,11 +248,11 @@ export function LandingPageContent() {
           <ScrollReveal>
             <h2 className="font-display text-3xl font-medium text-foreground">{t('finalCta.title')}</h2>
             <p className="mx-auto mt-3 max-w-xl text-muted-foreground">{t('finalCta.body')}</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Button asChild size="lg">
+            <div className="mx-auto mt-8 flex w-full max-w-sm flex-col items-stretch gap-3 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3">
+              <Button asChild size="lg" className={actionBtnFullMobile}>
                 <Link href="/write">{t('finalCta.primary')}</Link>
               </Button>
-              <Button asChild size="lg" variant="secondary">
+              <Button asChild size="lg" variant="secondary" className={actionBtnFullMobile}>
                 <Link href="/memories">{t('finalCta.secondary')}</Link>
               </Button>
             </div>
