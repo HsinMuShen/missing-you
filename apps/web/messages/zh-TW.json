@@ -1,10 +1,12 @@
 {
   "metadata": {
-    "title": "Missing You — 帶著溫柔證明的回憶",
-    "description": "一個安靜書寫思念的空間。文字安心保存在鏈下；可將密碼學證明錨定到鏈上。"
+    "title": "Missing You：回憶，帶一點溫柔的證明",
+    "description": "想寫的，先安心留在這裡。文字在鏈下好好放著；若你願意，再把密碼學上的「指紋」接到鏈上，給未來一個可以對照、卻不必公開全文的依據。"
   },
   "nav": {
     "menu": "選單",
+    "sectionMemories": "回憶與書寫",
+    "sectionAccount": "帳號",
     "write": "書寫",
     "memories": "回憶",
     "publicMemories": "公開回憶",
@@ -12,255 +14,316 @@
     "settings": "設定",
     "signIn": "登入",
     "signOut": "登出",
-    "learnHeading": "認識更多",
+    "learnHeading": "多認識一點",
+    "learnSubmenuHint": "慢慢讀，不急",
     "helpQa": "常見問題",
-    "helpBlockchain": "區塊鏈與本產品",
-    "helpHowItWorks": "運作方式"
+    "helpBlockchain": "區塊鏈與這個產品",
+    "helpHowItWorks": "怎麼運作",
+    "helpWalletGuide": "錢包與錨定"
   },
   "footer": {
-    "tagline": "Missing You — 以慎重之心保存回憶。",
-    "learnHeading": "認識更多",
+    "tagline": "Missing You：把回憶收好，也收得慎重。",
+    "copyright": "© {year} Missing You。保留所有權利。",
+    "learnHeading": "多認識一點",
     "helpQa": "常見問題",
     "helpBlockchain": "區塊鏈",
-    "helpHowItWorks": "運作方式"
+    "helpHowItWorks": "怎麼運作",
+    "helpWalletGuide": "錢包與錨定"
   },
   "help": {
-    "backHome": "回到首頁",
+    "backHome": "回首頁",
     "qa": {
-      "metaTitle": "常見問題 — Missing You",
-      "metaDescription": "以簡單方式說明 Missing You、隱私與可選的區塊鏈證明。",
+      "metaTitle": "常見問題 · Missing You",
+      "metaDescription": "用不裝腔的說法，談 Missing You、隱私，以及「要不要上鏈」這件事。",
       "title": "常見問題",
-      "intro": "這裡用最直白的說法回答常見疑問。若想再深入，可參考下方連結（會在新分頁開啟）。",
+      "intro": "這裡不堆術語，只把最常卡住人的點講開。想再往下挖，下面有幾個中立的延伸讀物（會另開分頁）。",
       "faq": [
         {
-          "q": "寫回憶一定要先連錢包或買加密貨幣嗎？",
-          "a": "不用。你可以用 Email 登入，像一般網站一樣書寫。只有在你想把「證明」記到鏈上時，才需要連接錢包。"
+          "q": "寫回憶前，一定要先連錢包或買幣嗎？",
+          "a": "不用。用 Email 登入就能寫，跟一般網站沒兩樣。只有當你想把「證明」寫進鏈上，才需要接錢包、付一點手續費。"
         },
         {
-          "q": "我的日記全文會上區塊鏈嗎？",
-          "a": "不會。你的文字主要保存在應用程式的資料庫（鏈下）。鏈上通常只會記錄一小段指紋（雜湊）與相關資訊，而不是整封信或長文。"
+          "q": "我的日記全文會被丟上區塊鏈嗎？",
+          "a": "不會。你寫下的字，主要留在應用程式的資料庫裡。鏈上多半只會出現一小段指紋（雜湊）和必要的後設資料，不是整封信，也不是長文原文。"
         },
         {
-          "q": "「錨定」是什麼意思？",
-          "a": "意思是把一段與回憶對應的、難以竄改的指紋，記到公開帳本上。之後任何人都能核對：這段回憶是否仍與當初記錄一致——而不必讀到你的私密全文。"
+          "q": "「錨定」到底是什麼？",
+          "a": "白話說，就是把跟這段回憶綁在一起的指紋，記進公開帳本。日後任何人都能核對：內容有沒有被偷偷換過，而不必讀到你的私密全文。"
         },
         {
-          "q": "為什麼要用區塊鏈？",
-          "a": "這是可選的。有些人希望有一份不依賴單一公司的、可驗證的時間與完整性紀錄。重點是信任與查核，不是炒幣或投資。"
+          "q": "那幹嘛扯上區塊鏈？",
+          "a": "這一步完全是選配的。有人想要一個不太依賴單一公司、又能拿出來對照的時間與完整性紀錄；重點在「查得到、對得上」，不是炒幣。"
         },
         {
           "q": "這能賺錢嗎？",
-          "a": "Missing You 不是投資商品。測試網使用的測試代幣通常沒有真實金錢價值。涉及真實資金時務必提高警覺、提防詐騙。"
+          "a": "Missing You 不是投資商品。測試網上的代幣多半是練習用，沒有真實價值。牽涉到真錢時，務必放慢、查證，當心詐騙話術。"
         },
         {
-          "q": "什麼是測試網（例如 Sepolia）？",
-          "a": "給開發與試用用的練習網路，降低真錢風險。你可以把它想成沙盒環境；本產品在試用階段可能會設定使用測試網。"
+          "q": "測試網（像 Sepolia）是什麼？",
+          "a": "給開發和試玩用的沙盒網路，真錢風險低很多。你可以把它想成「練習場」；產品在試用階段有時會先接在測試網上。"
         }
       ],
-      "linksTitle": "想更了解？可參考這些來源",
+      "linksTitle": "想再讀一點？這幾個出發點不錯",
       "links": [
         {
-          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "label": "Ethereum.org（繁中）：什麼是以太坊？",
           "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
         },
         {
-          "label": "Ethereum.org（繁中）— 什麼是智能合約？",
+          "label": "Ethereum.org（繁中）：什麼是智能合約？",
           "href": "https://ethereum.org/zh-tw/smart-contracts/"
         },
         {
-          "label": "EFF — 什麼是密碼學？（英文）",
+          "label": "EFF ：什麼是密碼學？（英文）",
           "href": "https://ssd.eff.org/module/what-cryptography"
         },
         {
-          "label": "Investopedia — 區塊鏈說明（英文）",
+          "label": "Investopedia ：區塊鏈說明（英文）",
           "href": "https://www.investopedia.com/terms/b/blockchain.asp"
         }
       ]
     },
     "blockchain": {
       "metaTitle": "區塊鏈與 Missing You",
-      "metaDescription": "用簡單方式說明區塊鏈，以及 Missing You 為何可選擇使用它。",
-      "title": "什麼是區塊鏈？為什麼這個專案會用到？",
-      "lead": "不必懂技術細節，只要抓住幾個核心觀念就好。",
-      "s1Title": "一句話形容區塊鏈",
-      "s1Body": "區塊鏈像一本許多電腦一起維護的帳本。依規則寫入後，要偷偷改動會非常困難，因此有助於建立信任與時間順序感。",
-      "s2Title": "Missing You 為什麼用它（而且可選）",
-      "s2Body": "你的文字留在應用程式裡、保持隱私。若你願意，可以把回憶的「指紋」記到鏈上，多一個可公開查核的依據，證明「這段內容曾以這個形式存在」——而不必把整篇日記公開上鏈。",
-      "s3Title": "我們沒有在做的事",
-      "s3Body": "這不是代幣銷售，也不保證投資報酬。錢包主要用於簽署與可選的錨定流程。若有人要你「投資回憶 App」，請提高警覺——這不是本產品的目的。",
-      "linksTitle": "更多參考（中立／機構來源）",
+      "metaDescription": "不背名詞表，只說區塊鏈在這裡扮演什麼角色，以及你什麼時候可以完全忽略它。",
+      "title": "區塊鏈是什麼？跟這個產品有什麼關係？",
+      "lead": "你不必成為工程師；抓住幾個畫面，就夠用了。",
+      "s1Title": "先用一句話形容",
+      "s1Body": "區塊鏈像一本很多人一起抄、一起對帳的公開帳本。寫進去之後要神不知鬼不覺地竄改，難度會高很多，所以它能撐起「時間先後」與「內容一致性」這兩種信任感。",
+      "s2Title": "Missing You 為什麼碰它（而且你可以完全不碰）",
+      "s2Body": "你的文字留在應用程式裡，照舊是私密的。若你點頭，我們可以把回憶的「指紋」送進鏈上，讓日後多一個公開可查的依據：這段內容曾以這個樣子存在過，但不必把整篇日記攤在鏈上給人看。",
+      "s3Title": "我們沒在販售什麼「暴富劇本」",
+      "s3Body": "這裡不是發幣、也不是保證報酬的投資案。錢包多半只在你簽署、可選的錨定流程時出場。若有人要你「加碼買回憶 App」，先停一下，那不是這個產品在做的事。",
+      "linksTitle": "延伸閱讀（語氣相對中立的來源）",
       "links": [
         {
-          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "label": "Ethereum.org（繁中）：什麼是以太坊？",
           "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
         },
         {
-          "label": "Ethereum.org（繁中）— 以太坊入門",
+          "label": "Ethereum.org（繁中）：以太坊入門",
           "href": "https://ethereum.org/zh-tw/developers/docs/intro-to-ethereum/"
         },
         {
-          "label": "IBM — 什麼是區塊鏈？（英文）",
+          "label": "IBM ：什麼是區塊鏈？（英文）",
           "href": "https://www.ibm.com/topics/blockchain"
         },
         {
-          "label": "Cloudflare — 什麼是區塊鏈？（英文）",
+          "label": "Cloudflare ：什麼是區塊鏈？（英文）",
           "href": "https://www.cloudflare.com/learning/distributed-network/what-is-blockchain/"
         }
       ]
     },
     "howItWorks": {
-      "metaTitle": "運作方式 — Missing You",
-      "metaDescription": "簡單說明如何書寫、儲存、可選錨定與分享回憶。",
-      "title": "本產品的運作方式",
-      "lead": "流程很單純：先安心書寫；要不要留下鏈上證明、要不要分享，都由你決定。",
+      "metaTitle": "怎麼運作 · Missing You",
+      "metaDescription": "從寫下第一行字，到要不要上鏈、要不要分享，路徑其實很直。",
+      "title": "這個產品怎麼陪你走完一趟",
+      "lead": "流程不拐彎：先寫；要不要留鏈上證明、要不要讓人看見，全都交給你拍板。",
       "steps": [
         {
-          "title": "登入並書寫",
-          "body": "用 Email 建立帳號。填寫標題、回憶內容，以及選填「這段回憶是給誰」。體驗上就像一般的日記或紀錄工具。"
+          "title": "登入，然後寫",
+          "body": "用 Email 進來就好。填標題、內容，想寫的話也填「這段是給誰的」。手感上，就是一本安靜的日記本。"
         },
         {
-          "title": "保存在應用程式內",
-          "body": "文字會存在應用程式的資料庫中。你可以保持私人，或設定為日後可分享，開啟公開頁面。"
+          "title": "先收在應用程式裡",
+          "body": "文字躺在資料庫中。你可以一直關著門；也可以先標成「之後願意分享」，等哪天心情對了再開公開頁。"
         },
         {
-          "title": "可選：把指紋錨定到鏈上",
-          "body": "若你連接錢包，可以選擇把密碼學指紋記到區塊鏈。這與私密全文分開——目的是讓人日後能驗證，而不是把整篇日記公開在鏈上。"
+          "title": "可選：把指紋接到鏈上",
+          "body": "接上錢包後，你能選擇把密碼學指紋寫進區塊鏈。重點來了：跟私密全文是分開的，目的是讓人日後對得上，不是把整篇日記曬在鏈上。"
         },
         {
-          "title": "可選：分享",
-          "body": "當回憶設為可分享時，你可以複製公開連結，讓他人閱讀你願意公開的部分；若有錨定，也可一併查看證明相關資訊。"
+          "title": "可選：分享出去",
+          "body": "當你願意分享，複製公開連結就能邀人讀你肯給人看的那一段；若有錨定，對方也能一併看到證明相關的資訊。"
         }
       ],
-      "linksTitle": "想再深入（技術／中立資源）",
+      "linksTitle": "想再往技術層走一點",
       "links": [
         {
-          "label": "Ethereum.org（繁中）— 什麼是以太坊？",
+          "label": "Ethereum.org（繁中）：什麼是以太坊？",
           "href": "https://ethereum.org/zh-tw/what-is-ethereum/"
         },
         {
-          "label": "OWASP — 密碼儲存重點（英文）",
+          "label": "OWASP ：密碼儲存重點（英文）",
           "href": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
         },
         {
-          "label": "NIST — 密碼學（英文）",
+          "label": "NIST ：密碼學（英文）",
           "href": "https://www.nist.gov/cryptography"
+        }
+      ]
+    },
+    "walletGuide": {
+      "metaTitle": "連接錢包與錨定回憶 · Missing You",
+      "metaDescription": "給一般人的入門說明：什麼時候需要錢包、要不要裝 MetaMask、怎麼連線與錨定，以及安全與延伸閱讀。",
+      "title": "怎麼連錢包、怎麼錨定（給第一次用的人）",
+      "lead": "用 Email 就能寫回憶，這頁是留給「你準備好要把證明寫上鏈」那一刻的。不必先讀完區塊鏈百科也能跟著做。",
+      "s1Title": "一定要安裝 MetaMask 嗎？",
+      "s1Body": "只有在你想「錨定」時才需要錢包。寫草稿、存內容，跟一般網站沒兩樣。準備錨定時，你需要一個能在這個網站設定的網路上簽交易的錢包。MetaMask 很常見（瀏覽器外掛＋手機 App），但不是唯一選項。本站也支援 WalletConnect，很多手機錢包可以掃 QR 連上。若你瀏覽器裡已經有別的以太坊相容錢包，點「連接錢包」時可能會以「瀏覽器內建錢包」的形式出現。",
+      "s2Title": "錢包到底是什麼？用生活語講一次",
+      "s2Body": "想像成你在區塊鏈世界裡的鑰匙圈。它保管密鑰、把交易請求用比較看得懂的方式呈現，再請你同意或拒絕。它取代不了你在 Missing You 的帳號：Email 登入仍然管你在應用程式裡的回憶。錢包主要用在簽署錨定交易，以及支付網路手續費（付給區塊鏈網路，不是付給本站）。",
+      "s3Title": "在這個網站怎麼連上錢包",
+      "s3Body": "打開右上角選單，點「連接錢包」，選 MetaMask、WalletConnect，或瀏覽器提供的選項。跳出小視窗時，在錢包裡按下同意。若沒反應，先確認外掛已解鎖，或重新整理一次。手機上，WalletConnect 通常最順。",
+      "s4Title": "網路、手續費，還有測試跟真錢的差別",
+      "s4Body": "錨定一定發生在「某一條」區塊鏈上，跟這個網站目前的設定有關（可能是以太坊主網，也可能是測試網）。錢包必須切到同一條網路，交易才簽得出去。上鏈要付一點網路費，用那條鏈的原生代幣結算（例如以太坊上用 ETH），這筆費用是給驗證網路的節點，不是給 Missing You。測試網上通常有水龍頭可領免費測試幣練習；主網上就要用你自己準備好的真實代幣，而且費用會隨塞車程度起伏。",
+      "s5Title": "錨定一則回憶：照這個順序",
+      "anchorSteps": [
+        "先寫好或打開你想錨定的草稿，確認文字是你願意為它留下鏈上指紋的版本。錨定永遠是可選的。",
+        "從選單連接錢包，並切到網站要求的網路（錢包通常會跳出切換提示，畫面上也會引導你）。",
+        "進入那一則回憶的頁面，找到「錨定到區塊鏈」區塊。",
+        "先讀短說明：上鏈的是記憶鍵與內容雜湊，不是你的日記全文。",
+        "按下錨定按鈕，在錢包裡確認交易，等到網路確認完成。",
+        "若畫面顯示成功，代表證明資料已存下。你可以複製交易雜湊，到區塊瀏覽器上公開查閱。"
+      ],
+      "s6Title": "如果卡住或失敗",
+      "s6Body": "網路塞車、手續費估太低，或你在錢包裡按了拒絕，都可能讓交易沒過。可以稍後再試，或依錢包建議調整費用。若鏈上其實成功了，但網頁沒跟上，有些畫面允許你貼上「已確認的交易雜湊」手動同步。拿不定主意時，先看錢包裡的交易紀錄最新狀態。",
+      "s7Title": "安全提醒",
+      "s7Body": "助記詞、私鑰、錢包密碼不要給任何人，包含自稱客服的人。把正確的網址存書籤。Missing You 不會叫你「投資」或轉帳解鎖錨定。若陌生視窗跟你要助記詞，直接關掉。",
+      "helpIconTooltip": "開啟入門說明：錢包與錨定（另開新分頁）。",
+      "linksTitle": "想再讀一點（官方與教學向）",
+      "links": [
+        {
+          "label": "MetaMask 使用說明（英文）",
+          "href": "https://support.metamask.io/start/user-guide/"
+        },
+        {
+          "label": "Ethereum.org（繁中）：什麼是以太坊錢包？",
+          "href": "https://ethereum.org/zh-tw/wallets/"
+        },
+        {
+          "label": "Ethereum.org（繁中）：什麼是以太坊手續費（Gas）？",
+          "href": "https://ethereum.org/zh-tw/developers/docs/gas/"
+        },
+        {
+          "label": "WalletConnect 官網",
+          "href": "https://walletconnect.com/"
+        },
+        {
+          "label": "Ethereum.org（繁中）：以太坊測試網",
+          "href": "https://ethereum.org/zh-tw/developers/docs/networks/"
         }
       ]
     }
   },
   "home": {
     "eyebrow": "Web3 日記",
-    "headline": "為回憶留下「曾經存在」的溫柔證明。",
-    "subhead": "給重要記憶一個安靜的去處。完整內容保留在鏈下，只把證明錨定到鏈上，讓他人可驗證完整性而不必讀到你的文字。",
+    "headline": "替回憶留一個「曾經這樣存在過」的溫柔註腳。",
+    "subhead": "重要的人與片刻，值得一個不慌張的去處。全文留在鏈下，只把證明接到鏈上，別人查得到一致性，却不一定要讀見你的字。",
     "cta": {
       "write": "寫一段回憶",
-      "memories": "查看回憶"
+      "memories": "打開我的回憶"
+    },
+    "blockchainStory": {
+      "eyebrow": "區塊鏈，先講人話",
+      "title": "這個網站「會」用到區塊鏈。我們把話說清楚",
+      "intro": "不用先背名詞。往下捲三小段：我們在鏈上做了什麼、區塊鏈是什麼、跟回憶又有什麼關係。",
+      "usesTitle": "Missing You 在鏈上實際做了什麼",
+      "usesBody": "你寫下的全文留在應用程式裡（鏈下）。若你選擇錨定，我們才把密碼學指紋與必要的後設資料送到公開網路上，讓日後查核時對得上，而不是把整篇日記貼上鏈給所有人看。",
+      "whatTitle": "那區塊鏈到底是什麼？",
+      "whatBody": "想像成許多電腦一起維護、互相對帳的帳本。資料一旦依規則寫進去，要神不知鬼不覺地改舊帳，難度會高很多，所以人們在在意「順序、完整性、公開可查」時會想到它。",
+      "whyTitle": "回憶為什麼要靠近它？",
+      "whyBody": "這一步完全是選配的。有人想要一條不太綁在單一公司資料庫上的驗證路徑，能說「這個承諾曾以這個樣子存在」，而且別人查得到。重點在可驗證，不在炒幣。"
+    },
+    "learn": {
+      "title": "想多懂一點？這裡有四條閱讀動線",
+      "subtitle": "每篇都能單獨讀：問答、區塊鏈導讀、錢包與錨定，或從頭到尾走一遍流程。",
+      "qaTitle": "常見問題",
+      "qaDesc": "錢包、隱私、錨定、測試網、安全，用直球回答。",
+      "blockchainTitle": "區塊鏈與這個產品",
+      "blockchainDesc": "區塊鏈是什麼、我們怎麼用、還有我們沒在販售什麼。",
+      "walletTitle": "錢包與錨定",
+      "walletDesc": "第一次用也沒關係：怎麼連 MetaMask 或其他錢包，還有錨定要點。",
+      "howTitle": "怎麼運作",
+      "howDesc": "寫、收在鏈下、可選錨定、可選分享，照順序來。"
     },
     "how": {
-      "title": "運作方式",
+      "title": "怎麼運作",
       "step1": {
-        "title": "慢慢寫下心意",
-        "body": "在簡潔、從容的編輯空間裡記下你想說的話。內容會安全地保存在鏈下。"
+        "title": "慢慢把心意寫下來",
+        "body": "版面留白了，語氣也放慢。你寫下的，會先穩穩收在鏈下。"
       },
       "step2": {
-        "title": "建立可重現的指紋",
-        "body": "系統會為你的條目建立穩定的指紋——不是文章全文——因此同一段回憶總會得到相同的雜湊。"
+        "title": "做出一組能重算的指紋",
+        "body": "系統會為條目生成穩定的指紋，不是把文章整篇複製貼上，同一段回憶，將來對照時仍會得到同一組雜湊。"
       },
       "step3": {
-        "title": "在準備好時錨定",
-        "body": "需要時，可把指紋錨定到鏈上。之後任何人都能對照區塊鏈驗證，而不必看見私密內容。"
+        "title": "準備好了，再錨定",
+        "body": "當你點頭，指紋可以上鏈。之後任何人都能在鏈上對照驗證，而不必窺見你的私密內容。"
       }
     },
     "privacy": {
-      "title": "以隱私為先",
-      "body": "日記內容保存在鏈下。鏈上只保存識別資訊與密碼學承諾——永遠不是你的整封信或完整日記。"
+      "title": "隱私放前面",
+      "body": "日記本體在鏈下。鏈上留的是辨識與承諾用的片段，永遠不是整封信、也不是完整日記原文。"
     },
     "value": {
       "cards": {
         "private": {
-          "title": "預設私人",
-          "body": "完整內容保存在鏈下資料庫，不會公開上鏈。"
+          "title": "預設就是私人",
+          "body": "全文待在鏈下資料庫，不會被攤到鏈上給路人看。"
         },
         "proof": {
-          "title": "值得信任的證明",
-          "body": "系統將標準化雜湊錨定到鏈上，方便日後驗證。"
+          "title": "多一層說得清的證明",
+          "body": "標準化的雜湊接上鏈後，日後要核對、要交代，都多一個清楚的抓手。"
         },
         "share": {
-          "title": "在你準備好時再分享",
-          "body": "可先私密保存，之後再開啟公開頁面。"
+          "title": "想分享，再開門",
+          "body": "可以先藏一陣子；哪天想讓特定的人進來，再開公開頁也不遲。"
         }
       }
     },
     "flow": {
-      "title": "從心意到證明，一條清楚的路徑",
-      "body": "每個步驟都以簡單、平靜、可信為核心。",
+      "title": "從心念到證明，路是直的",
+      "body": "每個環節都試著簡單、平靜，讓你少做決策疲勞。",
       "steps": {
         "write": {
           "title": "書寫",
-          "body": "用自己的語氣記下回憶。"
+          "body": "用自己的語氣，照自己的節奏。"
         },
         "save": {
-          "title": "鏈下儲存",
-          "body": "完整內容以私密方式保存於資料庫。"
+          "title": "鏈下收好",
+          "body": "全文以私密方式存進資料庫。"
         },
         "anchor": {
           "title": "錨定證明",
-          "body": "只把雜湊與必要後設資料送上鏈。"
+          "body": "只把雜湊與必要的後設資料送上去。"
         },
         "share": {
-          "title": "設定可見性",
-          "body": "可保持私人，或開啟公開頁面。"
+          "title": "決定誰能看見",
+          "body": "繼續關著，或開一條公開的小徑。"
         },
         "verify": {
-          "title": "日後驗證",
-          "body": "隨時比對證明細節是否一致。"
+          "title": "日後對照",
+          "body": "隨時把證明細節拿出來比一比。"
         }
       }
     },
     "journey": {
-      "title": "為重要回憶設計的溫柔旅程",
-      "body": "Missing You 把情感書寫與可信驗證結合。你可以先安心書寫，準備好再錨定證明，最後再決定是否分享。",
+      "title": "給重要回憶的一趟慢旅程",
+      "body": "Missing You 試著把情感書寫和「說得清的驗證」接在一起：先寫，不急著上鏈；準備好了再錨定；最後才決定要不要讓世界進來一點點。",
       "points": {
-        "one": "先寫下回憶，不必先連接錢包。",
-        "two": "上鏈的是證明，不是全文。",
-        "three": "分享時附上可驗證資訊，更安心。"
+        "one": "先寫，錢包可以晚點再出場。",
+        "two": "上鏈的是證明，不是整篇心事。",
+        "three": "分享時附上可驗證的資訊，心裡比較踏實。"
       },
       "card": {
         "draftLabel": "私人草稿",
         "draftBody": "「每逢下雨，我還是會想到你的笑聲。」",
-        "proofLabel": "已錨定證明",
-        "proofBody": "已記錄 SHA-256 與交易後設資料。",
+        "proofLabel": "已錨定的證明",
+        "proofBody": "SHA-256 與交易後設資料已記上一筆。",
         "shareLabel": "公開頁面",
-        "shareBody": "可分享回憶，並附上驗證面板。"
-      }
-    },
-    "faq": {
-      "title": "大家最先問的問題",
-      "items": {
-        "onChain": {
-          "q": "我的完整回憶會上鏈嗎？",
-          "a": "不會。上鏈的是證明後設資料，完整內容保存在鏈下。"
-        },
-        "stored": {
-          "q": "鏈上實際存了什麼？",
-          "a": "記憶鍵、內容雜湊、擁有者/時間資訊與分享狀態。"
-        },
-        "private": {
-          "q": "可以一直保持私人嗎？",
-          "a": "可以。除非你主動開啟分享，否則只有擁有者可見。"
-        }
+        "shareBody": "回憶可分享，並附上驗證區塊。"
       }
     },
     "publicMemories": {
-      "title": "探索公開回憶",
-      "body": "查看其他人願意分享的回憶，並可依人物與分頁瀏覽。",
+      "title": "去公開回憶裡走走",
+      "body": "看看別人願意讓世界讀見的片段，也能依人物、分頁慢慢翻。",
       "cta": "前往公開回憶"
     },
     "finalCta": {
-      "title": "今天就從一段回憶開始",
-      "body": "在平靜的空間裡書寫，留下可長久驗證的證明。",
+      "title": "今天就從一行字開始",
+      "body": "在安靜的版面裡落筆，若你願意，再為它留一個日後對得上的證明。",
       "primary": "寫一段回憶",
-      "secondary": "查看回憶"
+      "secondary": "打開我的回憶"
     }
   },
   "journals": {
@@ -268,51 +331,51 @@
       "title": "寫一段回憶",
       "entryTitle": "標題",
       "content": "你想記下的內容",
-      "person": "這段回憶是寫給誰（選填）",
-      "personHint": "可填名字或一句獻詞。",
+      "person": "這段是寫給誰（選填）",
+      "personHint": "名字、暱稱，或一句短短的獻詞都可以。",
       "privacy": "隱私",
-      "privacyPrivate": "私人",
-      "privacyShare": "日後可分享頁面",
+      "privacyPrivate": "僅自己可見",
+      "privacyShare": "之後可開公開頁",
       "submit": "建立",
       "saving": "建立中…",
-      "success": "已溫柔儲存，可在「回憶」中再次查看。",
-      "viewMemories": "前往回憶列表",
-      "error": "無法儲存，請再試一次。"
+      "success": "收好了。到「回憶」裡隨時能再翻。",
+      "viewMemories": "去看回憶列表",
+      "error": "這次沒存成功，請再試一次。"
     },
     "memories": {
       "title": "你的回憶",
-      "empty": "目前還沒有回憶，先寫下一段對你重要的時刻。",
-      "loadError": "無法載入回憶列表。",
-      "open": "查看內容",
+      "empty": "還沒有任何一則，先寫下一段對你重要的時刻吧。",
+      "loadError": "列表讀不出來，請稍後再試。",
+      "open": "打開這則",
       "status": "狀態",
       "draft": "草稿",
       "anchored": "已錨定",
       "loading": "正在載入你的回憶…",
-      "emptyCta": "寫下第一段回憶",
-      "visibility": "可見性",
+      "emptyCta": "寫下第一則回憶",
+      "visibility": "可見範圍",
       "share": "可分享",
       "private": "私人",
-      "publicPage": "公開頁面",
-      "subtitle": "你的私人回憶時間軸，可選擇公開分享並附上鏈上證明。"
+      "publicPage": "公開頁",
+      "subtitle": "你的私人時間軸；想分享時再打開門，也能附上鏈上證明。"
     },
     "calendar": {
       "title": "回憶日曆",
-      "subtitle": "依日期查看所有回憶，也可補寫過去日期與時間的回憶。",
-      "addTitle": "新增過去日期/時間的回憶",
+      "subtitle": "依日期瀏覽；漏掉的日子，也能回頭補上時間與文字。",
+      "addTitle": "補寫某個過去的日期／時間",
       "entryTitle": "標題",
       "content": "回憶內容",
-      "person": "這段回憶是寫給誰（選填）",
+      "person": "這段是寫給誰（選填）",
       "datetime": "日期與時間",
       "privacy": "隱私",
-      "privacyPrivate": "私人",
+      "privacyPrivate": "僅自己可見",
       "privacyShare": "可分享",
       "create": "新增回憶",
       "creating": "新增中…",
       "cancel": "取消",
-      "createSuccess": "已加入回憶日曆。",
-      "createError": "新增回憶失敗。",
-      "loadError": "無法載入日曆回憶。",
-      "selectDateHint": "請先點擊日曆中的日期區塊，再新增該日的回憶。",
+      "createSuccess": "已掛在這天的日曆上了。",
+      "createError": "這次沒加上去，請再試。",
+      "loadError": "日曆讀不出來，請稍後再試。",
+      "selectDateHint": "先點日曆上的某一天，再為那天寫一則。",
       "prevMonth": "上個月",
       "nextMonth": "下個月"
     },
@@ -320,90 +383,90 @@
       "title": "回憶",
       "entryTitle": "標題",
       "createdAt": "建立時間",
-      "loadError": "無法載入此回憶。",
+      "loadError": "這則回憶載入失敗。",
       "person": "給",
-      "privacy": "隱私設定",
+      "privacy": "隱私",
       "content": "內容",
       "verification": "證明與驗證",
       "localDigest": "本地雜湊與資料庫錨定",
       "verified": "與已儲存的錨定資料一致。",
-      "notVerified": "與已儲存的錨定資料不一致。",
-      "noAnchor": "尚未錨定。",
+      "notVerified": "與已儲存的錨定資料對不起來。",
+      "noAnchor": "還沒錨定。",
       "contentHash": "內容雜湊（SHA-256）",
       "txHash": "交易雜湊",
       "anchoredAt": "錨定時間",
       "chainId": "鏈 ID",
       "chain": "鏈",
-      "contract": "合約登錄檔",
+      "contract": "登錄合約",
       "onChainBadge": "鏈上紀錄"
     },
     "blockchain": {
       "title": "錨定到區塊鏈",
-      "body": "鏈上只會送出 bytes32 的記憶鍵與內容雜湊——不會送出日記全文。",
+      "body": "鏈上只會送出 bytes32 記憶鍵與內容雜湊，日記全文不會跟著上去。",
       "cta": "錨定到區塊鏈",
-      "connectPrompt": "請先在頁首連接錢包，以便簽署錨定交易。",
+      "connectPrompt": "先在頁首連上錢包，才能簽這筆錨定交易。",
       "connectWallet": "請先連接錢包。",
-      "userRejected": "你在錢包中拒絕了交易。",
-      "alreadyAnchored": "這段回憶已在鏈上完成錨定，可在下方同步已確認交易雜湊。",
-      "switchNetwork": "請將錢包切換到設定的 Polygon 網路。",
-      "recoveryHint": "請貼上 MetaMask 活動中已確認的交易雜湊，以同步資料庫狀態。",
-      "recoveryPlaceholder": "0x... 已確認交易雜湊",
-      "recoveryCta": "同步已確認交易",
-      "reset": "關閉提示",
+      "userRejected": "你在錢包裡拒絕了這筆交易。",
+      "alreadyAnchored": "這則已經在鏈上錨定過了。若畫面還沒跟上，可把已確認的交易雜湊貼在下方同步。",
+      "switchNetwork": "請把錢包切到應用程式設定的錨定網路。",
+      "recoveryHint": "到 MetaMask 活動裡複製「已確認」的交易雜湊，貼上後就能跟資料庫對齊。",
+      "recoveryPlaceholder": "0x… 已確認的交易雜湊",
+      "recoveryCta": "同步這筆交易",
+      "reset": "關閉",
       "txHash": "最近一筆交易雜湊",
       "onChainStatus": "合約查核",
       "listTx": "交易",
       "phase": {
-        "preparing": "伺服器正在準備標準化承載…",
+        "preparing": "伺服器正在整理標準化資料…",
         "switching": "正在切換錢包網路…",
-        "signing": "請在錢包中確認交易…",
-        "confirming": "正在儲存錨定後設資料…",
-        "success": "已儲存錨定。",
-        "error": "發生錯誤。"
+        "signing": "請在錢包裡確認交易…",
+        "confirming": "正在寫入錨定後設資料…",
+        "success": "錨定已存好。",
+        "error": "出了點問題。"
       },
       "chainState": {
-        "skipped_no_anchor": "尚無錨定資料列。",
-        "skipped_no_metadata": "錨定資料列缺少鏈上資訊。",
-        "skipped_no_rpc": "伺服器未設定 RPC，無法讀取鏈上資料。",
-        "missing_on_chain": "在登錄檔找不到對應紀錄（合約或網路可能不正確）。",
-        "hash_mismatch": "鏈上雜湊與資料庫不一致。",
+        "skipped_no_anchor": "還沒有錨定資料。",
+        "skipped_no_metadata": "錨定資料缺了鏈上資訊。",
+        "skipped_no_rpc": "伺服器沒設定 RPC，讀不到鏈上。",
+        "missing_on_chain": "登錄裡找不到對應紀錄（合約或網路可能不對）。",
+        "hash_mismatch": "鏈上雜湊跟資料庫對不起來。",
         "verified": "鏈上紀錄與資料庫一致。"
       }
     },
     "owner": {
       "title": "你的回憶",
-      "subtitle": "在這裡管理可見性、錨定狀態與驗證資訊。",
+      "subtitle": "在這裡調誰能看、錨定狀態怎麼樣，以及驗證資訊從哪來。",
       "backToMemories": "回到回憶列表",
-      "loading": "正在載入回憶…",
-      "visibilityTitle": "分享設定",
-      "visibilityHelp": "你可以調整誰能看到這段回憶。內容仍保存在鏈下，鏈上只保存證明資訊。",
-      "shareOn": "此回憶目前可公開分享。",
-      "shareOff": "此回憶目前為私人。",
+      "loading": "載入中…",
+      "visibilityTitle": "分享與可見性",
+      "visibilityHelp": "你可以改誰讀得到這段。內容仍在鏈下；鏈上留的是證明，不是全文。",
+      "shareOn": "目前：可公開分享。",
+      "shareOff": "目前：僅自己可見。",
       "makePrivate": "改為私人",
-      "makeShareable": "設為可分享",
-      "shareNeedsWallet": "已錨定的回憶需連接錢包，才能同步鏈上分享設定。",
-      "shareTxRejected": "你已拒絕分享設定交易。",
-      "shareSwitchNetwork": "請先切換到指定的 Polygon 網路。",
+      "makeShareable": "改為可分享",
+      "shareNeedsWallet": "已錨定的回憶若要同步「可分享」狀態，需要接錢包簽一筆。",
+      "shareTxRejected": "你拒絕了分享設定的交易。",
+      "shareSwitchNetwork": "請先把錢包切到應用程式設定的錨定網路。",
       "shareSaved": "可見性已更新。",
       "sharePhase": {
         "switching": "正在切換錢包網路…",
-        "signing": "請在錢包確認分享設定交易…",
-        "saving": "正在儲存可見性設定…"
+        "signing": "請在錢包確認分享設定…",
+        "saving": "正在儲存可見性…"
       },
       "shareLinkTitle": "公開分享連結",
-      "copyShareLink": "複製分享連結",
+      "copyShareLink": "複製連結",
       "copied": "已複製",
-      "shareLinkPrivate": "這段回憶目前為私人。若要使用公開連結，請先開啟可分享狀態。",
-      "shareLinkUnavailable": "請在瀏覽器中開啟此頁以產生分享連結。",
-      "viewExplorer": "在區塊瀏覽器查看交易",
-      "notAnchored": "尚未錨定。準備好後可錨定以公開可驗證證明。"
+      "shareLinkPrivate": "這段現在是私人的。要產生公開連結，得先開啟可分享。",
+      "shareLinkUnavailable": "請在瀏覽器開這頁，才能產生分享連結。",
+      "viewExplorer": "在區塊瀏覽器開交易",
+      "notAnchored": "尚未錨定。準備好了再錨定，就能留下可公開驗證的證明。"
     },
     "public": {
       "title": "公開回憶",
-      "subtitle": "來自 Missing You 的公開回憶，並附上可驗證的證明。",
+      "subtitle": "從 Missing You 分享出來的一則回憶，附上可驗證的證明。",
       "entryTitle": "標題",
       "createdAt": "建立時間",
-      "person": "紀念對象",
+      "person": "獻給／紀念",
       "proofTitle": "證明資訊",
       "status": "驗證狀態",
       "contentHash": "內容雜湊",
@@ -412,26 +475,26 @@
       "network": "網路",
       "viewExplorer": "在區塊瀏覽器查看",
       "state": {
-        "verified": "已在鏈上驗證",
+        "verified": "鏈上驗證通過",
         "skipped_no_anchor": "尚未錨定",
-        "hash_mismatch": "證明不一致",
-        "missing_on_chain": "目前無法驗證",
-        "skipped_no_metadata": "目前無法驗證",
-        "skipped_no_rpc": "目前無法驗證"
+        "hash_mismatch": "證明對不起來",
+        "missing_on_chain": "暫時無法驗證",
+        "skipped_no_metadata": "暫時無法驗證",
+        "skipped_no_rpc": "暫時無法驗證"
       }
     },
     "publicList": {
       "title": "公開回憶",
-      "subtitle": "探索 Missing You 上分享出來的回憶。",
-      "subtitlePerson": "目前顯示「{person}」的公開回憶。",
-      "open": "查看回憶",
+      "subtitle": "在 Missing You 上，人們願意讓世界讀見的片段。",
+      "subtitlePerson": "正在顯示「{person}」的公開回憶。",
+      "open": "打開這則",
       "prev": "上一頁",
       "next": "下一頁",
-      "range": "顯示第 {start}-{end} 筆，共 {total} 筆",
-      "rangeNone": "目前還沒有公開回憶。",
-      "clearPerson": "清除人物篩選",
-      "anonymous": "未填人物",
-      "empty": "目前還沒有公開回憶。",
+      "range": "第 {start}–{end} 筆，共 {total} 筆",
+      "rangeNone": "還沒有任何公開回憶。",
+      "clearPerson": "拿掉人物篩選",
+      "anonymous": "未填對象",
+      "empty": "還沒有任何公開回憶。",
       "emptyPerson": "找不到「{person}」的公開回憶。"
     }
   },
@@ -442,39 +505,39 @@
   "placeholders": {
     "write": {
       "title": "寫一段回憶",
-      "body": "使用下方表單將內容保存在鏈下；準備好時可透過 API 進行錨定流程。"
+      "body": "用下方表單把內容收在鏈下；準備好了，再走錨定流程。"
     },
     "memories": {
       "title": "你的回憶",
-      "body": "列表由 API 載入（預設開發用使用者）。"
+      "body": "列表由 API 載入（開發環境會用預設使用者）。"
     },
     "memory": {
       "idLabel": "回憶",
       "title": "公開回憶",
-      "body": "內容由 API 載入；驗證會重新計算標準雜湊。"
+      "body": "內容經 API 載入；驗證時會重算標準雜湊。"
     },
     "settings": {
       "title": "設定",
-      "body": "預設語言、錢包連線與隱私偏好將在此設定。"
+      "body": "預設語言、錢包與隱私偏好會集中在這裡。"
     }
   },
   "notFound": {
-    "title": "找不到頁面",
-    "body": "這個路徑不存在或已移動。",
-    "cta": "回到首頁"
+    "title": "找不到這一頁",
+    "body": "這條路徑可能從未存在，或已經搬走了。",
+    "cta": "回首頁"
   },
   "auth": {
     "title": "登入",
-    "subtitle": "使用 Email 收取安全登入連結，開始書寫不需要先連接錢包。",
-    "email": "Email",
+    "subtitle": "我們會寄一封帶連結的信到你的信箱；想先寫字，不必急著接錢包。",
+    "email": "電子郵件",
     "send": "寄送登入連結",
     "sending": "寄送中…",
-    "sent": "請到信箱點擊登入連結。",
-    "sendError": "登入信寄送失敗，請稍後再試。"
+    "sent": "信寄出去了。到收件匣點連結登入；若沒看見，也翻翻垃圾信匣。",
+    "sendError": "信沒寄出去，請稍後再試。"
   },
   "settings": {
     "title": "帳號設定",
-    "subtitle": "管理帳號資訊、預設隱私，並為後續錢包綁定做好準備。",
+    "subtitle": "管信箱、預設隱私，還有之後要怎麼跟錢包打交道。",
     "email": "登入信箱",
     "defaultPrivacy": "預設隱私",
     "walletLinking": "錢包綁定",
@@ -486,21 +549,21 @@
       "share": "可分享",
       "save": "儲存",
       "saving": "儲存中…",
-      "saved": "預設隱私已更新。",
-      "saveFailed": "更新預設隱私失敗。"
+      "saved": "預設已更新。",
+      "saveFailed": "這次沒存成功，請再試。"
     },
     "wallet": {
       "notLinked": "尚未綁定",
-      "connectFirst": "請先在頁首選單連接錢包。",
-      "link": "綁定目前連接錢包",
+      "connectFirst": "請先在頁首選單裡連上錢包。",
+      "link": "綁定目前這個錢包",
       "linking": "綁定中…",
       "unlink": "解除綁定",
       "unlinking": "解除中…",
-      "hint": "綁定會要求你簽署訊息以驗證所有權，不會產生 Gas 費。",
-      "linkedSuccess": "錢包綁定成功。",
-      "unlinkedSuccess": "錢包已解除綁定。",
-      "linkFailed": "錢包綁定失敗。",
-      "unlinkFailed": "解除綁定失敗。"
+      "hint": "會請你簽一則訊息證明錢包是你的，不會花 Gas。",
+      "linkedSuccess": "錢包已綁定。",
+      "unlinkedSuccess": "已解除綁定。",
+      "linkFailed": "綁定失敗，請再試。",
+      "unlinkFailed": "解除失敗，請再試。"
     }
   }
 }

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import type { Journal } from '@missing-you/shared';
 import { Link } from '@/lib/i18n/navigation';
 import { Button } from '@missing-you/ui';
+import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type Props = {
   items: Journal[];
@@ -83,8 +84,8 @@ export function PublicMemoryList({ items, page, pageSize, total, personFilter }:
               ) : null}
               <p className="mt-3 text-sm leading-relaxed text-foreground">{toExcerpt(journal.content)}</p>
 
-              <div className="mt-4 flex justify-end">
-                <Button asChild size="sm" variant="secondary">
+              <div className={`${mobileStackActionsEnd} mt-4`}>
+                <Button asChild size="sm" variant="secondary" className={actionBtnFullMobile}>
                   <Link href={`/memory/${journal.id}`}>{t('open')}</Link>
                 </Button>
               </div>
@@ -93,22 +94,22 @@ export function PublicMemoryList({ items, page, pageSize, total, personFilter }:
         </ul>
       )}
 
-      <div className="flex items-center justify-end gap-2 pt-2">
+      <div className={`${mobileStackActionsEnd} pt-2`}>
         {hasPrev ? (
-          <Button asChild size="sm" variant="secondary">
+          <Button asChild size="sm" variant="secondary" className={actionBtnFullMobile}>
             <Link href={buildHref(page - 1, pageSize, personFilter)}>{t('prev')}</Link>
           </Button>
         ) : (
-          <Button size="sm" variant="secondary" disabled>
+          <Button size="sm" variant="secondary" className={actionBtnFullMobile} disabled>
             {t('prev')}
           </Button>
         )}
         {hasNext ? (
-          <Button asChild size="sm" variant="secondary">
+          <Button asChild size="sm" variant="secondary" className={actionBtnFullMobile}>
             <Link href={buildHref(page + 1, pageSize, personFilter)}>{t('next')}</Link>
           </Button>
         ) : (
-          <Button size="sm" variant="secondary" disabled>
+          <Button size="sm" variant="secondary" className={actionBtnFullMobile} disabled>
             {t('next')}
           </Button>
         )}

@@ -7,6 +7,7 @@ import { AnchorMemoryControls } from '@/components/blockchain/anchor-memory-cont
 import { ShareabilityControl } from '@/components/journals/shareability-control';
 import { Button } from '@missing-you/ui';
 import { getTxExplorerUrl } from '@/lib/blockchain/explorer';
+import { actionBtnFullMobile, mobileStackActionsBetween, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 type JournalDetailResponse = Journal & {
   localVerification: boolean | null;
@@ -75,7 +76,7 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           <span className="rounded-full border border-border bg-muted/50 px-2.5 py-1">{createdDate}</span>
           <span className="rounded-full border border-border bg-muted/50 px-2.5 py-1">
-            {t('person')}: {journal.person?.trim() || '—'}
+            {t('person')}: {journal.person?.trim() || '-'}
           </span>
         </div>
         <p className="whitespace-pre-wrap text-base leading-8 text-foreground sm:text-lg">{journal.content}</p>
@@ -91,13 +92,21 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
         <section className="rounded-lg border border-border bg-card p-4 space-y-3">
           <h3 className="text-sm font-medium text-foreground">{to('shareLinkTitle')}</h3>
           {journal.privacy === 'share' ? (
-            <div className="flex items-end justify-between gap-3">
+            <div className={mobileStackActionsBetween}>
               <p className="min-w-0 flex-1 text-xs text-muted-foreground break-all">
                 {shareUrl || to('shareLinkUnavailable')}
               </p>
-              <div className="flex items-center gap-2">
-                {copied ? <span className="text-xs text-stone-600">{to('copied')}</span> : null}
-                <Button type="button" size="sm" variant="secondary" onClick={() => void copyShareLink()}>
+              <div className={`${mobileStackActionsEnd} w-full sm:w-auto`}>
+                {copied ? (
+                  <span className="text-center text-xs text-stone-600 sm:text-left">{to('copied')}</span>
+                ) : null}
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="secondary"
+                  className={actionBtnFullMobile}
+                  onClick={() => void copyShareLink()}
+                >
                   {to('copyShareLink')}
                 </Button>
               </div>
@@ -141,8 +150,8 @@ export function OwnerMemoryDetailPanel({ id }: { id: string }) {
                 ) : null}
               </div>
               {explorer ? (
-                <div className="flex justify-end">
-                  <Button asChild size="sm" variant="secondary">
+                <div className={mobileStackActionsEnd}>
+                  <Button asChild size="sm" variant="secondary" className={actionBtnFullMobile}>
                     <a href={explorer} target="_blank" rel="noreferrer">
                       {to('viewExplorer')}
                     </a>

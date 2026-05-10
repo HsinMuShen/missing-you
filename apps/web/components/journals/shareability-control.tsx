@@ -4,6 +4,7 @@ import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
 import type { Journal } from '@missing-you/shared';
 import { useShareabilityToggle } from '@/hooks/use-shareability-toggle';
+import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 export function ShareabilityControl({
   journal,
@@ -32,14 +33,21 @@ export function ShareabilityControl({
       <h3 className="text-sm font-medium text-foreground">{t('visibilityTitle')}</h3>
       <p className="text-xs text-muted-foreground">{t('visibilityHelp')}</p>
 
-      <div className="flex items-end justify-between gap-3">
-        <div className="space-y-1">
+      <div className={mobileStackActionsBetween}>
+        <div className="min-w-0 space-y-1">
           <p className="text-sm text-foreground">{isShare ? t('shareOn') : t('shareOff')}</p>
           {busy ? <p className="text-xs text-muted-foreground">{t(`sharePhase.${phase}`)}</p> : null}
           {phase === 'success' ? <p className="text-xs text-stone-600">{t('shareSaved')}</p> : null}
           {errLabel ? <p className="text-sm text-red-700">{errLabel}</p> : null}
         </div>
-        <Button type="button" size="sm" variant="secondary" disabled={busy} onClick={() => void toggle()}>
+        <Button
+          type="button"
+          size="sm"
+          variant="secondary"
+          className={actionBtnFullMobile}
+          disabled={busy}
+          onClick={() => void toggle()}
+        >
           {isShare ? t('makePrivate') : t('makeShareable')}
         </Button>
       </div>

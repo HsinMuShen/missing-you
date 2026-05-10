@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button } from '@missing-you/ui';
 import { Link, useRouter } from '@/lib/i18n/navigation';
+import { actionBtnFullMobile, mobileStackActionsEnd } from '@/lib/ui/mobile-action-layout';
 
 export function JournalWriteForm() {
   const t = useTranslations('journals.write');
@@ -120,11 +121,11 @@ export function JournalWriteForm() {
           {message.text}
         </p>
       ) : null}
-      <div className="flex flex-wrap justify-end gap-3">
-        <Button type="button" asChild>
+      <div className={mobileStackActionsEnd}>
+        <Button type="button" asChild className={actionBtnFullMobile}>
           <Link href="/memories">{t('viewMemories')}</Link>
         </Button>
-        <Button type="submit" variant="secondary" disabled={pending}>
+        <Button type="submit" variant="secondary" className={actionBtnFullMobile} disabled={pending}>
           {pending ? t('saving') : t('submit')}
         </Button>
       </div>

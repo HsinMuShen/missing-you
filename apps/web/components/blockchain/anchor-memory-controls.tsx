@@ -6,6 +6,13 @@ import { useAccount } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useAnchorMemory } from '@/hooks/use-anchor-memory';
 import { useTranslations } from 'next-intl';
+import { WalletAnchorHelpIcon } from '@/components/help/wallet-anchor-help-icon';
+import {
+  actionBtnFullMobile,
+  mobileStackActionsBetween,
+  mobileStackActionsEnd,
+  mobileStackActionsEndTight,
+} from '@/lib/ui/mobile-action-layout';
 import type { Hex } from 'viem';
 
 type Props = {
@@ -47,12 +54,22 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       <p className="text-xs text-muted-foreground leading-relaxed">{t('body')}</p>
 
       {!isConnected ? (
-        <p className="text-sm text-amber-900/90">{t('connectPrompt')}</p>
+        <div className={`${mobileStackActionsBetween} items-start sm:items-end`}>
+          <p className="flex-1 text-sm leading-snug text-amber-900/90">{t('connectPrompt')}</p>
+          <WalletAnchorHelpIcon className="self-center sm:self-auto sm:translate-y-px" />
+        </div>
       ) : (
-        <div className="flex justify-end">
-          <Button type="button" size="sm" disabled={busy} onClick={() => void runAnchor()}>
+        <div className={mobileStackActionsEndTight}>
+          <Button
+            type="button"
+            size="sm"
+            className={actionBtnFullMobile}
+            disabled={busy}
+            onClick={() => void runAnchor()}
+          >
             {t('cta')}
           </Button>
+          <WalletAnchorHelpIcon className="self-center sm:self-auto" />
         </div>
       )}
 
@@ -78,11 +95,12 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
             onChange={(e) => setRecoveryTxHash(e.target.value)}
             className="w-full rounded-md border border-border bg-card px-2 py-1.5 text-xs font-mono text-foreground"
           />
-          <div className="flex justify-end">
+          <div className={mobileStackActionsEnd}>
             <Button
               type="button"
               size="sm"
               variant="secondary"
+              className={actionBtnFullMobile}
               disabled={!recoveryHashValid || busy}
               onClick={() => void recoverFromConfirmedTx(recoveryTxHash.trim() as Hex)}
             >
@@ -93,8 +111,8 @@ export function AnchorMemoryControls({ journalId, journal, onRefresh }: Props) {
       ) : null}
 
       {phase === 'error' || phase === 'success' ? (
-        <div className="flex justify-end">
-          <Button type="button" variant="secondary" size="sm" onClick={reset}>
+        <div className={mobileStackActionsEnd}>
+          <Button type="button" variant="secondary" size="sm" className={actionBtnFullMobile} onClick={reset}>
             {t('reset')}
           </Button>
         </div>

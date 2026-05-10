@@ -3,6 +3,7 @@
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { WalletAnchorHelpIcon } from '@/components/help/wallet-anchor-help-icon';
 
 export function WalletMenu() {
   const t = useTranslations('wallet');
@@ -26,25 +27,29 @@ export function WalletMenu() {
         >
           {t('disconnect')}
         </Button>
+        <WalletAnchorHelpIcon tooltipAlign="inline-end" />
       </div>
     );
   }
 
   return (
     <div className="flex flex-col items-end gap-1">
-      <Button
-        type="button"
-        variant="secondary"
-        size="sm"
-        className="h-7 px-2.5 text-xs"
-        disabled={!preferredConnector || isPending}
-        onClick={() => {
-          if (!preferredConnector) return;
-          connect({ connector: preferredConnector });
-        }}
-      >
-        {t('connect')}
-      </Button>
+      <div className="inline-flex items-center gap-1.5">
+        <Button
+          type="button"
+          variant="secondary"
+          size="sm"
+          className="h-7 px-2.5 text-xs"
+          disabled={!preferredConnector || isPending}
+          onClick={() => {
+            if (!preferredConnector) return;
+            connect({ connector: preferredConnector });
+          }}
+        >
+          {t('connect')}
+        </Button>
+        <WalletAnchorHelpIcon tooltipAlign="inline-end" />
+      </div>
       {error ? <span className="max-w-[12rem] text-right text-xs text-red-700">{error.message}</span> : null}
     </div>
   );

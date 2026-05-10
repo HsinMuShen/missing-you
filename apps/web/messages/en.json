@@ -1,10 +1,12 @@
 {
   "metadata": {
-    "title": "Missing You — memories with gentle proof",
+    "title": "Missing You: memories with gentle proof",
     "description": "A calm place to write about people you miss. Your words stay private off-chain; a cryptographic proof can be anchored on-chain."
   },
   "nav": {
     "menu": "Menu",
+    "sectionMemories": "Memories",
+    "sectionAccount": "Account",
     "write": "Write",
     "memories": "Memories",
     "publicMemories": "Public memories",
@@ -13,24 +15,28 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "learnHeading": "Learn",
+    "learnSubmenuHint": "Guides and explanations",
     "helpQa": "Q & A",
     "helpBlockchain": "Blockchain & this app",
-    "helpHowItWorks": "How it works"
+    "helpHowItWorks": "How it works",
+    "helpWalletGuide": "Wallet & anchoring"
   },
   "footer": {
-    "tagline": "Missing You — preserving memories with care.",
+    "tagline": "Missing You: preserving memories with care.",
+    "copyright": "© {year} Missing You. All rights reserved.",
     "learnHeading": "Learn",
     "helpQa": "Q & A",
     "helpBlockchain": "Blockchain",
-    "helpHowItWorks": "How it works"
+    "helpHowItWorks": "How it works",
+    "helpWalletGuide": "Wallet & anchoring"
   },
   "help": {
     "backHome": "Back to home",
     "qa": {
-      "metaTitle": "Q & A — Missing You",
+      "metaTitle": "Q & A · Missing You",
       "metaDescription": "Simple answers about Missing You, privacy, and optional blockchain proof.",
       "title": "Questions & answers",
-      "intro": "Short answers for everyday readers. If you want to go deeper, use the trusted links at the bottom — they open in a new tab.",
+      "intro": "Short answers for everyday readers. If you want to go deeper, use the trusted links at the bottom; they open in a new tab.",
       "faq": [
         {
           "q": "Do I need a wallet or crypto to write a memory?",
@@ -38,11 +44,11 @@
         },
         {
           "q": "Is my full diary text stored on the blockchain?",
-          "a": "No. Your story stays in the app’s database (off-chain). The chain only receives a small fingerprint (a hash) and related metadata — not your full letter."
+          "a": "No. Your story stays in the app’s database (off-chain). The chain only receives a small fingerprint (a hash) and related metadata, not your full letter."
         },
         {
           "q": "What does “anchor” mean here?",
-          "a": "It means recording a tamper-evident fingerprint of your memory on a public ledger. Later, anyone can check that the same memory still matches that record — without reading your private text."
+          "a": "It means recording a tamper-evident fingerprint of your memory on a public ledger. Later, anyone can check that the same memory still matches that record, without reading your private text."
         },
         {
           "q": "Why use blockchain at all?",
@@ -60,19 +66,19 @@
       "linksTitle": "Trusted sites to learn more",
       "links": [
         {
-          "label": "Ethereum.org — What is Ethereum?",
+          "label": "Ethereum.org: What is Ethereum?",
           "href": "https://ethereum.org/en/what-is-ethereum/"
         },
         {
-          "label": "Ethereum.org — What are smart contracts?",
+          "label": "Ethereum.org: What are smart contracts?",
           "href": "https://ethereum.org/en/smart-contracts/"
         },
         {
-          "label": "EFF — What is cryptography?",
+          "label": "EFF: What is cryptography?",
           "href": "https://ssd.eff.org/module/what-cryptography"
         },
         {
-          "label": "Investopedia — Blockchain explained",
+          "label": "Investopedia: Blockchain explained",
           "href": "https://www.investopedia.com/terms/b/blockchain.asp"
         }
       ]
@@ -83,27 +89,27 @@
       "title": "What is blockchain? Why use it here?",
       "lead": "You don’t need to be technical. Here’s the idea in plain language.",
       "s1Title": "Blockchain in one sentence",
-      "s1Body": "A blockchain is a shared digital ledger many computers keep in sync. Once something is written according to the rules, it’s very hard to change it quietly — which helps with trust and timestamps.",
+      "s1Body": "A blockchain is a shared digital ledger many computers keep in sync. Once something is written according to the rules, it’s very hard to change it quietly, which helps with trust and timestamps.",
       "s2Title": "Why Missing You uses it (optional)",
-      "s2Body": "Your words stay private in the app. If you want, you can anchor a fingerprint of your memory on-chain. That gives you an independent place to prove “this memory existed in this form at this time” — without publishing your full story.",
+      "s2Body": "Your words stay private in the app. If you want, you can anchor a fingerprint of your memory on-chain. That gives you an independent place to prove “this memory existed in this form at this time”, without publishing your full story.",
       "s3Title": "What we are not doing",
-      "s3Body": "We’re not selling tokens or promising returns. Wallet actions are for signing and optional anchoring. If someone asks you to “invest” in a memory app, be skeptical — that’s not what this is for.",
+      "s3Body": "We’re not selling tokens or promising returns. Wallet actions are for signing and optional anchoring. If someone asks you to “invest” in a memory app, be skeptical. That’s not what this is for.",
       "linksTitle": "Read more from reputable sources",
       "links": [
         {
-          "label": "Ethereum.org — What is Ethereum?",
+          "label": "Ethereum.org: What is Ethereum?",
           "href": "https://ethereum.org/en/what-is-ethereum/"
         },
         {
-          "label": "Ethereum.org — Introduction to Ethereum",
+          "label": "Ethereum.org: Introduction to Ethereum",
           "href": "https://ethereum.org/en/developers/docs/intro-to-ethereum/"
         },
         {
-          "label": "IBM — What is blockchain technology?",
+          "label": "IBM: What is blockchain technology?",
           "href": "https://www.ibm.com/topics/blockchain"
         },
         {
-          "label": "Cloudflare Learning Center — What is a blockchain?",
+          "label": "Cloudflare Learning Center: What is a blockchain?",
           "href": "https://www.cloudflare.com/learning/distributed-network/what-is-blockchain/"
         }
       ]
@@ -124,26 +130,77 @@
         },
         {
           "title": "Optional: anchor a fingerprint",
-          "body": "If you connect a wallet, you can record a cryptographic fingerprint on a blockchain. That’s separate from your private text — it’s for verification, not for reading your diary on-chain."
+          "body": "If you connect a wallet, you can record a cryptographic fingerprint on a blockchain. That’s separate from your private text. It’s for verification, not for reading your diary on-chain."
         },
         {
           "title": "Optional: share",
-          "body": "When a memory is shareable, you can copy a public link so others read what you chose to share — and see proof details if you anchored."
+          "body": "When a memory is shareable, you can copy a public link so others read what you chose to share and see proof details if you anchored."
         }
       ],
       "linksTitle": "Deeper reading (technical & neutral)",
       "links": [
         {
-          "label": "Ethereum.org — What is Ethereum?",
+          "label": "Ethereum.org: What is Ethereum?",
           "href": "https://ethereum.org/en/what-is-ethereum/"
         },
         {
-          "label": "OWASP — Cryptographic storage cheat sheet",
+          "label": "OWASP: Cryptographic storage cheat sheet",
           "href": "https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html"
         },
         {
-          "label": "NIST — Cryptography",
+          "label": "NIST: Cryptography",
           "href": "https://www.nist.gov/cryptography"
+        }
+      ]
+    },
+    "walletGuide": {
+      "metaTitle": "Connect a wallet & anchor a memory · Missing You",
+      "metaDescription": "A beginner guide: when you need a wallet, how to connect MetaMask or other wallets, and how to anchor proof without blockchain background.",
+      "title": "Connect a wallet and anchor a memory (beginner guide)",
+      "lead": "You can write memories with email only. This page is for the moment you decide to put a cryptographic proof on-chain. No prior crypto knowledge required.",
+      "s1Title": "Do I need to install MetaMask?",
+      "s1Body": "Not unless you want to anchor. Writing and saving drafts works like a normal website after you sign in with email. When you are ready to anchor, you need a wallet that can sign transactions on the network this app uses. MetaMask is a common choice (browser extension and mobile app), but it is not the only one. The app also supports WalletConnect, which lets many mobile wallets connect by scanning a QR code. If you already use another Ethereum-compatible wallet in your browser, it may appear as “injected” when you click connect.",
+      "s2Title": "What is a wallet, in everyday words?",
+      "s2Body": "Think of it as a keychain for your blockchain identity. It stores cryptographic keys, shows you transaction requests in plain language as best it can, and asks you to approve or reject. It does not replace your Missing You account: email login still controls your memories in the app. The wallet is mainly for signing the anchor transaction and paying network fees when you choose to anchor.",
+      "s3Title": "How to connect your wallet here",
+      "s3Body": "Open the site menu (top right), then choose “Connect wallet”. Pick MetaMask, WalletConnect, or another option your browser offers. Approve the connection in your wallet popup. If nothing happens, check that the extension is unlocked or try refreshing once. On mobile, WalletConnect is often the smoothest path.",
+      "s4Title": "Networks, fees, and test vs real money",
+      "s4Body": "Anchoring always targets one specific blockchain network that the app is configured for (for example Ethereum mainnet or a test network). Your wallet must be on that same network when you sign. Publishing a transaction costs a small network fee paid in the chain’s native coin (for example ETH on Ethereum), not paid to Missing You. On test networks, faucets give away free test coins so you can practice. On mainnet, you need real coins you bought or transferred yourself, and prices move with network traffic.",
+      "s5Title": "How to anchor a memory, step by step",
+      "anchorSteps": [
+        "Write or open a draft memory and make sure you are happy with the text. Anchoring is optional and happens only when you choose it.",
+        "Connect your wallet from the menu and switch to the network the app expects (your wallet will usually prompt you, or the app will ask you to switch).",
+        "Open the memory you want to anchor and find the “Anchor to blockchain” section.",
+        "Read the short explanation: only a memory key and content hash go on-chain, not your full journal text.",
+        "Click the anchor button and confirm the transaction in your wallet. Wait until the network confirms.",
+        "If the app shows a success state, your proof is stored. You can copy the transaction hash to view it on a public block explorer."
+      ],
+      "s6Title": "If something fails",
+      "s6Body": "Transactions can fail when the network is busy, the fee is too low, or you reject the request in the wallet. You can try again with a fresh fee suggestion. If the chain succeeded but the app looks stuck, some screens let you paste the confirmed transaction hash to sync state. When in doubt, check your wallet’s activity tab for the latest status.",
+      "s7Title": "Stay safe",
+      "s7Body": "Never share your wallet seed phrase or password with anyone, including support. Bookmark the real site URL. Missing You will never ask you to “invest” or send tokens to unlock anchoring. If a popup or site asks for your seed phrase, close it.",
+      "helpIconTooltip": "Open the beginner guide: wallets and anchoring (new tab).",
+      "linksTitle": "Learn more (official and educational)",
+      "links": [
+        {
+          "label": "MetaMask: Getting started",
+          "href": "https://support.metamask.io/start/user-guide/"
+        },
+        {
+          "label": "Ethereum.org: What is a wallet?",
+          "href": "https://ethereum.org/en/wallets/"
+        },
+        {
+          "label": "Ethereum.org: Gas fees",
+          "href": "https://ethereum.org/en/gas/"
+        },
+        {
+          "label": "WalletConnect: What is WalletConnect?",
+          "href": "https://walletconnect.com/"
+        },
+        {
+          "label": "Ethereum.org: Ethereum testnets",
+          "href": "https://ethereum.org/en/developers/docs/networks/"
         }
       ]
     }
@@ -156,6 +213,29 @@
       "write": "Write a memory",
       "memories": "View memories"
     },
+    "blockchainStory": {
+      "eyebrow": "Blockchain, without the hype",
+      "title": "This product can write to a blockchain. Here is the honest version",
+      "intro": "No jargon quiz required. As you scroll, three beats: what we put on-chain, what a blockchain is, and why that might matter for a memory.",
+      "usesTitle": "What Missing You actually does on-chain",
+      "usesBody": "Your journal text stays off-chain in the app. If you choose to anchor, we publish a cryptographic fingerprint and related metadata to a public network so the entry can be verified later, without pasting your full story on-chain.",
+      "whatTitle": "What is a blockchain?",
+      "whatBody": "Picture a shared ledger many independent computers keep in sync. Once information is written under the rules, revising history quietly becomes extremely difficult, which is why people reach for it when they care about order, integrity, and a public audit trail.",
+      "whyTitle": "Why bring memories near one?",
+      "whyBody": "It is optional. Some people want proof that does not rest on a single company’s database: a way to show “this commitment existed in this form” that anyone can check. The point is verifiability, not trading tokens."
+    },
+    "learn": {
+      "title": "Learn more in calm, readable pages",
+      "subtitle": "Each guide stands alone: Q&A, blockchain basics, wallet & anchoring, or the full walkthrough.",
+      "qaTitle": "Q & A",
+      "qaDesc": "Wallets, privacy, anchoring, test networks, and safety, answered directly.",
+      "blockchainTitle": "Blockchain & this app",
+      "blockchainDesc": "What blockchains are, how we use them here, and what we are not selling.",
+      "walletTitle": "Wallet & anchoring",
+      "walletDesc": "Connect MetaMask or another wallet and anchor proof, explained for first-time users.",
+      "howTitle": "How it works",
+      "howDesc": "Write, save off-chain, optionally anchor proof, optionally share, in order."
+    },
     "how": {
       "title": "How it works",
       "step1": {
@@ -164,7 +244,7 @@
       },
       "step2": {
         "title": "Create a canonical proof",
-        "body": "We build a stable fingerprint of your entry — not the prose itself — so the same memory always produces the same hash."
+        "body": "We build a stable fingerprint of your entry, not the prose itself, so the same memory always produces the same hash."
       },
       "step3": {
         "title": "Anchor when you are ready",
@@ -173,7 +253,7 @@
     },
     "privacy": {
       "title": "Privacy-first by design",
-      "body": "Journal content stays off-chain. The chain holds only identifiers and cryptographic commitments — never your full letter, story, or diary entry."
+      "body": "Journal content stays off-chain. The chain holds only identifiers and cryptographic commitments, never your full letter, story, or diary entry."
     },
     "value": {
       "cards": {
@@ -232,23 +312,6 @@
         "proofBody": "SHA-256 hash + tx metadata recorded.",
         "shareLabel": "Public page",
         "shareBody": "Shared memory with verification panel."
-      }
-    },
-    "faq": {
-      "title": "Questions people ask first",
-      "items": {
-        "onChain": {
-          "q": "Is my full memory content on-chain?",
-          "a": "No. Only proof metadata is anchored on-chain; full content stays off-chain."
-        },
-        "stored": {
-          "q": "What is stored on-chain?",
-          "a": "A memory key, content hash, owner/time metadata, and shareability state."
-        },
-        "private": {
-          "q": "Can I keep a memory private forever?",
-          "a": "Yes. Private memories remain owner-only unless you choose to share."
-        }
       }
     },
     "publicMemories": {
@@ -339,7 +402,7 @@
     },
     "blockchain": {
       "title": "Anchor to blockchain",
-      "body": "Only a bytes32 memory key and your content hash are sent on-chain — never your journal text.",
+      "body": "Only a bytes32 memory key and your content hash are sent on-chain, never your journal text.",
       "cta": "Anchor to blockchain",
       "connectPrompt": "Connect your wallet in the header to sign the anchor transaction.",
       "connectWallet": "Connect a wallet first.",
@@ -364,7 +427,7 @@
       "chainState": {
         "skipped_no_anchor": "No anchor row yet.",
         "skipped_no_metadata": "Missing chain metadata on anchor.",
-        "skipped_no_rpc": "Server RPC not configured — cannot read the chain.",
+        "skipped_no_rpc": "Server RPC not configured; cannot read the chain.",
         "missing_on_chain": "No matching record on the registry (wrong contract or network).",
         "hash_mismatch": "On-chain hash differs from the database.",
         "verified": "On-chain record matches the database."

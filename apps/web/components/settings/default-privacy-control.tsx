@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@missing-you/ui';
 import { useTranslations } from 'next-intl';
+import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 type Privacy = 'private' | 'share';
 
@@ -43,11 +44,11 @@ export function DefaultPrivacyControl({ initialValue }: { initialValue: Privacy 
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between gap-3">
+      <div className={`${mobileStackActionsBetween} sm:items-center`}>
         <select
           value={value}
           onChange={(e) => setValue(e.target.value as Privacy)}
-          className="h-10 rounded-md border border-border bg-background px-3 text-sm text-foreground"
+          className="h-10 w-full rounded-md border border-border bg-background px-3 text-sm text-foreground sm:w-auto sm:min-w-[12rem]"
           disabled={saving}
           aria-label={t('label')}
         >
@@ -55,7 +56,13 @@ export function DefaultPrivacyControl({ initialValue }: { initialValue: Privacy 
           <option value="share">{t('share')}</option>
         </select>
 
-        <Button type="button" size="sm" onClick={() => void save()} disabled={saving || value === initialValue}>
+        <Button
+          type="button"
+          size="sm"
+          className={actionBtnFullMobile}
+          onClick={() => void save()}
+          disabled={saving || value === initialValue}
+        >
           {saving ? t('saving') : t('save')}
         </Button>
       </div>
