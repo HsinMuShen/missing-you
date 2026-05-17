@@ -14,3 +14,6 @@ export const mobileStackActionsBetween =
   'flex w-full flex-col items-stretch gap-3 sm:flex-row sm:items-end sm:justify-between sm:gap-3';
 
 export const actionBtnFullMobile = 'w-full sm:w-auto';
+
+/** Keep short action labels (e.g. “Make private”) on one line. */
+export const actionBtnNoWrap = `${actionBtnFullMobile} shrink-0 whitespace-nowrap`;

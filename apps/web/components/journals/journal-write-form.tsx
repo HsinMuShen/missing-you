@@ -102,7 +102,7 @@ export function JournalWriteForm() {
       <div>
         <span className="block text-sm font-medium text-foreground">{t('privacy')}</span>
         <div className="mt-2 flex flex-col gap-3 text-sm text-muted-foreground sm:flex-row sm:gap-6">
-          <label className="flex min-h-11 cursor-pointer items-center gap-3 sm:min-h-0">
+          <label className="flex min-h-11 shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap sm:min-h-0">
             <input
               type="radio"
               name="privacy"
@@ -110,9 +110,9 @@ export function JournalWriteForm() {
               checked={privacy === 'private'}
               onChange={() => setPrivacy('private')}
             />
-            {t('privacyPrivate')}
+            <span className="whitespace-nowrap">{t('privacyPrivate')}</span>
           </label>
-          <label className="flex min-h-11 cursor-pointer items-center gap-3 sm:min-h-0">
+          <label className="flex min-h-11 shrink-0 cursor-pointer items-center gap-3 whitespace-nowrap sm:min-h-0">
             <input
               type="radio"
               name="privacy"
@@ -120,7 +120,7 @@ export function JournalWriteForm() {
               checked={privacy === 'share'}
               onChange={() => setPrivacy('share')}
             />
-            {t('privacyShare')}
+            <span className="whitespace-nowrap">{t('privacyShare')}</span>
           </label>
         </div>
       </div>
