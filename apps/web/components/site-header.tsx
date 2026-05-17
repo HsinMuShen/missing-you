@@ -45,7 +45,7 @@ export async function SiteHeader() {
             authenticatedContent={
               <SignOutButton label={t('signOut')} className="w-full justify-center" />
             }
-            walletContent={<WalletMenu />}
+            walletContent={session?.user?.id ? <WalletMenu /> : undefined}
           />
         </div>
       </Container>
