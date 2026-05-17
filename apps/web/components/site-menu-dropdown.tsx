@@ -23,7 +23,7 @@ type Props = {
   signInLabel: string;
   email?: string | null;
   authenticatedContent: ReactNode;
-  walletContent: ReactNode;
+  walletContent?: ReactNode;
 };
 
 function SectionHeading({ children }: { children: ReactNode }) {
@@ -195,9 +195,11 @@ export function SiteMenuDropdown({
           )}
         </div>
 
-        <div className="shrink-0 border-t border-border bg-card px-3 py-2">
-          <div onClick={closeMenu}>{walletContent}</div>
-        </div>
+        {walletContent ? (
+          <div className="shrink-0 border-t border-border bg-card px-3 py-2">
+            {walletContent}
+          </div>
+        ) : null}
       </div>
     </details>
   );
