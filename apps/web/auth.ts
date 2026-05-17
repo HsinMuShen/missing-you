@@ -3,6 +3,7 @@ import Email from 'next-auth/providers/email';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { prisma } from '@/lib/db/client';
 import { env, getMissingRequiredEnvForDeployment, isProduction } from '@/lib/config/env';
+import { trackSignup } from '@/lib/analytics/track-signup';
 import { logger } from '@/lib/observability/logger';
 
 const AUTH_EMAIL_SERVER = env.AUTH_EMAIL_SERVER;
@@ -41,6 +42,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  events: {
+    async createUser() {
+      await trackSignup();
+    },
+  },
   callbacks: {
     async session({ session, user }) {
       if (session.user) {

@@ -7,6 +7,7 @@ import { routing } from '@/lib/i18n/routing';
 import { SiteFooter } from '@/components/site-footer';
 import { SiteHeader } from '@/components/site-header';
 import { Providers } from '@/components/providers';
+import { VercelAnalytics } from '@/components/analytics/vercel-analytics';
 import '../globals.css';
 
 const plex = IBM_Plex_Sans({
@@ -67,6 +68,7 @@ export default async function LocaleLayout({
             </div>
           </Providers>
         </NextIntlClientProvider>
+        <VercelAnalytics />
       </body>
     </html>
   );

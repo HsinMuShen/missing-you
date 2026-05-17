@@ -39,6 +39,49 @@
 }
 
 @layer utilities {
+  /** Box-drawing / ASCII figures in technical docs — fixed-width, no wrap */
+  .ascii-diagram {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+      'Courier New', monospace;
+    font-variant-ligatures: none;
+    letter-spacing: 0;
+  }
+
+  /** Mermaid: HTML labels + inline fills (flowchart nodes like "3 Confirm", sequence arrows) */
+  .mermaid-diagram foreignObject,
+  .mermaid-diagram foreignObject * {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .mermaid-diagram svg .nodeLabel,
+  .mermaid-diagram svg .edgeLabel,
+  .mermaid-diagram svg .edgeLabel text,
+  .mermaid-diagram svg .messageText,
+  .mermaid-diagram svg .messageText0,
+  .mermaid-diagram svg .messageText1,
+  .mermaid-diagram svg .loopText,
+  .mermaid-diagram svg text.actor {
+    fill: hsl(var(--foreground)) !important;
+  }
+
+  .mermaid-diagram svg .node rect,
+  .mermaid-diagram svg rect.actor {
+    fill: hsl(var(--muted)) !important;
+    stroke: hsl(var(--border)) !important;
+  }
+
+  .mermaid-diagram svg .edgeLabel rect {
+    fill: hsl(var(--card)) !important;
+    stroke: hsl(var(--border)) !important;
+  }
+
+  .mermaid-diagram svg line,
+  .mermaid-diagram svg path.flowchart-link,
+  .mermaid-diagram svg .messageLine0,
+  .mermaid-diagram svg .messageLine1 {
+    stroke: hsl(var(--muted-foreground)) !important;
+  }
+
   .scroll-reveal {
     opacity: 0;
     transform: translateY(28px);

@@ -241,6 +241,13 @@
           "body": "請為信箱設定強度足夠且不重複使用的密碼，也不要把錢包助記詞或私鑰交給任何人。複製公開連結前，請先確認可分享狀態確實符合你的意願。若驗證結果看起來不一致，可以把公開頁上的證明資訊，和區塊瀏覽器中的交易紀錄一起對照。"
         }
       ]
+    },
+    "technicalSystemDoc": {
+      "metaTitle": "技術系統文件 · Missing You",
+      "metaDescription": "Missing You 架構說明：Next.js、Prisma、Auth.js 與可選的 MemoryRegistry 錨定。",
+      "title": "技術系統文件",
+      "liveSiteLabel": "官方網站",
+      "liveSiteAria": "在新分頁開啟 Missing You（missing-you.hsinmushen.com）"
     }
   },
   "home": {
