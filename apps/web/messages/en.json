@@ -241,6 +241,13 @@
           "body": "Use a strong, unique password on your email provider, keep your wallet seed phrase private, and review shareability before copying a public link. If something looks wrong with verification, compare the proof panel on the public page with the block explorer entry."
         }
       ]
+    },
+    "technicalSystemDoc": {
+      "metaTitle": "Technical system documentation · Missing You",
+      "metaDescription": "Architecture reference for Missing You: Next.js, Prisma, Auth.js, and optional MemoryRegistry anchoring.",
+      "title": "Technical system documentation",
+      "liveSiteLabel": "Official site",
+      "liveSiteAria": "Open Missing You at missing-you.hsinmushen.com (new tab)"
     }
   },
   "home": {

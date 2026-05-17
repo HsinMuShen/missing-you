@@ -43,7 +43,7 @@ const connectors = [
           metadata: {
             name: 'Missing You',
             description: 'Preserve memories with gentle on-chain proof',
-            url: typeof window !== 'undefined' ? window.location.origin : 'https://missing-you.local',
+            url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
             icons: [],
           },
         }),
