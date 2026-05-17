@@ -74,14 +74,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-type ProofClarity = {
-  title: string;
-  verifiedIntro: string;
-  verifiedBullets: string[];
-  limitsIntro: string;
-  limitsBullets: string[];
-};
-
 export default async function PublicMemoryPage({ params }: Props) {
   const { locale, id } = await params;
   const t = await getTranslations('journals.public');
@@ -100,15 +92,9 @@ export default async function PublicMemoryPage({ params }: Props) {
   }).format(new Date(journal.createdAt));
   const dynamicTitle = journal.title?.trim() || journal.person?.trim() || t('title');
 
-  const proofClarity = t.raw('proofClarity') as ProofClarity;
-
   return (
     <Container className="px-4 py-12 sm:px-6 sm:py-20 max-w-2xl">
-      <p className="rounded-md border border-amber-900/20 bg-amber-50/80 px-3 py-2 text-xs leading-relaxed text-amber-950 dark:border-amber-500/30 dark:bg-amber-950/20 dark:text-amber-100/90">
-        {t('visibilityBanner')}
-      </p>
-
-      <h1 className="mt-6 font-display text-2xl font-medium text-foreground sm:text-3xl">{dynamicTitle}</h1>
+      <h1 className="font-display text-2xl font-medium text-foreground sm:text-3xl">{dynamicTitle}</h1>
 
       {journal.person?.trim() ? (
         <p className="mt-2 text-sm text-muted-foreground">
@@ -128,34 +114,6 @@ export default async function PublicMemoryPage({ params }: Props) {
 
       <section className="mt-8 rounded-lg border border-border bg-muted/40 p-4 space-y-4">
         <h2 className="text-sm font-medium text-foreground">{t('proofTitle')}</h2>
-
-        {proofClarity?.title ? (
-          <div className="space-y-3 rounded-md border border-border/70 bg-card/50 p-3 text-xs leading-relaxed">
-            <h3 className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {proofClarity.title}
-            </h3>
-            {proofClarity.verifiedIntro ? (
-              <p className="text-muted-foreground">{proofClarity.verifiedIntro}</p>
-            ) : null}
-            {Array.isArray(proofClarity.verifiedBullets) && proofClarity.verifiedBullets.length > 0 ? (
-              <ul className="list-disc space-y-1 pl-4 text-foreground">
-                {proofClarity.verifiedBullets.map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-            ) : null}
-            {proofClarity.limitsIntro ? (
-              <p className="pt-1 text-muted-foreground">{proofClarity.limitsIntro}</p>
-            ) : null}
-            {Array.isArray(proofClarity.limitsBullets) && proofClarity.limitsBullets.length > 0 ? (
-              <ul className="list-disc space-y-1 pl-4 text-muted-foreground">
-                {proofClarity.limitsBullets.map((line, i) => (
-                  <li key={i}>{line}</li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-        ) : null}
 
         {journal.anchor ? (
           <>
