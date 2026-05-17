@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { Spinner } from '@/components/ui/spinner';
 import type { Journal } from '@missing-you/shared';
 import { useShareabilityToggle } from '@/hooks/use-shareability-toggle';
-import { actionBtnFullMobile, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
+import { actionBtnNoWrap, mobileStackActionsBetween } from '@/lib/ui/mobile-action-layout';
 
 export function ShareabilityControl({
   journal,
@@ -48,7 +48,7 @@ export function ShareabilityControl({
           type="button"
           size="sm"
           variant="secondary"
-          className={`inline-flex items-center justify-center gap-2 ${actionBtnFullMobile}`}
+          className={`inline-flex items-center justify-center gap-2 ${actionBtnNoWrap}`}
           disabled={busy}
           aria-busy={busy}
           onClick={() => void toggle()}

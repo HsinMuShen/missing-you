@@ -166,14 +166,14 @@ export function CalendarMemoryForm({ onCreated, initialDateTime, onCancel }: Pro
 
       <div>
         <span className="block text-sm text-foreground">{t('privacy')}</span>
-        <div className="mt-1 flex gap-4 text-sm text-muted-foreground">
-          <label className="flex items-center gap-2">
+        <div className="mt-1 flex flex-wrap gap-x-4 gap-y-2 text-sm text-muted-foreground">
+          <label className="flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap">
             <input type="radio" checked={privacy === 'private'} onChange={() => setPrivacy('private')} />
-            {t('privacyPrivate')}
+            <span className="whitespace-nowrap">{t('privacyPrivate')}</span>
           </label>
-          <label className="flex items-center gap-2">
+          <label className="flex shrink-0 cursor-pointer items-center gap-2 whitespace-nowrap">
             <input type="radio" checked={privacy === 'share'} onChange={() => setPrivacy('share')} />
-            {t('privacyShare')}
+            <span className="whitespace-nowrap">{t('privacyShare')}</span>
           </label>
         </div>
       </div>
