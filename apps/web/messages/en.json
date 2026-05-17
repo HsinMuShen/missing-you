@@ -554,22 +554,6 @@
       "entryTitle": "Title",
       "createdAt": "Created",
       "person": "In memory of",
-      "visibilityBanner": "You are viewing a public page: the author chose to share this memory. The full text is served from Missing You; it is not stored on-chain.",
-      "proofClarity": {
-        "title": "What “verification” means here",
-        "verifiedIntro": "When a memory is anchored, a reader can check:",
-        "verifiedBullets": [
-          "A fingerprint (hash) of the memory was committed on a public network at a given time.",
-          "The text you see still matches that fingerprint, using the app’s published rules.",
-          "Basic metadata (for example shareability) lines up with what the registry stores."
-        ],
-        "limitsIntro": "Verification does not guarantee:",
-        "limitsBullets": [
-          "That the story is factually “true” in a legal sense — only that it matches a recorded commitment.",
-          "That the site will always stay online; availability still depends on the operator and hosting.",
-          "That every word was written by a particular legal identity — only that the chosen wallet paid for the anchor transaction."
-        ]
-      },
       "proofTitle": "Proof details",
       "status": "Verification status",
       "contentHash": "Content hash",
